@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obras en Venta | Galería de Inés Torrent</title>
+    <meta name="description" content="Explora la galería de obras de arte disponibles para la venta de la artista plástica Inés Torrent. Piezas únicas y series limitadas.">
+    <meta name="keywords" content="Comprar arte, obras en venta, galería de ventas, Inés Torrent, pinturas en venta, arte argentino">
+    <meta name="author" content="Inés Torrent">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Obras en Venta | Galería de Inés Torrent">
+    <meta property="og:description" content="Explora la galería de obras de arte disponibles para la venta de la artista plástica Inés Torrent.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.inestorrent.com/galeria_ventas.html">
+    <!-- Carga de la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="text-page gallery-sales-page">
+
+    <header></header>
+
+    <main class="container">
+        <h1 class="titulo-principal">Obras en Venta</h1>
+        <div class="subtitulo">Piezas disponibles</div>
+        <p class="texto-formateado" style="text-align: center; margin: 2rem auto; max-width: 700px;">
+            Estas son las obras actualmente disponibles. Si te interesa adquirir alguna, por favor visita la <a href="ventas.html">página de Tienda</a> para coordinar la compra.
+        </p>
+
+        <div class="gallery-grid" id="galleryContainer">
+            <!--galeria imagenes con JavaScript -->
+        </div>
+    </main>
+
+    <!-- Ventana Modal para vista en detalle -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <span class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</span>
+        <span class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</span>
+        <img class="modal-content" id="modalImg" alt="Vista ampliada de la obra">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <footer></footer>
+
+    <script src="galeria.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

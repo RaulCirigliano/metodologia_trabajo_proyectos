@@ -1,0 +1,57 @@
+{
+  "41": [
+    {"q": "¿Qué verbo es la forma humilde de もらう (recibir)?", "options": [{"text": "いただきます", "correct": true}, {"text": "くださいます", "correct": false}, {"text": "やります", "correct": false}]},
+    {"q": "¿Qué verbo es la forma respetuosa de くれる (dar a mí)?", "options": [{"text": "いただきます", "correct": false}, {"text": "くださいます", "correct": true}, {"text": "やります", "correct": false}]},
+    {"q": "¿Qué verbo se usa para dar algo a un animal, planta o alguien de menor estatus?", "options": [{"text": "あげます", "correct": false}, {"text": "やります", "correct": true}, {"text": "くださいます", "correct": false}]},
+    {"q": "'Recibí un regalo del jefe':", "options": [{"text": "部長にお土産をいただきました。", "correct": true}, {"text": "部長にお土産をくださいました。", "correct": false}, {"text": "部長はお土産をいただきました。", "correct": false}]},
+    {"q": "'El profesor me dio un libro':", "options": [{"text": "先生が私に本をいただきました。", "correct": false}, {"text": "先生が私に本をくださいました。", "correct": true}, {"text": "先生は私に本をやりました。", "correct": false}]},
+    {"q": "'Yo le doy comida al perro':", "options": [{"text": "私は犬にえさをいただきます。", "correct": false}, {"text": "私は犬にえさをやります。", "correct": true}, {"text": "私は犬にえさをくださいます。", "correct": false}]},
+    {"q": "¿Cómo pides muy educadamente a un superior que te haga un favor?", "options": [{"text": "~てくれませんか。", "correct": false}, {"text": "~ていただけませんか。", "correct": true}, {"text": "~てくださいませんか。", "correct": false}]},
+    {"q": "'¿Podría tener la amabilidad de prestarme un bolígrafo?':", "options": [{"text": "ペンを貸していただけませんか。", "correct": true}, {"text": "ペンを貸してくださいますか。", "correct": false}, {"text": "ペンを貸してやりますか。", "correct": false}]},
+    {"q": "Si tú le das algo a un igual (amigo/colega), usas:", "options": [{"text": "あげます", "correct": true}, {"text": "やります", "correct": false}, {"text": "くださいます", "correct": false}]}
+  ],
+  "42": [
+    {"q": "¿Para qué se usa V(dic) + ために?", "options": [{"text": "Para dar razones y excusas.", "correct": false}, {"text": "Para indicar un propósito u objetivo absoluto.", "correct": true}, {"text": "Para expresar posibilidad.", "correct": false}]},
+    {"q": "'Ahorro dinero para tener mi propia tienda':", "options": [{"text": "自分の店を持つために、貯金しています。", "correct": true}, {"text": "自分の店を持つように、貯金しています。", "correct": false}, {"text": "自分の店を持つあとで、貯金しています。", "correct": false}]},
+    {"q": "Sustantivos con ために (Ej. Para la familia):", "options": [{"text": "家族のために、", "correct": true}, {"text": "家族ために、", "correct": false}, {"text": "家族なために、", "correct": false}]},
+    {"q": "Diferencia entre ように y ために:", "options": [{"text": "ために usa verbos con voluntad (comprar, construir), ように usa verbos sin voluntad o potenciales.", "correct": true}, {"text": "ために es pasado, ように es futuro.", "correct": false}, {"text": "No hay diferencia, son idénticos.", "correct": false}]},
+    {"q": "Uso de ~のに para propósito (Ej. Cortar papel):", "options": [{"text": "Para evaluar un propósito (es útil para, toma tiempo para...).", "correct": true}, {"text": "Para arrepentimientos.", "correct": false}, {"text": "Para hablar de apariencia.", "correct": false}]},
+    {"q": "'Estas tijeras se usan para cortar flores':", "options": [{"text": "このはさみは花を切るために使います。", "correct": false}, {"text": "このはさみは花を切るのに使います。", "correct": true}, {"text": "このはさみは花を切るように使います。", "correct": false}]},
+    {"q": "'Toma tiempo ir a la estación' (Uso de に):", "options": [{"text": "駅へ行くのに、時間がかかります。", "correct": true}, {"text": "駅へ行くために、時間がかかります。", "correct": false}, {"text": "駅へ行くように、時間がかかります。", "correct": false}]},
+    {"q": "'Vine a Japón para estudiar japonés':", "options": [{"text": "日本語を勉強するように日本へ来ました。", "correct": false}, {"text": "日本語を勉強するために日本へ来ました。", "correct": true}, {"text": "日本語を勉強するのに日本へ来ました。", "correct": false}]},
+    {"q": "Sustantivos para propósito con に (Ej. Es conveniente para viajes):", "options": [{"text": "旅行のに便利です。", "correct": false}, {"text": "旅行に便利です。", "correct": true}, {"text": "旅行のために便利です。", "correct": false}]}
+  ],
+  "43": [
+    {"q": "¿Qué expresa ~そうです (añadido a la raíz del verbo/adjetivo)?", "options": [{"text": "Certeza absoluta.", "correct": false}, {"text": "Apariencia visual ('Parece que...').", "correct": true}, {"text": "Lo que alguien dijo.", "correct": false}]},
+    {"q": "Conjugación de verbos con ~そうです:", "options": [{"text": "Forma diccionario + そうです", "correct": false}, {"text": "Raíz de la forma ます + そうです", "correct": true}, {"text": "Forma て + そうです", "correct": false}]},
+    {"q": "'Parece que va a llover de un momento a otro':", "options": [{"text": "今にも雨が降るそうです。", "correct": false}, {"text": "今にも雨が降りそうです。", "correct": true}, {"text": "今にも雨が降ってそうです。", "correct": false}]},
+    {"q": "Conjugación de adjetivos-i con ~そうです (Ej. おいしい):", "options": [{"text": "おいしいそうです。", "correct": false}, {"text": "おいしそうです。", "correct": true}, {"text": "おいしいだそうです。", "correct": false}]},
+    {"q": "Excepción: Forma de いい (Bueno) con ~そうです:", "options": [{"text": "よさそうです", "correct": true}, {"text": "いそうです", "correct": false}, {"text": "いいそうです", "correct": false}]},
+    {"q": "Uso de ~て来ます:", "options": [{"text": "Ir a un lugar y no volver.", "correct": false}, {"text": "Ir a hacer algo y regresar (Go and come back).", "correct": true}, {"text": "Llegar de repente.", "correct": false}]},
+    {"q": "'Voy un momento al supermercado (y vuelvo)':", "options": [{"text": "ちょっとスーパーへ行って来ます。", "correct": true}, {"text": "ちょっとスーパーへ行きます。", "correct": false}, {"text": "ちょっとスーパーへ行きそうです。", "correct": false}]},
+    {"q": "'Esa maleta parece pesada (Omoi)':", "options": [{"text": "その荷物は重いそうです。", "correct": false}, {"text": "その荷物は重そうです。", "correct": true}, {"text": "その荷物は重くそうです。", "correct": false}]},
+    {"q": "¿Cómo dices 'Voy a comprar cigarrillos (y vuelvo)'?", "options": [{"text": "たばこを買います。", "correct": false}, {"text": "たばこを買って来ます。", "correct": true}, {"text": "たばこを買ってあります。", "correct": false}]}
+  ],
+  "44": [
+    {"q": "¿Qué indica el sufijo ~すぎます?", "options": [{"text": "Que algo se hizo en exceso (demasiado).", "correct": true}, {"text": "Que algo fue rápido.", "correct": false}, {"text": "Que algo es correcto.", "correct": false}]},
+    {"q": "Conjugación de verbos con ~すぎます (Ej. 飲みます):", "options": [{"text": "飲むすぎます", "correct": false}, {"text": "飲みすぎます", "correct": true}, {"text": "飲んですぎます", "correct": false}]},
+    {"q": "Adjetivos-i con ~すぎます (Ej. 高い):", "options": [{"text": "高いすぎます", "correct": false}, {"text": "高すぎます", "correct": true}, {"text": "高くすぎます", "correct": false}]},
+    {"q": "'Anoche bebí demasiado alcohol':", "options": [{"text": "ゆうべお酒を飲むすぎました。", "correct": false}, {"text": "ゆうべお酒を飲みすぎました。", "correct": true}, {"text": "ゆうべお酒を飲んですぎました。", "correct": false}]},
+    {"q": "¿Para qué se usan ~やすい y ~にくい?", "options": [{"text": "Para decir si algo es fácil o difícil de hacer.", "correct": true}, {"text": "Para indicar precio.", "correct": false}, {"text": "Para dar permisos.", "correct": false}]},
+    {"q": "'Esta computadora es fácil de usar':", "options": [{"text": "このパソコンは使うやすいです。", "correct": false}, {"text": "このパソコンは使いやすいです。", "correct": true}, {"text": "このパソコンは使ってやすいです。", "correct": false}]},
+    {"q": "'Tokio es difícil para vivir':", "options": [{"text": "東京は住みにくいです。", "correct": true}, {"text": "東京は住むにくいです。", "correct": false}, {"text": "東京は住みやすいです。", "correct": false}]},
+    {"q": "Hacer que algo se convierta en un estado (Adjetivos + します). Ej. 'Cortar el pelo (hacerlo corto)':", "options": [{"text": "髪を短いします。", "correct": false}, {"text": "髪を短くします。", "correct": true}, {"text": "髪を短いにします。", "correct": false}]},
+    {"q": "Decidir algo / Hacer que sea (Sustantivos + にします). Ej. 'Limpiaré la habitación':", "options": [{"text": "部屋をきれいにします。", "correct": true}, {"text": "部屋をきれいします。", "correct": false}, {"text": "部屋をきれくします。", "correct": false}]}
+  ],
+  "45": [
+    {"q": "Uso de ~場合は (baai wa):", "options": [{"text": "Para hablar del lugar de una acción.", "correct": false}, {"text": "Para hablar de casos hipotéticos o situaciones especiales ('En el caso de que...').", "correct": true}, {"text": "Para prohibir algo.", "correct": false}]},
+    {"q": "'En caso de que no llegues a tiempo a la reunión...':", "options": [{"text": "会議に間に合わない場合は、", "correct": true}, {"text": "会議に間に合う場合は、", "correct": false}, {"text": "会議に間に合わなく場合は、", "correct": false}]},
+    {"q": "Sustantivos con 場合は (Ej. En caso de terremoto):", "options": [{"text": "地震場合は、", "correct": false}, {"text": "地震の場合は、", "correct": true}, {"text": "地震な場合は、", "correct": false}]},
+    {"q": "Uso de ~のに (noni):", "options": [{"text": "Para indicar una consecuencia lógica.", "correct": false}, {"text": "Para indicar una contradicción sorprendente o insatisfacción ('A pesar de que...').", "correct": true}, {"text": "Para expresar propósitos.", "correct": false}]},
+    {"q": "'A pesar de que prometió venir, ella no vino':", "options": [{"text": "約束をしたのに、彼女は来ませんでした。", "correct": true}, {"text": "約束をしたので、彼女は来ませんでした。", "correct": false}, {"text": "約束をするのに、彼女は来ませんでした。", "correct": false}]},
+    {"q": "Sustantivos con ~のに (Ej. A pesar de que es domingo):", "options": [{"text": "日曜日なのに、", "correct": true}, {"text": "日曜日のに、", "correct": false}, {"text": "日曜日だのに、", "correct": false}]},
+    {"q": "Diferencia entre ~のに y ~ても:", "options": [{"text": "~のに expresa un sentimiento de sorpresa o lamento sobre algo que ya pasó/es; ~ても es una condición hipotética.", "correct": true}, {"text": "Son exactamente iguales.", "correct": false}, {"text": "~のに es formal, ~ても es informal.", "correct": false}]},
+    {"q": "'A pesar de que estudié mucho, reprobé el examen':", "options": [{"text": "たくさん勉強したから、試験に落ちました。", "correct": false}, {"text": "たくさん勉強したのに、試験に落ちました。", "correct": true}, {"text": "たくさん勉強した場合、試験に落ちました。", "correct": false}]},
+    {"q": "Adjetivos-na con 場合は (Ej. Si se requiere/es necesario):", "options": [{"text": "必要な場合は、", "correct": true}, {"text": "必要の場合は、", "correct": false}, {"text": "必要だ場合は、", "correct": false}]}
+  ]
+}

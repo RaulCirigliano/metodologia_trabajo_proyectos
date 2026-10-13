@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Financiero IA</title>
+    <!-- Tailwind CSS para el prototipado rápido -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- TradingView Lightweight Charts -->
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen">
+    
+    <!-- Navbar -->
+    <nav class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <h1 class="text-xl font-bold tracking-wider">Tutor Financiero <span class="text-amber-500">IA</span></h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="bg-slate-950 px-3 py-1 rounded-lg border border-slate-800 flex items-center mr-4">
+                <span class="text-xs text-slate-400 uppercase mr-2 font-bold">Activo:</span>
+                <select id="symbolSelect" class="bg-slate-900 text-white font-bold outline-none cursor-pointer rounded px-2 py-1">
+                    <optgroup label="Mercados Tradicionales">
+                        <option class="bg-slate-900 text-white" value="SPY">🇺🇸 S&P 500 (Acciones USA)</option>
+                        <option class="bg-slate-900 text-white" value="QQQ">🇺🇸 Nasdaq 100 (Tecnología USA)</option>
+                        <option class="bg-slate-900 text-white" value="GC=F">🥇 Oro Físico (Refugio)</option>
+                        <option class="bg-slate-900 text-white" value="BTC-USD">₿ Bitcoin (Macro)</option>
+                    </optgroup>
+                    <optgroup label="China y Mercados Emergentes">
+                        <option class="bg-slate-900 text-white" value="MCHI">🇨🇳 ETF Mercado Total Chino (MCHI)</option>
+                        <option class="bg-slate-900 text-white" value="KWEB">🛒 ETF Gigantes de Internet China (KWEB)</option>
+                    </optgroup>
+                    <optgroup label="Inteligencia Artificial y Robótica">
+                        <option class="bg-slate-900 text-white" value="BOTZ">🤖 ETF Robótica y AI (BOTZ)</option>
+                        <option class="bg-slate-900 text-white" value="NVDA">💻 NVIDIA Corp. (Hardware AI)</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="hidden md:flex items-center gap-2">
+                <span class="text-slate-400 text-sm">Patrimonio (Simulación):</span>
+                <span id="capitalDisplay" class="font-mono text-green-400">$100.00</span>
+                <button id="resetPortfolioBtn" class="text-slate-500 hover:text-white transition" title="Reiniciar Cuenta a $100">🔄</button>
+            </div>
+            <button id="agentToggle" class="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded font-semibold transition">
+                Activar Agente
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
+        
+        <!-- Columna Izquierda: Gráfico y Métricas -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Gráfico de Trading -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold"><span id="chartSymbolTitle">SPY</span> <span id="chartTimeframeLabel" class="text-sm text-slate-400 font-normal">Temporalidad: 1 Día</span></h2>
+                    <span class="text-green-500 font-mono" id="currentPrice">$--.---</span>
+                </div>
+                <div id="chart-container" class="w-full h-[400px]"></div>
+            </div>
+
+            <!-- Posiciones Abiertas -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800">
+                <h2 class="text-lg font-semibold mb-4 border-b border-slate-800 pb-2">Posiciones Activas</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-slate-400">
+                            <tr>
+                                <th class="pb-3">Activo</th>
+                                <th class="pb-3">Tipo</th>
+                                <th class="pb-3">Entrada</th>
+                                <th class="pb-3">Actual</th>
+                                <th class="pb-3">PNL</th>
+                                <th class="pb-3">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positionsTable">
+                            <tr class="text-slate-500 italic">
+                                <td colspan="6" class="py-4 text-center">No hay posiciones abiertas por el agente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Historial de Operaciones -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800 mt-6">
+                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                    <h2 class="text-lg font-semibold">Historial de Operaciones y Rendimiento</h2>
+                    <button id="refreshTradesBtn" class="text-xs text-amber-500 hover:text-amber-400">Actualizar</button>
+                </div>
+                <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-slate-400 sticky top-0 bg-slate-900">
+                            <tr>
+                                <th class="pb-3">Hora</th>
+                                <th class="pb-3">Activo</th>
+                                <th class="pb-3">Tipo</th>
+                                <th class="pb-3">Precio</th>
+                                <th class="pb-3">Estado</th>
+                                <th class="pb-3">Modo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTable">
+                            <tr class="text-slate-500 italic">
+                                <td colspan="6" class="py-4 text-center">No hay operaciones registradas aún</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Inteligencia de Mercado (Recomendaciones) -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-indigo-600/50 mt-6 mb-6">
+                <div class="flex items-center gap-2 mb-3 border-b border-slate-800 pb-2">
+                    <span class="text-xl">🌍</span>
+                    <h2 class="text-lg font-semibold text-indigo-400">Inteligencia de Mercado (Recomendaciones)</h2>
+                </div>
+                <div id="intelBody" class="text-sm text-slate-300 space-y-2">
+                    <!-- Contenido Dinámico inyectado por app.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Panel de Control del Agente -->
+        <div class="space-y-6">
+            <!-- Estado del Escuadrón de Agentes -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800">
+                <h2 class="text-lg font-semibold mb-4 border-b border-slate-800 pb-2">Escuadrón de IA</h2>
+                
+                <div class="space-y-3 mb-4">
+                    <!-- Agente DCA -->
+                    <div class="flex justify-between items-center bg-slate-800 p-2 rounded">
+                        <div>
+                            <p class="text-sm font-semibold text-amber-400">📅 Agente DCA (Ahorro)</p>
+                            <p class="text-xs text-slate-400">Compras periódicas constantes</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
+                        </label>
+                    </div>
+
+                    <!-- Agente Macro-Económico -->
+                    <div class="flex justify-between items-center bg-slate-800 p-2 rounded">
+                        <div>
+                            <p class="text-sm font-semibold text-purple-400">🌍 Agente Macro-Económico</p>
+                            <p class="text-xs text-slate-400">Tendencias globales, Inflación</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked id="sentimentToggle" class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-500"></div>
+                        </label>
+                    </div>
+
+                    <!-- Agente Fondo Oportunidad -->
+                    <div class="flex justify-between items-center bg-slate-800 p-2 rounded">
+                        <div>
+                            <p class="text-sm font-semibold text-green-400">🛡️ Agente Fondo Oportunidad</p>
+                            <p class="text-xs text-slate-400">Caza ofertas en pánicos históricos</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-not-allowed opacity-50">
+                            <input type="checkbox" disabled class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-600 rounded-full"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-4 bg-slate-950 p-3 rounded border border-green-600/50">
+                    <p class="text-[10px] text-green-400 uppercase font-bold mb-2">Perfil del Agente (Estrategia)</p>
+                    <select id="agentProfileSelect" class="w-full bg-slate-800 text-white text-xs rounded p-1 border border-slate-700 cursor-pointer">
+                        <option class="bg-slate-900 text-white" value="investor" selected>🏛️ Inversor Institucional (Largo Plazo / DCA)</option>
+                        <option class="bg-slate-900 text-white" value="scalper">⚡ Simulador Educativo (Scalper 1 Minuto)</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 bg-slate-950 p-3 rounded border border-blue-600/50">
+                    <p class="text-[10px] text-blue-400 uppercase font-bold mb-2">Permisos de Operación</p>
+                    <select id="executionModeSelect" class="w-full bg-slate-800 text-white text-xs rounded p-1 border border-slate-700 cursor-pointer">
+                        <option class="bg-slate-900 text-white" value="copiloto" selected>👨‍✈️ Modo Copiloto (Preguntarme antes de operar)</option>
+                        <option class="bg-slate-900 text-white" value="autonomo">🤖 Modo Autónomo (Comprar/Vender automáticamente)</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 bg-slate-950 p-3 rounded border border-amber-600/50">
+                    <p class="text-[10px] text-amber-400 uppercase font-bold mb-2">Cerebro Analítico (Quién Piensa)</p>
+                    <div class="space-y-3">
+                        <div>
+                            <select id="engineSelect" class="w-full bg-slate-800 text-white text-xs rounded p-1 border border-slate-700 cursor-pointer">
+                                <option class="bg-slate-900 text-white" value="local">⚙️ Fórmulas Matemáticas y RSI (Gratis/Rápido)</option>
+                                <option class="bg-slate-900 text-white" value="ai" disabled>🧠 Escuadrón CrewAI con Gemini Pro (Requiere API)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Radar de Sentimiento -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800">
+                <div class="flex flex-col mb-3 border-b border-slate-800 pb-2">
+                    <div class="flex justify-between items-center mb-2 gap-2">
+                        <h2 class="text-md font-semibold text-white">📰 Radar Macro</h2>
+                        <span id="sentimentScoreBadge" class="text-xs bg-slate-950 text-slate-400 px-2 py-1 rounded font-bold whitespace-nowrap text-center">ESPERANDO...</span>
+                    </div>
+                    <select id="newsSourceSelect" class="w-full bg-slate-800 text-xs text-slate-300 rounded outline-none p-1 cursor-pointer border border-slate-700">
+                        <option class="bg-slate-900" value="coindesk">📡 Agencias de Noticias Globales</option>
+                        <option class="bg-slate-900" value="twitter">🐦 Twitter/X (Se requiere API Pro)</option>
+                    </select>
+                </div>
+
+                <!-- Termómetro Visual de Sentimiento -->
+                <div class="mb-4">
+                    <div class="flex justify-between text-[10px] text-slate-500 mb-1">
+                        <span>Pánico (-1)</span>
+                        <span>Neutral (0)</span>
+                        <span>Euforia (+1)</span>
+                    </div>
+                    <div class="relative w-full h-3 bg-slate-800 rounded-full overflow-hidden flex">
+                        <div class="h-full bg-gradient-to-r from-red-600 to-red-400" style="width: 33%"></div>
+                        <div class="h-full bg-gradient-to-r from-gray-500 to-gray-400" style="width: 34%"></div>
+                        <div class="h-full bg-gradient-to-r from-green-400 to-green-600" style="width: 33%"></div>
+                        <!-- Aguja Indicadora -->
+                        <div id="sentimentNeedle" class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_5px_white] transition-all duration-500" style="left: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div id="sentimentNewsContainer" class="space-y-3">
+                    <p class="text-xs text-slate-500 text-center">Iniciando Agente NLP...</p>
+                </div>
+            </div>
+
+            <!-- Log de Decisiones (Terminal) -->
+            <div class="bg-slate-900 rounded-lg p-4 shadow-lg border border-slate-800 flex flex-col h-[350px]">
+                <h2 class="text-lg font-semibold mb-4 border-b border-slate-800 pb-2 flex justify-between">
+                    <span>Cerebro IA (Logs)</span>
+                    <button id="clearLogs" class="text-xs text-slate-400 hover:text-white">Limpiar</button>
+                </h2>
+                <div id="terminal" class="flex-1 bg-black p-3 rounded font-mono text-xs text-green-400 overflow-y-auto space-y-2">
+                    <p class="text-slate-500">> Sistema iniciado. Esperando conexión con el orquestador...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <!-- Modal de Operación -->
+    <div id="tradeModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50">
+        <div class="bg-slate-900 border border-slate-700 rounded-lg p-6 max-w-md w-full shadow-2xl">
+            <h3 id="tradeModalTitle" class="text-xl font-bold mb-4 text-white border-b border-slate-800 pb-2">Notificación</h3>
+            <div id="tradeModalBody" class="text-sm text-slate-300 mb-6 space-y-2">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="flex justify-end space-x-3">
+                <button id="tradeModalReject" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-bold transition hidden">Rechazar</button>
+                <button id="tradeModalAccept" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-bold transition hidden">Aceptar Operación</button>
+                <button id="tradeModalOk" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-bold transition hidden">Entendido</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "46": [
+    {"q": "¿Qué significa V(dic) + ところです?", "options": [{"text": "Que la acción terminó.", "correct": false}, {"text": "Que la acción está a punto de empezar en este preciso instante.", "correct": true}, {"text": "Que la acción se está haciendo ahora.", "correct": false}]},
+    {"q": "'Estoy a punto de comer ahora':", "options": [{"text": "これからご飯を食べるところです。", "correct": true}, {"text": "これからご飯を食べているところです。", "correct": false}, {"text": "これからご飯を食べたところです。", "correct": false}]},
+    {"q": "¿Qué significa V(te iru) + ところです?", "options": [{"text": "Acción a punto de empezar.", "correct": false}, {"text": "Acción que ocurrió hace mucho.", "correct": false}, {"text": "En medio de estar haciendo la acción ahora mismo.", "correct": true}]},
+    {"q": "'El autobús justo acaba de salir' (hace segundos):", "options": [{"text": "たった今バスが出るところです。", "correct": false}, {"text": "たった今バスが出たところです。", "correct": true}, {"text": "たった今バスが出ているところです。", "correct": false}]},
+    {"q": "Uso de ~たばかりです:", "options": [{"text": "Justo acaba de ocurrir en este segundo exacto (tiempo objetivo).", "correct": false}, {"text": "Ocurrió hace poco tiempo según la percepción subjetiva del hablante (pueden ser meses).", "correct": true}, {"text": "Aún no ha ocurrido.", "correct": false}]},
+    {"q": "'Acabo de entrar a esta empresa el mes pasado' (Subjetivo):", "options": [{"text": "先月この会社に入ったところです。", "correct": false}, {"text": "先月この会社に入ったばかりです。", "correct": true}, {"text": "先月この会社に入るばかりです。", "correct": false}]},
+    {"q": "Uso de ~はずです:", "options": [{"text": "Obligación absoluta.", "correct": false}, {"text": "Deseo fuerte.", "correct": false}, {"text": "Convicción o certeza basada en razones objetivas ('Debería ser / Es de esperar que...').", "correct": true}]},
+    {"q": "'Como Tanaka se fue de viaje, es de esperar que NO venga hoy':", "options": [{"text": "田中さんは旅行に行っているので、今日は来ないはずです。", "correct": true}, {"text": "田中さんは旅行に行っているので、今日は来ないはずがありません。", "correct": false}, {"text": "田中さんは旅行に行っているので、今日は来るはずです。", "correct": false}]},
+    {"q": "Conjugación de Adjetivo-na con ~はずです (Ej. Debería ser silencioso):", "options": [{"text": "静かはずです", "correct": false}, {"text": "静かなはずです", "correct": true}, {"text": "静かだはずです", "correct": false}]}
+  ],
+  "47": [
+    {"q": "¿Qué indica el ~そうです (sou desu) cuando se usa con la forma simple de un verbo/adjetivo?", "options": [{"text": "Apariencia visual.", "correct": false}, {"text": "Transmisión de información (Me han dicho que... / Parece ser que...).", "correct": true}, {"text": "Certeza absoluta.", "correct": false}]},
+    {"q": "'Según el pronóstico del tiempo, mañana hará frío':", "options": [{"text": "天気予報によると、明日は寒そうです。", "correct": false}, {"text": "天気予報によると、明日は寒くなるそうです。", "correct": true}, {"text": "天気予報によると、明日は寒くなるようです。", "correct": false}]},
+    {"q": "Diferencia de conjugación con ~そうです (Apariencia vs Transmisión):", "options": [{"text": "おいしそうです (Apariencia) / おいしいそうです (Transmisión)", "correct": true}, {"text": "おいしいそうです (Apariencia) / おいしそうです (Transmisión)", "correct": false}, {"text": "Son iguales en forma.", "correct": false}]},
+    {"q": "'Se dice que la isla de Bali es muy hermosa':", "options": [{"text": "バリ島はとてもきれいだそうです。", "correct": true}, {"text": "バリ島はとてもきれいなそうです。", "correct": false}, {"text": "バリ島はとてもきれいそうです。", "correct": false}]},
+    {"q": "Uso de ~ようです (you desu):", "options": [{"text": "Juicio subjetivo basado en evidencia de los sentidos (vista, oído).", "correct": true}, {"text": "Solo se usa para escuchar noticias de otros.", "correct": false}, {"text": "Para dar órdenes directas.", "correct": false}]},
+    {"q": "'Hay mucha gente. Parece que es un accidente' (Viéndolo):", "options": [{"text": "人がたくさんいます。事故だそうです。", "correct": false}, {"text": "人がたくさんいます。事故のようです。", "correct": true}, {"text": "人がたくさんいます。事故なようです。", "correct": false}]},
+    {"q": "Conjugación de Adjetivos-na con ~ようです:", "options": [{"text": "きれいだようです", "correct": false}, {"text": "きれいなようです", "correct": true}, {"text": "きれいのようです", "correct": false}]},
+    {"q": "'Parece que llovió (porque la calle está mojada)':", "options": [{"text": "雨が降るようです。", "correct": false}, {"text": "雨が降ったようです。", "correct": true}, {"text": "雨が降るそうです。", "correct": false}]},
+    {"q": "¿Qué se usa comúnmente con ~そうです de transmisión para indicar la fuente?", "options": [{"text": "~に", "correct": false}, {"text": "~によると (según...)", "correct": true}, {"text": "~のために", "correct": false}]}
+  ],
+  "48": [
+    {"q": "¿Qué expresan los verbos causativos (~せます / ~させます)?", "options": [{"text": "Ser afectado por otra persona (Pasiva).", "correct": false}, {"text": "Obligar o permitir a alguien hacer algo.", "correct": true}, {"text": "Dar consejo.", "correct": false}]},
+    {"q": "Forma causativa de 飲む (Nomu):", "options": [{"text": "飲まれる", "correct": false}, {"text": "飲ませる", "correct": true}, {"text": "飲めさせる", "correct": false}]},
+    {"q": "Forma causativa de 食べる (Taberu):", "options": [{"text": "食べさせる", "correct": true}, {"text": "食べられる", "correct": false}, {"text": "食べせる", "correct": false}]},
+    {"q": "¿Qué partícula usa la persona obligada cuando el verbo es INTRANSITIVO? (Ej. Haré que el niño juegue)", "options": [{"text": "子供に遊ばせます", "correct": false}, {"text": "子供を遊ばせます", "correct": true}, {"text": "子供が遊ばせます", "correct": false}]},
+    {"q": "¿Qué partícula usa la persona obligada cuando el verbo es TRANSITIVO? (Ej. Haré que mi hijo lea un libro)", "options": [{"text": "息子に本を読ませます", "correct": true}, {"text": "息子を本を読ませます", "correct": false}, {"text": "息子が本を読ませます", "correct": false}]},
+    {"q": "'El profesor hace que los estudiantes escriban kanji':", "options": [{"text": "先生は学生を漢字を書かせます。", "correct": false}, {"text": "先生は学生に漢字を書かせます。", "correct": true}, {"text": "先生は学生に漢字を書かれます。", "correct": false}]},
+    {"q": "¿Qué significa V(causativo en forma TE) + いただけませんか?", "options": [{"text": "Obligación estricta.", "correct": false}, {"text": "¿Podría tener la amabilidad de dejarme/permitirme hacer...?", "correct": true}, {"text": "Imposibilidad.", "correct": false}]},
+    {"q": "'¿Me permitiría irme a casa temprano hoy?':", "options": [{"text": "今日は早く帰らせていただけませんか。", "correct": true}, {"text": "今日は早く帰っていただけませんか。", "correct": false}, {"text": "今日は早く帰らさせていただけませんか。", "correct": false}]},
+    {"q": "Forma causativa de 来る (Kuru - Venir):", "options": [{"text": "こさせる", "correct": true}, {"text": "きさせる", "correct": false}, {"text": "こられる", "correct": false}]}
+  ],
+  "49": [
+    {"q": "¿Para qué se usa el Sonkeigo (Lenguaje Honorífico)?", "options": [{"text": "Para rebajar las propias acciones.", "correct": false}, {"text": "Para enaltecer y mostrar respeto a las acciones del superior/cliente.", "correct": true}, {"text": "Para hablar con amigos.", "correct": false}]},
+    {"q": "¿Cuál es la forma honorífica (sonkeigo) de 行く, 来る y いる?", "options": [{"text": "いらっしゃいます", "correct": true}, {"text": "参ります", "correct": false}, {"text": "伺います", "correct": false}]},
+    {"q": "¿Cuál es la forma honorífica de 食べる y 飲む?", "options": [{"text": "いただきます", "correct": false}, {"text": "召し上がります", "correct": true}, {"text": "ご存じです", "correct": false}]},
+    {"q": "'El presidente ya se fue a casa' (Usando お/ご + V(masu) + になります):", "options": [{"text": "社長はもうお帰りになりました。", "correct": true}, {"text": "社長はもうお帰りました。", "correct": false}, {"text": "社長はもうお帰りしました。", "correct": false}]},
+    {"q": "Forma honorífica de 言う (Iu - Decir):", "options": [{"text": "おっしゃいます", "correct": true}, {"text": "申します", "correct": false}, {"text": "なさいます", "correct": false}]},
+    {"q": "'El profesor lee el periódico' (Usando forma pasiva como respeto):", "options": [{"text": "先生は新聞を読まれます。", "correct": true}, {"text": "先生は新聞をお読みします。", "correct": false}, {"text": "先生は新聞をお読まれます。", "correct": false}]},
+    {"q": "'Por favor, espere un momento' (Forma cortés de petición):", "options": [{"text": "少々お待ちください。", "correct": true}, {"text": "少々お待ってください。", "correct": false}, {"text": "少々お待ちになります。", "correct": false}]},
+    {"q": "¿Cuál es la forma honorífica de 知っています (Saber)?", "options": [{"text": "お知っています", "correct": false}, {"text": "ご存じです", "correct": true}, {"text": "存じております", "correct": false}]},
+    {"q": "Forma honorífica de する (Hacer):", "options": [{"text": "いたします", "correct": false}, {"text": "なさいます", "correct": true}, {"text": "されます", "correct": false}]}
+  ],
+  "50": [
+    {"q": "¿Para qué se usa el Kenjougo (Lenguaje Humilde)?", "options": [{"text": "Para enaltecer las acciones del oyente.", "correct": false}, {"text": "Para rebajar las acciones propias y mostrar un inmenso respeto al superior/cliente.", "correct": true}, {"text": "Para dar órdenes indirectas.", "correct": false}]},
+    {"q": "Forma humilde (Kenjougo) de 行く y 来る:", "options": [{"text": "いらっしゃいます", "correct": false}, {"text": "参ります", "correct": true}, {"text": "伺います", "correct": false}]},
+    {"q": "Forma humilde de 言う (Decir):", "options": [{"text": "おっしゃいます", "correct": false}, {"text": "申します", "correct": true}, {"text": "申し上げます", "correct": false}]},
+    {"q": "Forma general del lenguaje humilde:", "options": [{"text": "お/ご + Raíz + になります", "correct": false}, {"text": "お/ご + Raíz + します (o いたします)", "correct": true}, {"text": "お/ご + Raíz + ください", "correct": false}]},
+    {"q": "'Yo llevaré su equipaje' (Humildemente):", "options": [{"text": "私が荷物をお持ちになります。", "correct": false}, {"text": "私が荷物をお持ちします。", "correct": true}, {"text": "私が荷物をお持ちください。", "correct": false}]},
+    {"q": "Forma humilde de 聞く (Escuchar) o de ir a visitar a la casa/oficina del superior:", "options": [{"text": "参ります", "correct": false}, {"text": "拝見します", "correct": false}, {"text": "伺います", "correct": true}]},
+    {"q": "Forma humilde de 見る (Mirar/Ver):", "options": [{"text": "お見します", "correct": false}, {"text": "ご覧になります", "correct": false}, {"text": "拝見します", "correct": true}]},
+    {"q": "'Iré a visitarlo mañana a las 3' (Humilde):", "options": [{"text": "明日、３時に伺います。", "correct": true}, {"text": "明日、３時に参ります。", "correct": false}, {"text": "明日、３時にいらっしゃいます。", "correct": false}]},
+    {"q": "Forma humilde de 会う (Reunirse/Encontrarse):", "options": [{"text": "お会いになります", "correct": false}, {"text": "お目にかかります", "correct": true}, {"text": "お会いします", "correct": false}]}
+  ]
+}

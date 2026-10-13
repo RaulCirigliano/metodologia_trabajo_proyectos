@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualFlow - Compilador de Presentaciones</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">VisualFlow</div>
+        <div class="header-actions">
+            <button id="export-btn" class="btn btn-primary">
+                <i data-lucide="download"></i>
+                Exportar Video
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <section class="control-group">
+                <label>Archivos</label>
+                <div id="dropzone" class="dropzone">
+                    <i data-lucide="plus" style="margin-bottom: 8px;"></i>
+                    <p>Arrastra imágenes o carpeta 'imagenes'</p>
+                    <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+                </div>
+            </section>
+
+            <section class="control-group">
+                <label>Música de Fondo</label>
+                <button id="audio-btn" class="btn btn-secondary">
+                    <i data-lucide="music"></i>
+                    Añadir Audio
+                </button>
+                <input type="file" id="audio-input" accept="audio/*" style="display: none;">
+                <div id="audio-info" style="font-size: 12px; color: var(--text-muted); display: none;">
+                    Archivo: <span id="audio-name"></span>
+                </div>
+            </section>
+
+            <section class="control-group">
+                <label>Tiempo de Exposición (seg)</label>
+                <input type="number" id="global-duration" value="3" min="1" step="0.5">
+            </section>
+
+            <section class="control-group">
+                <label>Añadir Contenido</label>
+                <div style="display: flex; gap: 10px;">
+                    <button id="add-text-btn" class="btn btn-secondary" style="flex: 1;">
+                        <i data-lucide="type"></i>
+                        Texto
+                    </button>
+                </div>
+            </section>
+
+            <section class="control-group" style="margin-top: auto;">
+                <button id="play-btn" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                    <i data-lucide="play"></i>
+                    Vista Previa
+                </button>
+            </section>
+        </aside>
+
+        <section class="content-view">
+            <div class="preview-container">
+                <canvas id="video-canvas" width="1280" height="720"></canvas>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-header">
+                    <label>Línea de Tiempo</label>
+                    <span id="timeline-stats" style="font-size: 12px; color: var(--text-muted);">0 fotos | 0s</span>
+                </div>
+                <div id="timeline-track" class="timeline-track">
+                    <div id="empty-timeline" style="display: flex; align-items: center; justify-content: center; width: 100%; color: var(--text-muted); font-size: 0.9rem; gap: 10px;">
+                        <i data-lucide="image"></i>
+                        Las fotos añadidas aparecerán en esta zona
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="editor-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius); width: 450px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 1.5rem;">
+            <h3>Configurar Diapositiva</h3>
+            
+            <div class="control-group">
+                <label>Título / Texto</label>
+                <input type="text" id="edit-title-input" placeholder="Escribe aquí...">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="control-group">
+                    <label>Duración (seg)</label>
+                    <input type="number" id="edit-duration-input" min="0.5" step="0.5">
+                </div>
+                <div class="control-group">
+                    <label>Transición</label>
+                    <select id="edit-transition-input" style="background: var(--bg-accent); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius); color: var(--text-main);">
+                        <option value="none">Ninguna</option>
+                        <option value="fade">Desvanecer</option>
+                        <option value="slide">Deslizar</option>
+                        <option value="zoom">Zoom</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+                <button id="cancel-edit" class="btn btn-secondary">Cancelar</button>
+                <button id="save-edit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

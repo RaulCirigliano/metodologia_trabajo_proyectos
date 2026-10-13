@@ -1,0 +1,44 @@
+Viewed .gitignore:18-47
+Edited .gitignore
+Ran command: `git remote set-url origin https://github.com/RaulCirigliano/balance-app.git`
+Ran command: `git push -u origin main --force`
+Viewed importar_pdfs.py:1-239
+
+Para que tu aplicación en Cloudflare pueda procesar los resúmenes de Visa y Mastercard directamente desde la web, tienes un par de caminos. Como Cloudflare Pages sirve contenido estático (HTML/JS), **no puede ejecutar tu script de Python (`importar_pdfs.py`) directamente**, pero puedes replicar esa lógica en JavaScript para que ocurra todo en el navegador.
+
+Aquí tienes las mejores opciones y mi recomendación:
+
+### Opción 1: Procesamiento en el Navegador (Recomendada)
+Es la opción más privada y eficiente. El PDF no se "sube" a ningún servidor; se procesa localmente en tu computadora a través del navegador.
+
+1.  **Librería**: Usarías `pdf.js` (la librería estándar de PDF para la web).
+2.  **Cómo funciona**:
+    *   Agregas un botón de "Importar PDF" en la sección de Configuración.
+    *   Cuando seleccionas el resumen, JavaScript lee el contenido de texto del PDF.
+    *   Portamos tu lógica de expresiones regulares (Regex) de Python a JavaScript para extraer los gastos, cuotas y totales.
+    *   Los datos se guardan directamente en el `localStorage` de tu aplicación.
+
+> [!TIP]
+> **Ventaja de Privacidad**: Al procesar el PDF en el cliente (tu navegador), tus datos financieros nunca salen de tu dispositivo, lo cual es ideal para la seguridad de Cloudflare Pages.
+
+### Opción 2: Importación de JSON (El camino corto)
+Si no quieres complicar el código con el lector de PDF por ahora:
+
+1.  Sigues usando tu script de Python localmente para generar el archivo `nuevos_gastos.json`.
+2.  En la web, usamos el botón que ya existe (o creamos uno dedicado) para "Importar JSON".
+3.  Simplemente arrastras el JSON generado y la web se actualiza.
+
+---
+
+### ¿Cómo lo implementaríamos? (Opción 1)
+
+Si decides ir por la **Opción 1**, los pasos técnicos serían:
+
+1.  **Cargar PDF.js**: Añadiríamos el script de la librería en tu `index.html`.
+2.  **Crear el "Extractor"**: Traduciríamos funciones como `process_visa(text)` de Python a JavaScript dentro de tu `app.js`.
+3.  **UI**: Un input tipo file que acepte `.pdf` y que al terminar de procesar, te muestre un resumen de "Gastos encontrados" antes de guardarlos.
+
+**Mi sugerencia adicional**: 
+Dado que ya tienes la lógica de las expresiones regulares muy pulida en Python, traducirlas a JS es sencillo. Si quieres, puedo prepararte el código necesario para integrar `pdf.js` en tu `app.js` y que puedas probarlo directamente.
+
+¿Te gustaría que te ayude a portar esa lógica de Python a JavaScript para integrarla en la web?

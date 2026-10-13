@@ -1,0 +1,27 @@
+# ==========================================
+# DATOS PERSONALES, BACKUPS Y RESÚMENES
+# ==========================================
+# Archivos JSON de exportación y backups
+balance_completo_*.json
+gastos_tarjetas_*.json
+gastos_efectivo_*.json
+backup_proyectos_*.json
+nuevos_gastos.json
+
+# Resúmenes de tarjetas
+*.pdf
+
+# Documentos de texto y temporales
+*.odt
+.~lock.*
+
+# Fotos e imágenes personales de proyectos
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.heic
+
+# Excepciones (Si tienes algún icono de la app que SÍ debe subirse, descomenta esta línea y pon su nombre)
+# !icono_app.png

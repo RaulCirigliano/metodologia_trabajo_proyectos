@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cámara Web Local | Portafolio Local</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-container">
+<aside class="sidebar">
+<div class="brand">
+<div class="brand-icon">⚡</div>
+<div class="brand-text">
+<h1>Portafolio Local</h1>
+<span>Mis Proyectos</span>
+</div>
+</div>
+<div class="nav-group-title">Navegación</div>
+<ul class="nav-links">
+<li class="nav-item">
+<a href="artebarro.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" x2="12" y1="22.08" y2="12"></line></svg>
+          Web ArteBarro (Principal)
+        </a>
+</li>
+<li class="nav-item">
+<a href="index.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Inicio y Metodología
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_local.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          Cámara Web Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_web.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          Shinobi NVR Docker
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+          Aperturas de Ajedrez
+        </a>
+</li>
+<li class="nav-item">
+<a href="ollama_ia.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Ollama IA Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+
+<li class="nav-item">
+<a href="tutor_japones.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Tutor Japonés IA
+        </a>
+</li>
+</ul>
+</aside>
+<div class="main-wrapper">
+<header class="topbar">
+<div class="search-box">
+<input id="liveSearchInput" placeholder="Buscar comando o parámetro..." type="text"/>
+</div>
+<div class="topbar-actions">
+<button class="action-btn" id="themeToggleBtn"><span id="themeIcon">🌓</span></button>
+</div>
+</header>
+<main class="content-body">
+<section class="guide-section">
+<h2 class="section-title">📹 Cámara Web Local (GuardianCam)</h2>
+<p class="section-desc">Aplicación de videovigilancia inteligente en Python puro con OpenCV y Flask. Organiza eventos por franjas horarias y soporta borrado por lotes.</p>
+<!-- Ficha Técnica -->
+<div class="card full-card" style="border-top: 4px solid var(--accent-emerald); margin-bottom: 1.5rem;">
+<div class="card-header">
+<div>
+<h3 class="card-title">Arquitectura y Motor de Detección</h3>
+<div class="card-subtitle">Despliegue activo en /proyectos/camara_seguridad</div>
+</div>
+</div>
+<div class="card-body">
+<ul class="styled-list">
+<li><strong>Ruta del Proyecto:</strong> <span class="inline-code">~/Escritorio/proyectos/camara_seguridad</span></li>
+<li><strong>Stack Técnico:</strong> Python 3, OpenCV (Sustractor MOG2), Flask, FFmpeg (H.264 asíncrono).</li>
+<li><strong>Estructura de Archivos:</strong> Segmentación automática por fecha y hora: <span class="inline-code">grabaciones/AAAA-MM-DD/[Madrugada|Mañana|Tarde|Noche]/...mp4</span>.</li>
+<li><strong>Acceso Seguro:</strong> Tailscale IP local y Túnel Cloudflare (HTTPS) con auth protegida.</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+</ul>
+</div>
+</div>
+<div class="cards-grid">
+<div class="card">
+<h3 class="card-title">Comandos de Inicio y Parada</h3>
+<div class="card-body">
+<p>Iniciar en primer plano (Terminal):</p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang-tag">bash</span><button class="copy-btn">Copiar</button></div>
+<pre><code>cd ~/Escritorio/proyectos/camara_seguridad
+./iniciar.sh</code></pre>
+</div>
+<p style="margin-top: 0.5rem;">Iniciar como demonio y enlace remoto:</p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang-tag">bash</span><button class="copy-btn">Copiar</button></div>
+<pre><code>./iniciar_segundo_plano.sh
+./compartir_internet.sh</code></pre>
+</div>
+<p style="margin-top: 0.5rem;">Parada total (liberar video0):</p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang-tag">bash</span><button class="copy-btn">Copiar</button></div>
+<pre><code>./detener.sh</code></pre>
+</div>
+</div>
+</div>
+<div class="card">
+<h3 class="card-title">Lógica de Franjas Horarias</h3>
+<div class="card-body">
+<p>Las grabaciones (por defecto 5 min) incluyen un <strong>pre-buffer de 3 segundos</strong> en RAM y se ordenan en disco en:</p>
+<ul class="styled-list" style="margin-top: 0.5rem;">
+<li><strong>Madrugada:</strong> 00:00 a 07:59</li>
+<li><strong>Mañana:</strong> 08:00 a 11:59</li>
+<li><strong>Tarde:</strong> 12:00 a 16:59</li>
+<li><strong>Noche:</strong> 17:00 a 23:59</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+</ul>
+<div class="alert-box alert-cyan" style="margin-top: 1rem;">
+<div class="alert-icon">💡</div>
+<div>
+                            La interfaz web Flask permite filtrar por estas pestañas y usar <code>batch_delete</code> para eliminar grabaciones múltiples limpiando automáticamente las carpetas vacías.
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Próximo Paso -->
+<div class="card full-card" style="margin-top: 1.5rem; border-top: 4px solid var(--accent-purple);">
+<div class="card-header">
+<div>
+<h3 class="card-title">Opciones para el Próximo Paso</h3>
+</div>
+<span class="badge badge-ia">Pendientes</span>
+</div>
+<div class="card-body">
+<p>Las mejoras futuras a definir con el usuario incluyen:</p>
+<ol style="margin-left: 1.5rem; color: var(--text-secondary); margin-top: 0.5rem;">
+<li><strong>Sistema de purga automática:</strong> Borrar videos de +N días o al llegar a un umbral de disco libre para no saturar el almacenamiento.</li>
+<li><strong>Notificaciones Instantáneas:</strong> Envío de alerta con miniatura (foto) vía Telegram o Webhook directamente desde Python.</li>
+<li><strong>Máscaras de exclusión:</strong> Ignorar ciertas zonas de la cámara (ej. ventiladores, cortinas movidas por el viento) dibujando un polígono para el filtro MOG2.</li>
+</ol>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+Para detectar este tipo de fenómenos de cultura "micro-viral" o tendencias de consumo rápido (como fue el caso de los patitos *kawaii*), existen varias señales y herramientas que podés monitorear. Actualmente, el pulso de lo que la gente está usando de forma masiva y repentina se mueve principalmente en tres ejes:
+
+### 1. El termómetro de la calle y redes visuales
+
+Los "booms" estéticos suelen nacer en **TikTok** o **Instagram Reels**. Si notás que un objeto específico (un accesorio, un tipo de juguete o una prenda) aparece repetidamente en videos de diferentes países en menos de una semana, estás ante un fenómeno global.
+
+* **Señal clave:** La aparición de "puestos al paso" en zonas comerciales (como la Av. Santa Fe o el centro de tu ciudad) que venden un solo producto específico de forma masiva.
+
+### 2. Herramientas de monitoreo en tiempo real
+
+Si querés datos concretos más allá de la percepción visual, podés consultar:
+
+* **Google Trends:** Es la herramienta más fiable. Podés filtrar por "Argentina" y ver las "Consultas relacionadas" que están en aumento desmedido (etiquetadas como "Aumento puntual").
+* **Mercado Libre (Tendencias):** La plataforma tiene una sección de [Tendencias](https://tendencias.mercadolibre.com.ar/) donde muestra qué es lo más buscado. Si un objeto inútil o curioso está en el top 10, es el nuevo "patito".
+
+### 3. Fenómenos actuales [Inferencia]
+
+Si bien no hay un único objeto que haya desplazado totalmente al patito en este instante exacto, las tendencias están virando hacia:
+
+* **Accesorios "Labubu" o similares:** Pequeños monstruos coleccionables o figuras de diseño que la gente cuelga de sus carteras (similar al furor por los Sonny Angels).
+* **Pinzas de pelo con formas realistas:** Flores, frutas o animales que parecen objetos reales colocados en la cabeza.
+
+### ¿Cómo identificar el próximo "Boom"?
+
+Para que algo se convierta en un fenómeno tipo "patito con hélice", suele cumplir tres requisitos:
+
+1. **Bajo costo:** Es una compra impulsiva.
+2. **Identificación visual:** Se nota a distancia y genera curiosidad en el otro ("¿Por qué todos tienen eso?").
+3. **Absurdo o tierno:** No tiene una función práctica, lo que facilita su viralización como broma interna colectiva.
+
+---
+
+**Nota técnica:** En términos de análisis de datos, estos picos se denominan *Fads* (modas pasajeras). A diferencia de una tendencia, su ciclo de vida es muy corto (3 a 6 meses) y suelen desaparecer por saturación del mercado.
+
+Para obtener información precisa sobre tendencias virales actuales en Google (usando sus funciones de IA como Search Generative Experience), necesitás un prompt que combine **temporalidad**, **geolocalización** y **contexto de nicho**.
+
+Aquí tenés tres opciones según lo que busques:
+
+### Opción 1: Para detectar el "Nuevo Patito" (Tendencias de consumo)
+
+> "Actúa como un analista de tendencias de consumo. Identifica objetos, accesorios o fenómenos estéticos 'micro-virales' que estén teniendo un crecimiento explosivo en redes sociales (TikTok/Instagram) en [Argentina/Latam] durante el último mes. Busca artículos de bajo costo o accesorios 'kawaii' similares al fenómeno de los patitos con hélice."
+
+### Opción 2: Para detectar tendencias culturales o jerga
+
+> "Resume los temas de conversación dominantes, memes emergentes y 'slang' que se han vuelto virales en el ecosistema digital de habla hispana en las últimas dos semanas. Clasifícalos por nivel de popularidad y explica brevemente el origen de cada uno."
+
+### Opción 3: Para análisis técnico de mercado (Mercado Libre/Amazon)
+
+> "Analiza las búsquedas crecientes en plataformas de e-commerce en la región de Buenos Aires. ¿Qué productos de regalo o 'gadgets' curiosos muestran un aumento puntual de demanda superior al 50% este mes? Ignora productos estacionales estándar y enfócate en novedades virales."
+
+---
+
+### Consejos para mejorar el resultado:
+
+* **Sé específico con el lugar:** Si ponés "en mi zona" o "en Buenos Aires", la IA filtrará mejor lo que ves en la calle.
+* **Pedí comparaciones:** Usar frases como *"similar a [X fenómeno pasado]"* le da a la IA un marco de referencia sobre el tipo de "absurdo" o "estética" que estás buscando.
+* **Solicita fuentes:** Podés agregar al final: *"Cita fuentes de portales de noticias de tendencias o redes sociales para verificar la información"*.
+
+¿Querés que ajustemos alguno de estos prompts para enfocarnos en algo más específico, como materiales para cerámica o tendencias en diseño web?
+

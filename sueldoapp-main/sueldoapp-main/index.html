@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sueldo PDF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+    <!-- Carga de la librería PDF.js para procesar PDFs en el navegador localmente -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <style>
+        .result-item.sub-item {
+            font-size: 13px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.01);
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            border-radius: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .result-item.sub-item:last-child {
+            border-bottom: none;
+        }
+        .section-title {
+            color: var(--primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            padding-left: 10px;
+        }
+        .result-item.highlight-box {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.1));
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
+        }
+        .result-item.highlight-box .label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--text-main);
+        }
+        .highlight-val {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a5b4fc, #f9a8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .empty-msg {
+            padding: 10px 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        .item-checkbox {
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+        }
+        .item-label-container {
+            display: flex;
+            align-items: center;
+        }
+        .percentage-input {
+            width: 70px;
+            padding: 5px;
+            margin: 0 5px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            font-family: inherit;
+        }
+        .percentage-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container fade-in">
+        <div class="header">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 2V8H20" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 18V12" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 14H16" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 16H16" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#4F46E5"/>
+                        <stop offset="1" stop-color="#EC4899"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1>Calculadora <span>Salarial</span></h1>
+        </div>
+        <p class="subtitle">Sube tu recibo para sumar todos tus haberes, descontar I.P.S. e I.O.M.A. y obtener el 20% del total (con desglose).</p>
+
+        <form id="pdf-form" onsubmit="event.preventDefault(); processPDF();">
+            <div class="form-group">
+                <label for="file" class="file-label">
+                    <span class="file-icon">📄</span>
+                    <span id="file-name">Selecciona o arrastra tu archivo PDF</span>
+                    <input type="file" id="file" name="file" accept=".pdf" required>
+                </label>
+            </div>
+            <button type="submit" class="submit-btn" id="submit-btn">Procesar PDF</button>
+        </form>
+
+        <div id="error-container" class="message error slide-up" style="display: none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <p><strong id="error-title">Error:</strong> <span id="error-message"></span></p>
+        </div>
+
+        <div id="results-container" class="results slide-up" style="display: none;">
+            <h2>Desglose de Cálculos</h2>
+            <div class="results-grid">
+                
+                <div class="section-title">Haberes Sumados</div>
+                <div id="haberes-list"></div>
+                <div class="result-item subtotal">
+                    <span class="label">Suma Total Haberes</span>
+                    <span class="value" id="val-haberes-total"></span>
+                </div>
+
+                <div class="section-title">Descuentos Restados</div>
+                <div id="descuentos-list"></div>
+                <div class="result-item subtotal">
+                    <span class="label">Suma Total Descuentos</span>
+                    <span class="value deduction" id="val-descuentos-total"></span>
+                </div>
+
+                <div class="result-item subtotal" style="margin-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <span class="label">Base de Cálculo (Haberes - Descuentos)</span>
+                    <span class="value" id="val-neto"></span>
+                </div>
+                
+                <div class="result-item highlight-box">
+                    <span class="label">
+                        El 
+                        <input type="number" id="percentage-input" class="percentage-input" value="20" min="0" max="100" step="any">
+                        % del Resultado es:
+                    </span>
+                    <span class="value highlight-val" id="val-20"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileNameSpan = document.getElementById('file-name');
+        const errorContainer = document.getElementById('error-container');
+        const errorMessage = document.getElementById('error-message');
+        const resultsContainer = document.getElementById('results-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const percentageInput = document.getElementById('percentage-input');
+
+        let globalHaberes = [];
+        let globalDescuentos = [];
+
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                fileNameSpan.textContent = e.target.files[0].name;
+                fileNameSpan.style.color = '#f8fafc';
+            } else {
+                fileNameSpan.textContent = 'Selecciona o arrastra tu archivo PDF';
+                fileNameSpan.style.color = 'rgba(255,255,255,0.7)';
+            }
+            errorContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
+        });
+
+        percentageInput.addEventListener('input', () => {
+            if (globalHaberes.length > 0 || globalDescuentos.length > 0) {
+                recalcularTotales();
+            }
+        });
+
+        const formatMoney = (amount) => {
+            return "$ " + amount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        };
+
+        const showError = (msg) => {
+            errorContainer.style.display = 'flex';
+            resultsContainer.style.display = 'none';
+            errorMessage.textContent = msg;
+            submitBtn.textContent = 'Procesar PDF';
+            submitBtn.disabled = false;
+        };
+
+        const toggleItem = (type, index, isChecked) => {
+            if (type === 'haber') {
+                globalHaberes[index].checked = isChecked;
+            } else {
+                globalDescuentos[index].checked = isChecked;
+            }
+            recalcularTotales();
+        };
+
+        const renderAndCalculate = () => {
+            const renderList = (containerId, details, type) => {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                if (details.length === 0) {
+                    container.innerHTML = '<div class="empty-msg">No se encontraron ítems</div>';
+                } else {
+                    details.forEach((d, index) => {
+                        let div = document.createElement('div');
+                        div.className = 'result-item sub-item';
+                        let isDeduction = type === 'descuento';
+                        let cssClass = isDeduction ? 'value deduction' : 'value';
+                        let sign = isDeduction ? '- ' : '';
+                        
+                        div.innerHTML = `
+                            <div class="item-label-container">
+                                <input type="checkbox" class="item-checkbox" ${d.checked ? 'checked' : ''} onchange="toggleItem('${type}', ${index}, this.checked)">
+                                <span class="label">${d.concepto}</span>
+                            </div>
+                            <span class="${cssClass}">${sign}${formatMoney(d.monto)}</span>
+                        `;
+                        container.appendChild(div);
+                    });
+                }
+            };
+
+            renderList('haberes-list', globalHaberes, 'haber');
+            renderList('descuentos-list', globalDescuentos, 'descuento');
+            
+            recalcularTotales();
+            
+            resultsContainer.style.display = 'block';
+            submitBtn.textContent = 'Procesar PDF';
+            submitBtn.disabled = false;
+        };
+
+        const recalcularTotales = () => {
+            let totalHaberes = globalHaberes.filter(h => h.checked).reduce((sum, h) => sum + h.monto, 0);
+            let totalDescuentos = globalDescuentos.filter(d => d.checked).reduce((sum, d) => sum + d.monto, 0);
+            
+            document.getElementById('val-haberes-total').textContent = formatMoney(totalHaberes);
+            document.getElementById('val-descuentos-total').textContent = "- " + formatMoney(totalDescuentos);
+
+            const ingresoNeto = totalHaberes - totalDescuentos;
+            
+            let percent = parseFloat(percentageInput.value) || 0;
+            const resultadoPorcentaje = ingresoNeto * (percent / 100);
+
+            document.getElementById('val-neto').textContent = formatMoney(ingresoNeto);
+            document.getElementById('val-20').textContent = formatMoney(resultadoPorcentaje);
+        };
+
+        async function processPDF() {
+            if (fileInput.files.length === 0) {
+                showError("No se seleccionó ningún archivo.");
+                return;
+            }
+
+            submitBtn.textContent = 'Procesando...';
+            submitBtn.disabled = true;
+            errorContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
+
+            const file = fileInput.files[0];
+            const fileReader = new FileReader();
+
+            fileReader.onload = async function() {
+                try {
+                    const typedarray = new Uint8Array(this.result);
+                    const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                    
+                    let textCompleto = "";
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items.map(item => item.str).join(" ");
+                        textCompleto += pageText + " ";
+                    }
+
+                    // Limpiamos un poco el texto para normalizar espacios
+                    textCompleto = textCompleto.replace(/\s+/g, ' ');
+
+                    // Función auxiliar para buscar todos los montos de un código específico en el recibo
+                    const findConcept = (regex, text) => {
+                        let matches = [];
+                        let match;
+                        // Hacemos que el regex sea global para encontrar todos los cargos
+                        let globalRegex = new RegExp(regex.source, 'gi');
+                        while ((match = globalRegex.exec(text)) !== null) {
+                            let montoStr = match[1].replace(/\./g, '').replace(/,/g, '.');
+                            // Excepción por si el PDF original ya traía el número con punto para los miles y punto para decimal (ej. 360314.85)
+                            // pdf.js puede extraer 360314.85 literal.
+                            if (match[1].includes('.') && !match[1].includes(',')) {
+                                montoStr = match[1];
+                            }
+                            matches.push(parseFloat(montoStr));
+                        }
+                        return matches;
+                    };
+
+                    let haberesDetails = [];
+                    let descuentosDetails = [];
+
+                    // Diccionario de códigos estándar de Haberes DGCyE (Provincia de Buenos Aires)
+                    // Se exige [.,]\d{2} al final para garantizar que capture el monto con centavos y no fechas (como 08/2008)
+                    const haberesCodes = [
+                        { name: "Antigüedad (0220)", rx: /0220\s+ANTIGUEDAD\s+([\d.,]+[.,]\d{2})/i },
+                        { name: "Bonif. Remun. Doc (0455)", rx: /0455\s+BONIF\.?\s+REMUN\.?\s+DOC.*?([\d.,]+[.,]\d{2})/i },
+                        { name: "Básico Provisionales (0510)", rx: /0510\s+BASICO\s+PROVISIONALES\s+([\d.,]+[.,]\d{2})/i },
+                        { name: "Bonif. Preceptor (0653)", rx: /0653\s+BON\.?\s+PRECEPTOR.*?([\d.,]+[.,]\d{2})/i },
+                        { name: "Salario Familiar (2050)", rx: /2050\s+SALARIO\s+FAMILIAR\s+([\d.,]+[.,]\d{2})/i },
+                        { name: "FONID / Conectiv (2575)", rx: /2575\s+BON\s+NO\s+REM\s+COMP\.FONID\/CONECTIV\s+([\d.,]+[.,]\d{2})/i }
+                    ];
+
+                    // Procesar Haberes
+                    haberesCodes.forEach(concepto => {
+                        let montos = findConcept(concepto.rx, textCompleto);
+                        montos.forEach(monto => {
+                            haberesDetails.push({ concepto: concepto.name, monto: monto, checked: true });
+                        });
+                    });
+
+                    // Procesar Descuentos (Capturar todos los códigos de 4 dígitos)
+                    let allConceptsRx = /(?:^|\s)(\d{4})\s+([A-ZÑ\s./-]+?)\s+([\d.,]+[.,]\d{2})/gi;
+                    let matchConcept;
+                    let allConcepts = [];
+                    while ((matchConcept = allConceptsRx.exec(textCompleto)) !== null) {
+                        let code = matchConcept[1];
+                        let desc = matchConcept[2].trim();
+                        let montoStr = matchConcept[3].replace(/\./g, '').replace(/,/g, '.');
+                        if (matchConcept[3].includes('.') && !matchConcept[3].includes(',')) {
+                            montoStr = matchConcept[3];
+                        }
+                        let monto = parseFloat(montoStr);
+                        allConcepts.push({ code, desc, monto });
+                    }
+
+                    // Identificar como descuento todo lo que sea código >= 1000 y no sea un haber conocido
+                    const knownHaberCodes = ["0220", "0455", "0510", "0653", "2050", "2575"];
+                    
+                    allConcepts.forEach(concept => {
+                        if (!knownHaberCodes.includes(concept.code) && parseInt(concept.code) >= 1000) {
+                            // Validar que no se dupliquen si la misma línea matchea varias veces (aunque regex con .exec en texto completo debería estar bien)
+                            descuentosDetails.push({ concepto: `${concept.desc} (${concept.code})`, monto: concept.monto, checked: true });
+                        }
+                    });
+
+                    if (haberesDetails.length === 0) {
+                        showError("No se encontraron los códigos de haberes (0220, 0510, etc.) en el PDF.");
+                        return;
+                    }
+
+                    globalHaberes = haberesDetails;
+                    globalDescuentos = descuentosDetails;
+                    
+                    renderAndCalculate();
+                    
+                } catch (error) {
+                    console.error(error);
+                    showError("Ocurrió un error al procesar el archivo. ¿Estás seguro de que es un PDF válido?");
+                }
+            };
+            
+            fileReader.onerror = function() {
+                showError("No se pudo leer el archivo.");
+            };
+            
+            fileReader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>

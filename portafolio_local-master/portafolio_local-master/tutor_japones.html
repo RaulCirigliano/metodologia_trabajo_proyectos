@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tutor Japonés IA | Portafolio Local</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-container">
+<aside class="sidebar">
+<div class="brand"><div class="brand-text"><h1>Portafolio Local</h1></div></div>
+<ul class="nav-links">
+<li class="nav-item">
+<a href="artebarro.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" x2="12" y1="22.08" y2="12"></line></svg>
+          Web ArteBarro (Principal)
+        </a>
+</li>
+<li class="nav-item">
+<a href="index.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Inicio y Metodología
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_local.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          Cámara Web Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_web.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          Shinobi NVR Docker
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+          Aperturas de Ajedrez
+        </a>
+</li>
+<li class="nav-item">
+<a href="ollama_ia.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Ollama IA Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+
+<li class="nav-item">
+<a href="tutor_japones.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Tutor Japonés IA
+        </a>
+</li>
+</ul>
+</aside>
+<div class="main-wrapper">
+<header class="topbar">
+<div class="search-box">
+<input id="liveSearchInput" placeholder="Buscar..." type="text"/>
+</div>
+<div class="topbar-actions">
+<button class="action-btn" id="themeToggleBtn"><span id="themeIcon">🌓</span></button>
+</div>
+</header>
+<main class="content-body">
+<section class="guide-section">
+<h2 class="section-title">🇯🇵 Tutor de Japonés con Ollama</h2>
+<p class="section-desc">Aplicación web interactiva servida en Flask que utiliza el contenido HTML de <code>nihongo-app</code> para crear un tutor de japonés por voz con IA. Los archivos residen en <code>~/Escritorio/proyectos/aprendiendo_japones_con-ollama</code>.</p>
+<!-- Ficha Técnica -->
+<div class="card full-card" style="border-top: 4px solid var(--accent-red); margin-bottom: 1.5rem;">
+<div class="card-header">
+<div>
+<h3 class="card-title">Arquitectura del Proyecto</h3>
+<div class="card-subtitle">Flask (Web Server) + Ollama (IA) + Web Speech API</div>
+</div>
+<span class="badge badge-ia">Fullstack Local</span>
+</div>
+<div class="card-body">
+<p><strong>Tecnologías utilizadas:</strong></p>
+<ul class="styled-list" style="margin-top:0.5rem; margin-bottom:1rem;">
+<li><strong>Backend (Python/Flask):</strong> Sirve la interfaz y procesa el HTML de las lecciones con BeautifulSoup4 para extraer el contexto (Títulos, Gramática, Ejemplos).</li>
+<li><strong>Motor LLM (Ollama):</strong> Utiliza el modelo Llama3 o Qwen2.5 de manera local para interactuar con el alumno, inyectando el contexto de la lección seleccionada.</li>
+<li><strong>Interfaz de Voz (JS Web Speech API):</strong> Evita dependencias nativas de Python como Whisper. Usa el STT (Reconocimiento de voz) y TTS (Síntesis) directamente en el navegador.</li>
+</ul>
+</div>
+</div>
+<div class="cards-grid">
+<div class="card">
+<h3 class="card-title">1. Construcción y Configuración</h3>
+<div class="card-body">
+<p>El entorno virtual está configurado en la carpeta del proyecto.</p>
+<div class="code-block" style="margin-top:0.5rem;">
+<div class="code-header"><span class="code-lang-tag">bash</span></div>
+<pre><code>cd ~/Escritorio/proyectos/aprendiendo_japones_con-ollama
+python3 -m venv venv
+source venv/bin/activate
+pip install Flask ollama beautifulsoup4</code></pre>
+</div>
+</div>
+</div>
+<div class="card">
+<h3 class="card-title">2. Iniciar el Tutor</h3>
+<div class="card-body">
+<p>Asegúrate de que el demonio de Ollama está corriendo en background.</p>
+<div class="code-block" style="margin-top:0.5rem;">
+<div class="code-header"><span class="code-lang-tag">bash</span></div>
+<pre><code># Arrancar la aplicación Flask
+cd ~/Escritorio/proyectos/aprendiendo_japones_con-ollama
+source venv/bin/activate
+python tutor.py</code></pre>
+</div>
+<p style="margin-top:0.5rem;">Luego abre <strong>http://127.0.0.1:5000</strong> en el navegador.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

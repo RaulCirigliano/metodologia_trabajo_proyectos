@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Trend Radar | Monitor de Micro-Tendencias</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Analítica en Tiempo Real</div>
+            <h1>Viral Trend Radar</h1>
+            <p class="tagline">Detectá el próximo fenómeno "kawaii" antes de que llegue a la calle. Basado en inteligencia de mercado y señales visuales.</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Trend Radar Section -->
+            <section class="glass-card">
+                <div class="card-title">
+                    <i data-lucide="zap"></i>
+                    <h2>Radar de Tendencias</h2>
+                </div>
+                <div class="trend-list">
+                    <div class="trend-item">
+                        <img src="assets/ceramica.png" alt="Cerámica Viral" class="trend-img">
+                        <div class="trend-info">
+                            <h4>Escultura Orgánica</h4>
+                            <p>Formas "blob" y personajes minimalistas en cerámica.</p>
+                        </div>
+                        <div class="trend-status">NUEVO</div>
+                    </div>
+                    <div class="trend-item">
+                        <img src="assets/labubu.png" alt="Labubu" class="trend-img">
+                        <div class="trend-info">
+                            <h4>Figuras Labubu</h4>
+                            <p>Monstruos coleccionables y charms para carteras.</p>
+                        </div>
+                        <div class="trend-status">EXPLOTANDO</div>
+                    </div>
+                    <div class="trend-item">
+                        <img src="assets/clips.png" alt="Clips Realistas" class="trend-img">
+                        <div class="trend-info">
+                            <h4>Clips Realistas</h4>
+                            <p>Pinzas de pelo con formas de frutas y flores.</p>
+                        </div>
+                        <div class="trend-status">ALTA</div>
+                    </div>
+                    <div class="trend-item">
+                        <img src="assets/patito.png" alt="Patito con hélice" class="trend-img">
+                        <div class="trend-info">
+                            <h4>Patito Kawaii</h4>
+                            <p>El fenómeno original que inició el furor.</p>
+                        </div>
+                        <div class="trend-status" style="color: var(--text-muted)">SATURADO</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prompt Lab Section -->
+            <section class="glass-card prompt-lab">
+                <div class="card-title">
+                    <i data-lucide="terminal"></i>
+                    <h2>Laboratorio de Prompts</h2>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Generá prompts técnicos optimizados para IA basados en las directivas.</p>
+                
+                <label for="prompt-type">Objetivo del Análisis</label>
+                <select id="prompt-type">
+                    <option value="ceramica">Diseño para Cerámica / Escultura</option>
+                    <option value="consumo">Detectar "Nuevo Patito" (Consumo)</option>
+                    <option value="cultural">Tendencias Culturales / Slang</option>
+                    <option value="mercado">Análisis Técnico de Mercado</option>
+                </select>
+
+                <label for="location">Ubicación</label>
+                <input type="text" id="location" placeholder="Ej: Argentina, Buenos Aires..." value="Argentina">
+
+                <div class="prompt-display">
+                    <button class="copy-btn" id="copy-btn">Copiar</button>
+                    <div id="prompt-text">
+                        Cargando prompt...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Identification Guide Section -->
+            <section class="glass-card">
+                <div class="card-title">
+                    <i data-lucide="search"></i>
+                    <h2>¿Es un Próximo "Boom"?</h2>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Si cumple estos 3 requisitos, es probable que se vuelva viral.</p>
+                
+                <ul class="checklist">
+                    <li class="check-item" onclick="toggleCheck(this)">
+                        <div class="circle"></div>
+                        <div class="check-info">
+                            <strong>Bajo Costo</strong>
+                            <p>¿Es una compra impulsiva?</p>
+                        </div>
+                    </li>
+                    <li class="check-item" onclick="toggleCheck(this)">
+                        <div class="circle"></div>
+                        <div class="check-info">
+                            <strong>Identificación Visual</strong>
+                            <p>¿Se nota a distancia?</p>
+                        </div>
+                    </li>
+                    <li class="check-item" onclick="toggleCheck(this)">
+                        <div class="circle"></div>
+                        <div class="check-info">
+                            <strong>Absurdo o Tierno</strong>
+                            <p>¿No tiene función práctica?</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div id="boom-verdict" style="margin-top: 2rem; padding: 1rem; border-radius: 12px; text-align: center; display: none;">
+                    <!-- Verdict will appear here -->
+                </div>
+            </section>
+        </main>
+
+        <section class="glass-card" style="margin-bottom: 4rem;">
+            <div class="card-title">
+                <i data-lucide="link"></i>
+                <h2>Fuentes de Monitoreo Directo</h2>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://tendencias.mercadolibre.com.ar/" target="_blank" class="glass-card" style="flex: 1; min-width: 200px; text-decoration: none; padding: 1rem; text-align: center; border-color: #ffe60022;">
+                    <strong style="color: #ffe600;">Mercado Libre</strong><br>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Tendencias de Búsqueda</span>
+                </a>
+                <a href="https://trends.google.com.ar/trends/" target="_blank" class="glass-card" style="flex: 1; min-width: 200px; text-decoration: none; padding: 1rem; text-align: center; border-color: #4285f422;">
+                    <strong style="color: #4285f4;">Google Trends</strong><br>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Análisis de Interés</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

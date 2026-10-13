@@ -1,0 +1,28 @@
+# Documentación de Optimizaciones - Proyecto Inés Torrent
+
+En este documento se resumen las principales mejoras implementadas en el sitio web de Inés Torrent para garantizar un rendimiento profesional, un diseño de vanguardia y un posicionamiento óptimo en la web.
+
+1. VELOCIDAD DE NAVEGACIÓN Y RENDIMIENTO (PERFORMANCE)
+- Código Modular y Limpio: Se ha reestructurado todo el proyecto separando el contenido (HTML), el diseño (estilos.css) y la lógica (script.js, galeria.js), logrando archivos muy ligeros.
+- Cero Dependencias: Se evitó el uso de librerías externas pesadas (como jQuery). Toda la interactividad se creó usando "Vanilla JavaScript" puro, logrando respuestas instantáneas al hacer clic.
+- Arquitectura CDN: El sitio está preparado como un sitio estático moderno, lo que permite desplegarlo en redes globales ultrarrápidas (como Cloudflare Pages o GitHub Pages), garantizando que la página cargue en milisegundos en cualquier parte del mundo.
+
+2. OPTIMIZACIÓN DE IMÁGENES Y GALERÍAS
+- Formato WebP: Todo el inventario de obras de arte (más de 80 imágenes) fue unificado bajo el formato moderno de Google (`.webp`). Este formato comprime drásticamente el peso de las imágenes sin perder nada de calidad, ideal para un portafolio de arte visual.
+- Nombres Estandarizados: Se realizó una limpieza profunda en los nombres de todos los archivos eliminando espacios, tildes, eñes y caracteres conflictivos. Esto evita enlaces rotos y facilita la carga en cualquier dispositivo.
+- Lazy Loading (Carga Perezosa): Se integró tecnología de carga diferida (`loading="lazy"`) en la galería, de forma que las fotos sólo consumen datos e internet a medida que el visitante se desplaza hacia abajo en la pantalla, acelerando el ingreso inicial a la página.
+
+3. INDEXACIÓN Y POSICIONAMIENTO WEB (SEO EN GOOGLE)
+- Archivos de Rastreo: Se generaron e implementaron los archivos `sitemap.xml` y `robots.txt` con la estructura jerárquica del sitio. Estos actúan como un "mapa" para que los robots de Google exploren e indexen de inmediato cada rincón del sitio web.
+- Etiquetas Meta: Se insertaron títulos, descripciones y palabras clave (`keywords`) únicas para cada página (Inicio, Sobre mí, Obra, Galería, Carrusel, Contacto). Esto permite a los motores de búsqueda clasificar a Inés Torrent bajo términos como "Artista Plástica", "Pintura Contemporánea" y "Arte Argentino".
+
+4. PREVISUALIZACIÓN EN REDES SOCIALES (OPEN GRAPH)
+- Se agregaron etiquetas semánticas del protocolo "Open Graph" (og:title, og:description, og:image) en el encabezado (<head>) de todos los documentos.
+- Gracias a esto, cada vez que se envíe o comparta un enlace del sitio web a través de WhatsApp, Facebook, LinkedIn o Twitter, no aparecerá un simple texto azul, sino una "tarjeta" elegante y profesional con una foto de la obra en miniatura, el título de la artista y un breve texto introductorio.
+
+5. DISEÑO DE INTERFAZ Y EXPERIENCIA DE USUARIO (UI/UX)
+- El diseño web ha sido ajustado bajo estrictos principios minimalistas. Bordes rectos, paleta de colores neutros (para no opacar el color de las pinturas) y amplios espacios de "respiración" para el texto.
+- Se programaron características interactivas inmersivas, incluyendo un carrusel de imágenes a pantalla completa en la página de inicio, una galería offline rápida con su propia ventana de visualización ampliada (Lightbox) y un Carrusel 3D interactivo para exhibir obras destacadas.
+
+---
+Proyecto optimizado por completo para su publicación final.

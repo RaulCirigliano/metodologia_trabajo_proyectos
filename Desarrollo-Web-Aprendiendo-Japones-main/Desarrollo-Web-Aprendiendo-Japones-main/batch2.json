@@ -1,0 +1,57 @@
+{
+  "31": [
+    {"q": "¿Qué significa la forma volitiva (意向形)?", "options": [{"text": "Prohibición", "correct": false}, {"text": "Intención o propuesta (versión informal de ~ましょう)", "correct": true}, {"text": "Capacidad", "correct": false}]},
+    {"q": "Forma volitiva de 書く (Kaku):", "options": [{"text": "書こ", "correct": false}, {"text": "書こう", "correct": true}, {"text": "書かよう", "correct": false}]},
+    {"q": "Forma volitiva de 食べる (Taberu):", "options": [{"text": "食べよう", "correct": true}, {"text": "食べろう", "correct": false}, {"text": "食べおう", "correct": false}]},
+    {"q": "Uso de ~と思っています (to omotteimasu):", "options": [{"text": "Un pensamiento repentino en este instante.", "correct": false}, {"text": "Una intención que se ha estado pensando por algún tiempo.", "correct": true}, {"text": "Un plan oficial de la empresa.", "correct": false}]},
+    {"q": "'Tengo la intención de ir a Japón el próximo año':", "options": [{"text": "来年、日本へ行くつもりです。", "correct": true}, {"text": "来年、日本へ行く予定です。", "correct": false}, {"text": "来年、日本へ行こうと思っています。", "correct": false}]},
+    {"q": "Diferencia entre ~つもりです y ~予定です:", "options": [{"text": "tsumori es plan oficial, yotei es intención personal.", "correct": false}, {"text": "tsumori es intención/convicción personal, yotei es plan oficial o externo.", "correct": true}, {"text": "Ambos significan lo mismo sin diferencias.", "correct": false}]},
+    {"q": "'El viaje está programado para agosto':", "options": [{"text": "旅行は８月のつもりです。", "correct": false}, {"text": "旅行は８月の予定です。", "correct": true}, {"text": "旅行は８月と思っています。", "correct": false}]},
+    {"q": "'Tengo la firme intención de NO fumar':", "options": [{"text": "たばこを吸わないつもりです。", "correct": true}, {"text": "たばこを吸わない予定です。", "correct": false}, {"text": "たばこを吸おうと思っています。", "correct": false}]},
+    {"q": "Forma volitiva de する (Suru):", "options": [{"text": "すろう", "correct": false}, {"text": "しよう", "correct": true}, {"text": "そろう", "correct": false}]}
+  ],
+  "32": [
+    {"q": "¿Para qué se utiliza ~たほうがいいです?", "options": [{"text": "Para expresar deseos.", "correct": false}, {"text": "Para dar un consejo o advertencia directa.", "correct": true}, {"text": "Para pedir permiso.", "correct": false}]},
+    {"q": "'Es mejor que estudies todos los días':", "options": [{"text": "毎日勉強したほうがいいです。", "correct": true}, {"text": "毎日勉強するほうがいいです。", "correct": false}, {"text": "毎日勉強してほうがいいです。", "correct": false}]},
+    {"q": "'Es mejor que NO vayas':", "options": [{"text": "行かないほうがいいです。", "correct": true}, {"text": "行かなかったほうがいいです。", "correct": false}, {"text": "行けないほうがいいです。", "correct": false}]},
+    {"q": "Uso de ~でしょう (deshou) al final de la oración:", "options": [{"text": "Afirmación 100% segura.", "correct": false}, {"text": "Predicción o conjetura (probable).", "correct": true}, {"text": "Pregunta educada.", "correct": false}]},
+    {"q": "Uso de ~かもしれません (kamoshiremasen):", "options": [{"text": "Imposibilidad.", "correct": false}, {"text": "Predicción casi segura (80%).", "correct": false}, {"text": "Posibilidad incierta (50% - 'quizás').", "correct": true}]},
+    {"q": "'Probablemente mañana llueva' (~80%):", "options": [{"text": "明日は雨が降るでしょう。", "correct": true}, {"text": "明日は雨が降るかもしれません。", "correct": false}, {"text": "明日は雨が降るほうがいいです。", "correct": false}]},
+    {"q": "'Quizás él esté enfermo' (~50%):", "options": [{"text": "彼は病気でしょう。", "correct": false}, {"text": "彼は病気かもしれません。", "correct": true}, {"text": "彼は病気たほうがいいです。", "correct": false}]},
+    {"q": "Adjetivos-na con ~かもしれません (ej. Quizás es tranquilo):", "options": [{"text": "静かだかもしれません。", "correct": false}, {"text": "静かかもしれません。", "correct": true}, {"text": "静かなかもしれません。", "correct": false}]},
+    {"q": "¿Qué conjugación va antes de ~たほうがいいです para consejos afirmativos?", "options": [{"text": "Forma Diccionario (V-ru)", "correct": false}, {"text": "Forma Ta (V-ta)", "correct": true}, {"text": "Forma Nai (V-nai)", "correct": false}]}
+  ],
+  "33": [
+    {"q": "¿Cuándo se suele usar la forma imperativa en Japón?", "options": [{"text": "En el trabajo con jefes.", "correct": false}, {"text": "En emergencias, carteles, hombres con amigos.", "correct": true}, {"text": "Con los clientes.", "correct": false}]},
+    {"q": "Forma imperativa de 頑張る (Ganbaru):", "options": [{"text": "頑張れ！", "correct": true}, {"text": "頑張ろ！", "correct": false}, {"text": "頑張るな！", "correct": false}]},
+    {"q": "Forma prohibitiva de 触る (Sawaru - tocar):", "options": [{"text": "触るな！", "correct": true}, {"text": "触れない！", "correct": false}, {"text": "触れな！", "correct": false}]},
+    {"q": "¿Cómo se pregunta el significado de algo?", "options": [{"text": "どういう読み方ですか。", "correct": false}, {"text": "どういう意味ですか。", "correct": true}, {"text": "どういう言い方ですか。", "correct": false}]},
+    {"q": "'Significa prohibido entrar':", "options": [{"text": "入るなという意味です。", "correct": true}, {"text": "入るなという読みです。", "correct": false}, {"text": "入るなと言っていました。", "correct": false}]},
+    {"q": "Uso de ~と書いてあります:", "options": [{"text": "Indicar que alguien va a escribir algo.", "correct": false}, {"text": "Indicar qué está escrito en un letrero/papel.", "correct": true}, {"text": "Indicar cómo se escribe un kanji.", "correct": false}]},
+    {"q": "Uso de ~と言っていました:", "options": [{"text": "Transmitir un mensaje o lo que otra persona dijo (Reported speech).", "correct": true}, {"text": "Dar una orden indirecta.", "correct": false}, {"text": "Pedir que repitan lo dicho.", "correct": false}]},
+    {"q": "'Tanaka dijo que llegaría tarde':", "options": [{"text": "田中さんは遅れると言っていました。", "correct": true}, {"text": "田中さんは遅れるという意味です。", "correct": false}, {"text": "田中さんは遅れると書いてあります。", "correct": false}]},
+    {"q": "Forma imperativa de する y くる:", "options": [{"text": "しろ / こい", "correct": true}, {"text": "すれ / くれ", "correct": false}, {"text": "するな / くるな", "correct": false}]}
+  ],
+  "34": [
+    {"q": "Uso de ~とおりに:", "options": [{"text": "Hacer algo después de otra cosa.", "correct": false}, {"text": "Hacer algo exactamente como / siguiendo un modelo.", "correct": true}, {"text": "Hacer algo sin otra acción.", "correct": false}]},
+    {"q": "'Házlo tal y como yo lo hice':", "options": [{"text": "私がやったとおりに、やってください。", "correct": true}, {"text": "私がやるとおりに、やってください。", "correct": false}, {"text": "私がやるあとで、やってください。", "correct": false}]},
+    {"q": "Sustantivos con とおりに (Ej. Como dice el manual):", "options": [{"text": "説明書のとおりに、", "correct": true}, {"text": "説明書なとおりに、", "correct": false}, {"text": "説明書とおりに、", "correct": false}]},
+    {"q": "Uso de ~あとで:", "options": [{"text": "Antes de hacer algo.", "correct": false}, {"text": "Después de hacer algo.", "correct": true}, {"text": "Al mismo tiempo.", "correct": false}]},
+    {"q": "'Después de comer, me lavo los dientes':", "options": [{"text": "ご飯を食べるあとで、", "correct": false}, {"text": "ご飯を食べたあとで、", "correct": true}, {"text": "ご飯を食べてあとで、", "correct": false}]},
+    {"q": "Diferencia entre ~てから y ~あとで:", "options": [{"text": "~てから implica una secuencia inmediata/condición; ~あとで solo un orden temporal.", "correct": true}, {"text": "Son exactamente iguales.", "correct": false}, {"text": "~あとで es para el futuro, ~てから para el pasado.", "correct": false}]},
+    {"q": "Uso de ~ないで (Ej. 砂糖を入れないで):", "options": [{"text": "Prohibición (No pongas).", "correct": false}, {"text": "Estado acompañante negativo (Sin poner azúcar).", "correct": true}, {"text": "Razón (Porque no puse).", "correct": false}]},
+    {"q": "'Salí de casa sin llevar el paraguas':", "options": [{"text": "傘を持たなくて、出かけました。", "correct": false}, {"text": "傘を持たないで、出かけました。", "correct": true}, {"text": "傘を持たなかったで、出かけました。", "correct": false}]},
+    {"q": "'El domingo no fui a ningún lado y descansé' (Elegir una acción entre dos):", "options": [{"text": "どこも行かなくて、休みました。", "correct": false}, {"text": "どこも行かないで、休みました。", "correct": true}, {"text": "どこも行かないあとで、休みました。", "correct": false}]}
+  ],
+  "35": [
+    {"q": "¿Para qué se usa la forma condicional (~ば)?", "options": [{"text": "Para expresar deseos.", "correct": false}, {"text": "Para condiciones necesarias, refranes o instrucciones mecánicas.", "correct": true}, {"text": "Para dar razones.", "correct": false}]},
+    {"q": "Forma condicional de 押す (Osu - empujar):", "options": [{"text": "押せば", "correct": true}, {"text": "押さば", "correct": false}, {"text": "押してば", "correct": false}]},
+    {"q": "Forma condicional de 食べる (Taberu):", "options": [{"text": "食べれば", "correct": true}, {"text": "食べば", "correct": false}, {"text": "食べろば", "correct": false}]},
+    {"q": "Forma condicional de 安い (Yasui - barato):", "options": [{"text": "安ければ", "correct": true}, {"text": "安いば", "correct": false}, {"text": "安くれば", "correct": false}]},
+    {"q": "'Si hace buen tiempo, iré a pasear':", "options": [{"text": "天気がいいなら、", "correct": false}, {"text": "天気がよければ、", "correct": true}, {"text": "天気がいいば、", "correct": false}]},
+    {"q": "Uso de ~なら (Sustantivos/Adj-Na):", "options": [{"text": "Para condiciones universales absolutas.", "correct": false}, {"text": "Para tomar un tema que otra persona acaba de mencionar ('Si hablamos de...').", "correct": true}, {"text": "Para prohibir.", "correct": false}]},
+    {"q": "Persona A: 'Quiero ir a unas aguas termales'. Persona B: 'Si es aguas termales, Hakone es bueno'.", "options": [{"text": "温泉なら、箱根がいいですよ。", "correct": true}, {"text": "温泉なれば、箱根がいいですよ。", "correct": false}, {"text": "温泉と、箱根がいいですよ。", "correct": false}]},
+    {"q": "¿Qué interrogativo se usa para pedir consejo (Ej. ¿Qué debería hacer?)", "options": [{"text": "どうしたらいいですか。", "correct": false}, {"text": "どうすればいいですか。", "correct": true}, {"text": "Ambas son correctas.", "correct": true}]},
+    {"q": "Forma condicional negativa de 行く (Iku):", "options": [{"text": "行かなければ", "correct": true}, {"text": "行かなけば", "correct": false}, {"text": "行けないば", "correct": false}]}
+  ]
+}

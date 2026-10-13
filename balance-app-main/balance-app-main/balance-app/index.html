@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance y Cuotas</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js & Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- PDF.js para leer resúmenes localmente -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-wallet"></i>
+                <span>BalanceApp</span>
+            </div>
+            <ul class="nav-links">
+                <li id="nav-dashboard" class="active"><i class="fa-solid fa-chart-pie"></i> <span>Panel</span></li>
+                <li id="nav-compare"><i class="fa-solid fa-chart-line"></i> <span>Comparativa</span></li>
+                <li id="nav-workshop"><i class="fa-solid fa-hammer"></i> <span>Taller</span></li>
+                <li id="nav-archive"><i class="fa-solid fa-box-archive"></i> <span>Archivo</span></li>
+                <li id="nav-stats"><i class="fa-solid fa-chart-bar"></i> <span>Estadísticas</span></li>
+                <li id="nav-history"><i class="fa-solid fa-list"></i> <span>Historial</span></li>
+                <li id="nav-cash"><i class="fa-solid fa-money-bill-transfer"></i> <span>Ajuste</span></li>
+                <li id="nav-settings"><i class="fa-solid fa-gear"></i> <span>Config</span></li>
+                <li id="nav-help"><i class="fa-solid fa-circle-question"></i> <span>Ayuda</span></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-info">
+                    <div class="mobile-logo" style="display: none; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--accent-primary); font-weight: 800; font-size: 1.2rem;">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>BalanceApp</span>
+                    </div>
+                    <h1 id="header-title">Balance Financiero</h1>
+                    <p id="header-subtitle">Gestiona tus ingresos, gastos y cuotas</p>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button id="btn-add-income" class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fa-solid fa-plus"></i> Nuevo Ingreso
+                    </button>
+                    <button id="btn-add-expense" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> Nuevo Gasto
+                    </button>
+                </div>
+            </header>
+
+            <div id="view-dashboard">
+
+            <!-- Dashboard Summary -->
+            <section class="dashboard-summary">
+                <div class="summary-card glassmorphism">
+                    <div class="card-icon"><i class="fa-solid fa-arrow-down" style="color: var(--success);"></i></div>
+                    <div class="card-details">
+                        <h3>Total Ingresos</h3>
+                    <p class="amount" id="total-incomes" style="color: var(--success); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Total Ingresos">$0.00</p>
+                    </div>
+                </div>
+                <div class="summary-card glassmorphism">
+                    <div class="card-icon"><i class="fa-solid fa-arrow-up" style="color: var(--danger);"></i></div>
+                    <div class="card-details">
+                        <h3>Total Egresos</h3>
+                    <p class="amount" id="total-expenses" style="color: var(--danger); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Total Egresos">$0.00</p>
+                    </div>
+                </div>
+                <div class="summary-card glassmorphism" id="balance-card">
+                    <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="card-details">
+                        <h3>Saldo del Mes</h3>
+                    <p class="amount" id="total-balance" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Saldo del Mes">$0.00</p>
+                    </div>
+                </div>
+                <div class="summary-card glassmorphism" id="workshop-status-card" style="cursor: pointer;">
+                    <div class="card-icon"><i class="fa-solid fa-hammer" id="workshop-status-icon"></i></div>
+                    <div class="card-details">
+                        <h3 id="workshop-status-label">Taller: Activo</h3>
+                        <p class="amount" id="workshop-status-time" style="font-size: 1.1rem; color: var(--accent-primary);">09:00 - 18:00</p>
+                    </div>
+                </div>
+                <div class="summary-card glassmorphism">
+                    <div class="card-icon" id="btn-open-calendar" style="cursor: pointer;" title="Seleccionar mes directamente">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div class="card-details">
+                        <h3>Mes de Balance</h3>
+                        <div class="month-selector">
+                            <button id="prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                            <span id="current-month-display" style="cursor: pointer;" title="Seleccionar mes directamente">Mayo 2026</span>
+                            <button id="next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                            <input type="month" id="month-picker" style="position: absolute; top: 0; left: 0; opacity: 0; width: 1px; height: 1px; padding: 0; border: none;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Income Section -->
+            <section class="expense-section glassmorphism" style="margin-bottom: 2rem;">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <h2>Ingresos del Mes</h2>
+                    <div class="filters-bar" style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                        <select id="filter-income-type" class="filter-select">
+                            <option value="all">Todos los Tipos</option>
+                            <option value="project">Ingresos de Proyectos</option>
+                            <option value="recurring">Ingresos Fijos</option>
+                            <option value="one">Ingresos Únicos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="income-table">
+                        <thead>
+                            <tr>
+                                <th>Origen</th>
+                                <th>Descripción</th>
+                                <th>Titular</th>
+                                <th>Fijo/Recurrente</th>
+                                <th>Monto</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="income-list">
+                            <!-- Rows will be injected here via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Expense List -->
+            <section class="expense-section glassmorphism">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <h2>Gastos del Mes Seleccionado</h2>
+                    <div class="filters-bar" style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                        <select id="filter-titular" class="filter-select">
+                            <option value="all">Todos los Titulares</option>
+                        </select>
+                        <select id="filter-card" class="filter-select">
+                            <!-- Renderizado dinámicamente -->
+                        </select>
+                        <select id="filter-type" class="filter-select">
+                            <option value="all">Todos los Tipos</option>
+                            <option value="one">Un Pago</option>
+                            <option value="installments">Cuotas</option>
+                            <option value="tax">Mantenimiento / Impuestos</option>
+                            <option value="project">Gastos de Proyectos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="expense-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Tarjeta/Medio</th>
+                                <th>Titular</th>
+                                <th>Cuota</th>
+                                <th>Monto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list">
+                            <!-- Rows will be injected here via JS -->
+                        </tbody>
+                        <tfoot id="expense-table-footer">
+                            <tr style="background: rgba(0,0,0,0.2);">
+                                <td colspan="5" style="text-align: right; font-weight: 800;">Total Mostrado en Tabla:</td>
+                                <td id="table-footer-total" style="font-weight: 800; font-size: 1.1rem; color: var(--accent-primary);">$0.00</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div id="empty-state" class="empty-state hidden">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>No hay gastos registrados para este mes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="expense-section glassmorphism" style="margin-top: 2rem;">
+                <div class="section-header">
+                    <h2>Resumen y Balance General</h2>
+                </div>
+                <div style="position: relative; height: 450px; width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="expenses-chart"></canvas>
+                </div>
+            </section>
+
+            </div>
+
+            <!-- Compare View -->
+            <div id="view-compare" class="hidden">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2>Análisis Comparativo</h2>
+                    <div class="month-selector glassmorphism" style="padding: 0.5rem 1rem; border-radius: 12px;">
+                        <button id="compare-prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="compare-month-display" style="font-weight: 700; min-width: 150px; text-align: center;">Mayo 2026</span>
+                        <button id="compare-next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards" style="margin-bottom: 2rem;">
+                    <div class="card glassmorphism">
+                        <h3>Mes Más Caro</h3>
+                        <p class="amount" id="compare-max-month" style="color: var(--danger);">-</p>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);" id="compare-max-amount">$0.00</p>
+                    </div>
+                    <div class="card glassmorphism">
+                        <h3>Tendencia Reciente</h3>
+                        <p class="amount" id="compare-trend-past" style="color: var(--success);">-</p>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);" id="compare-trend-past-desc">vs Saldo Mes Anterior</p>
+                    </div>
+                    <div class="card glassmorphism">
+                        <h3>Proyección Futura</h3>
+                        <p class="amount" id="compare-trend-future" style="color: var(--danger);">-</p>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);" id="compare-trend-future-desc">Total Gastos Comprometidos</p>
+                    </div>
+                </div>
+
+                <!-- Compare Chart Section -->
+                <section class="expense-section glassmorphism">
+                    <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>Evolución de Gastos por Mes</h2>
+                        <div class="chart-navigation">
+                            <button id="chart-prev" class="btn-nav" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                            <button id="chart-next" class="btn-nav" title="Siguiente"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="chart-scroll-wrapper">
+                        <div class="chart-container" id="compare-chart-container">
+                            <canvas id="compare-bar-chart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Balance Calculator Section -->
+                <section class="expense-section glassmorphism" style="margin-top: 2rem;">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-calculator" style="color: var(--accent-primary);"></i> Calculadora de Saldos Mensuales</h2>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Selecciona los meses que deseas sumar para calcular un saldo acumulado específico.</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                        <button id="btn-compare-select-all" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-check-double"></i> Seleccionar Todos</button>
+                        <button id="btn-compare-clear-all" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-eraser"></i> Limpiar</button>
+                    </div>
+                    <div id="compare-balances-container" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                        <!-- Month chips will be injected here -->
+                    </div>
+                    <div class="glassmorphism" style="padding: 1.5rem; text-align: center; border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 1rem;">Suma de Saldos Seleccionados</h3>
+                        <p id="compare-selected-sum" style="font-weight: 800; font-size: 1.8rem; color: #3b82f6;">$0.00</p>
+                    </div>
+                </section>
+
+                <!-- Simulator Section -->
+                <section class="expense-section glassmorphism" style="margin-top: 2rem;">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> Simulador de Proyectos</h2>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Añade uno o varios proyectos para evaluar su impacto combinado en tus finanzas.</p>
+                    </div>
+                    
+                    <!-- Lista de proyectos en simulación -->
+                    <div id="sim-projects-list" style="margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                    </div>
+
+                    <div class="glassmorphism" style="padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px; margin-bottom: 1rem;">
+                        <h3 style="margin-bottom: 1rem; font-size: 1rem;"><i class="fa-solid fa-plus"></i> Agregar Proyecto</h3>
+                        <div class="form-group">
+                            <label>Seleccionar del Taller (Opcional)</label>
+                            <select id="sim-project-select">
+                                <option value="">-- Crear Nuevo / Manual --</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>Nombre del Proyecto</label>
+                                <input type="text" id="sim-name" placeholder="Ej. Nuevo Horno">
+                            </div>
+                            <div class="form-group half">
+                                <label>Costo Total ($)</label>
+                                <input type="number" id="sim-expense" placeholder="Ej. 150000" min="0" step="0.01">
+                            </div>
+                            <div class="form-group half">
+                                <label>Cuotas</label>
+                                <input type="number" id="sim-installments" placeholder="1" min="1" value="1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Mes inicio pago</label>
+                                <input type="month" id="sim-expense-start">
+                            </div>
+                            <div class="form-group half">
+                                <label>Mes inicio ingresos</label>
+                                <input type="month" id="sim-income-start">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Ingreso Mensual ($)</label>
+                                <input type="number" id="sim-income" placeholder="Ej. 50000" min="0" step="0.01">
+                            </div>
+                            <div class="form-group half">
+                                <label>Duración (Meses)</label>
+                                <input type="number" id="sim-project-months" placeholder="12" min="1" max="60" value="12">
+                            </div>
+                        </div>
+                        <button type="button" id="btn-add-sim-project" class="btn-secondary" style="width: 100%; justify-content: center; border-color: var(--success); color: var(--success);">
+                            <i class="fa-solid fa-plus"></i> Añadir a la Simulación
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Horizonte del Gráfico (Meses a Proyectar)</label>
+                        <input type="number" id="sim-months" placeholder="12" min="1" max="60" value="12">
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button type="button" id="btn-clear-sim" class="btn-secondary" style="flex: 1; justify-content: center; padding: 1rem; font-size: 1.1rem;">
+                            <i class="fa-solid fa-eraser"></i> Limpiar
+                        </button>
+                        <button type="button" id="btn-simulate" class="btn-primary" style="flex: 2; justify-content: center; padding: 1rem; font-size: 1.1rem;">
+                            Calcular Proyección
+                        </button>
+                    </div>
+
+                    <div id="sim-results" class="hidden" style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                        <div class="glassmorphism" style="padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; border: 1px solid rgba(129, 140, 248, 0.4); background: rgba(129, 140, 248, 0.05); border-radius: 12px;">
+                            <h3 style="margin-bottom: 0.8rem; color: var(--accent-primary);">Análisis de Impacto</h3>
+                            <p id="sim-summary-text" style="font-weight: 500; font-size: 1.05rem;"></p>
+                        </div>
+                        <button type="button" id="btn-save-sim-project" class="btn-secondary" style="width: 100%; justify-content: center; padding: 1rem; font-size: 1rem; margin-bottom: 1.5rem; border-color: var(--accent-primary); color: var(--accent-primary);">
+                            <i class="fa-solid fa-bookmark"></i> Guardar Proyecto en Taller
+                        </button>
+                        <div class="chart-scroll-wrapper" style="overflow-x: auto; overflow-y: hidden; padding-bottom: 10px;">
+                            <div id="simulator-chart-container" style="position: relative; height: 350px; min-width: 100%;">
+                                <canvas id="simulator-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Workshop View -->
+            <div id="view-workshop" class="hidden">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2>Taller y Proyectos</h2>
+                        <p style="color: var(--text-secondary);">Control de piezas, procesos y horarios</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <div id="workshop-status-widget" class="workshop-status-mini glassmorphism" style="cursor: pointer; padding: 0.5rem 1rem; border-radius: 12px; display: flex; align-items: center; gap: 0.8rem; border: 1px solid var(--glass-border);">
+                            <i class="fa-solid fa-hammer" id="workshop-widget-icon"></i>
+                            <div>
+                                <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; opacity: 0.8;" id="workshop-widget-label">Taller: Activo</div>
+                                <div style="font-size: 0.9rem; font-weight: 600;" id="workshop-widget-time">09:00 - 18:00</div>
+                            </div>
+                        </div>
+                        <button id="btn-add-project" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Nuevo Proyecto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unassigned Expenses Section -->
+                <div id="workshop-unassigned-expenses" class="glassmorphism hidden" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px;">
+                    <h3 style="margin-bottom: 1rem; color: #f59e0b; display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-boxes-stacked"></i> Inventario de Materiales / Gastos Compartidos</span>
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Asigna estos materiales a tus proyectos. Al hacerlo, se mantendrán aquí para usarlos de nuevo. Cuando un material se agote, quítalo de la lista (seguirá sumando a los proyectos asignados).</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border);">
+                        <div class="form-group" style="margin: 0;">
+                            <label style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">1. Selecciona los materiales o gastos (usa la tilde para elegir varios):</label>
+                            <div id="unassigned-expense-container" style="max-height: 160px; overflow-y: auto; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem;">
+                                <!-- Checkboxes injected via JS -->
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin: 0;">
+                            <label style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">2. Selecciona los proyectos (usa la tilde para dividir el gasto):</label>
+                            <div id="unassigned-projects-container" style="max-height: 160px; overflow-y: auto; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem;">
+                                <!-- Checkboxes injected via JS -->
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.8rem; width: 100%; flex-wrap: wrap;">
+                            <button class="btn-secondary" onclick="dismissPendingExpense()" style="padding: 0.8rem; justify-content: center; font-size: 0.95rem; flex: 1; border-color: var(--text-secondary); color: var(--text-secondary);">
+                                <i class="fa-solid fa-box-archive"></i> Archivar / Quitar de lista
+                            </button>
+                            <button class="btn-primary" onclick="assignExpense()" style="padding: 0.8rem; justify-content: center; font-size: 0.95rem; flex: 1;">
+                                <i class="fa-solid fa-check"></i> Asignar a Proyectos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Balance Calculator Section -->
+                <div id="workshop-balance-calculator" class="glassmorphism hidden" style="margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--glass-border); border-radius: 12px;">
+                    <h3 style="margin-bottom: 1rem; color: var(--accent-primary); display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-calculator"></i> Calculadora de Ingresos Estimados</span>
+                        <button id="btn-refresh-workshop-calculator" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-arrows-rotate"></i> Actualizar</button>
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Selecciona los proyectos y meses para sumar sus ingresos estimados independientes.</p>
+                    
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                        <button id="btn-workshop-select-all" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-check-double"></i> Seleccionar Todos</button>
+                        <button id="btn-workshop-clear-all" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-eraser"></i> Limpiar</button>
+                    </div>
+                    <div id="workshop-balances-container" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                        <!-- Month chips will be injected here -->
+                    </div>
+                    <div class="glassmorphism" style="padding: 1.5rem; text-align: center; border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 1rem;">Ingresos Estimados Seleccionados</h3>
+                        <p id="workshop-selected-sum" style="font-weight: 800; font-size: 1.8rem; color: #10b981;">$0.00</p>
+                        <p id="workshop-selected-projects-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;"></p>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projects-grid" class="projects-grid">
+                    <!-- Project cards will be injected here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="workshop-empty-state" class="empty-state hidden">
+                    <i class="fa-solid fa-hammer"></i>
+                    <p>No hay proyectos registrados. ¡Comienza uno nuevo!</p>
+                </div>
+            </div>
+
+            <!-- Archive View -->
+            <div id="view-archive" class="hidden">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2>Archivo General</h2>
+                        <p style="color: var(--text-secondary);">Consulta el historial de proyectos e ingresos finalizados</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 1rem; color: var(--accent-primary);"><i class="fa-solid fa-hammer"></i> Proyectos Archivados</h3>
+                <!-- Archived Projects Grid -->
+                <div id="archive-grid" class="projects-grid">
+                    <!-- Archived project cards will be injected here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="archive-empty-state" class="empty-state hidden">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <p>No hay proyectos archivados aún.</p>
+                </div>
+
+                <h3 style="margin-top: 3rem; margin-bottom: 1rem; color: var(--success);"><i class="fa-solid fa-hand-holding-dollar"></i> Ingresos Archivados</h3>
+                <div class="table-container" id="archive-incomes-container">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--glass-border);">
+                                <th style="padding: 0.8rem;">Origen / Descripción</th>
+                                <th style="padding: 0.8rem;">Monto Mensual</th>
+                                <th style="padding: 0.8rem;">Período</th>
+                                <th style="padding: 0.8rem;">Total Acumulado</th>
+                                <th style="padding: 0.8rem;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="archive-incomes-list">
+                        </tbody>
+                    </table>
+                </div>
+                <div id="archive-incomes-empty-state" class="empty-state hidden">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <p>No hay ingresos archivados aún.</p>
+                </div>
+            </div>
+
+            <!-- Stats View -->
+            <div id="view-stats" class="hidden">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2>Estadísticas y Rendimiento</h2>
+                        <p style="color: var(--text-secondary);">Analiza tu rendimiento general o filtra por proyectos</p>
+                    </div>
+                    <div class="form-group" style="margin: 0; min-width: 280px; flex: 1;">
+                        <small style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Filtros de Categorías y Proyectos</small>
+                        <div id="stats-project-list" style="height: 180px; overflow-y: auto; background-color: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.8rem;">
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; color: #f8fafc; font-weight: bold; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.05); margin-bottom: 0.5rem;">
+                                <span>General (Todo el Historial)</span><input type="checkbox" value="all" class="stats-project-cb" checked style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: #10b981; padding: 0.3rem 0.5rem; margin-top: 0.5rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05);">Ingresos</div>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Escuela</span><input type="checkbox" value="inc_Escuela" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Taller</span><input type="checkbox" value="inc_Taller" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Otros</span><input type="checkbox" value="inc_Otros" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: #ef4444; padding: 0.3rem 0.5rem; margin-top: 0.5rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05);">Gastos</div>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Tarjetas / MercadoPago</span><input type="checkbox" value="exp_cards" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Efectivo / Débito</span><input type="checkbox" value="exp_cash" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.5rem; color: #e2e8f0; cursor: pointer; border-radius: 4px;">
+                                <span>Impuestos y Servicios</span><input type="checkbox" value="exp_tax" class="stats-project-cb" style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: #3b82f6; padding: 0.3rem 0.5rem; margin-top: 0.5rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05);">Proyectos Activos</div>
+                            <div id="stats-optgroup-active"></div>
+                            
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; padding: 0.3rem 0.5rem; margin-top: 0.5rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05);">Proyectos Archivados</div>
+                            <div id="stats-optgroup-archived"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin: 0; min-width: 200px; flex: 1;">
+                        <small style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Filtrar por Meses (Opcional)</small>
+                        <div id="stats-month-list" style="height: 180px; overflow-y: auto; background-color: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.8rem;">
+                            <label style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; color: #f8fafc; font-weight: bold; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.05); margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <span>Todos los Meses</span><input type="checkbox" value="all" class="stats-month-cb" checked style="width: 16px; height: 16px; cursor: pointer;">
+                            </label>
+                            <div id="stats-months-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-summary" style="margin-bottom: 2rem;">
+                    <div class="summary-card glassmorphism">
+                        <div class="card-icon"><i class="fa-solid fa-arrow-down" style="color: var(--success);"></i></div>
+                        <div class="card-details">
+                            <h3>Ingresos Totales</h3>
+                    <p class="amount" id="stats-total-incomes" style="color: var(--success); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Ingresos Totales">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="summary-card glassmorphism">
+                        <div class="card-icon"><i class="fa-solid fa-arrow-up" style="color: var(--danger);"></i></div>
+                        <div class="card-details">
+                            <h3>Gastos Totales</h3>
+                    <p class="amount" id="stats-total-expenses" style="color: var(--danger); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Gastos Totales">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="summary-card glassmorphism" id="stats-balance-card">
+                        <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <div class="card-details">
+                            <h3>Saldo Neto</h3>
+                    <p class="amount" id="stats-total-balance" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: clamp(1.2rem, 3.5vw, 1.8rem);" title="Saldo Neto">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <section class="expense-section glassmorphism" style="margin: 0;">
+                        <div class="section-header">
+                            <h3 style="color: var(--success);"><i class="fa-solid fa-arrow-down"></i> Detalle de Ingresos</h3>
+                        </div>
+                        <div style="max-height: 400px; overflow-y: auto; border-radius: 8px; border: 1px solid var(--glass-border);">
+                            <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                                <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <tr>
+                                        <th style="padding: 0.8rem; text-align: left;">Fecha</th>
+                                        <th style="padding: 0.8rem; text-align: left;">Descripción</th>
+                                        <th style="padding: 0.8rem; text-align: right;">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stats-incomes-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <section class="expense-section glassmorphism" style="margin: 0;">
+                        <div class="section-header">
+                            <h3 style="color: var(--danger);"><i class="fa-solid fa-arrow-up"></i> Detalle de Gastos</h3>
+                        </div>
+                        <div style="max-height: 400px; overflow-y: auto; border-radius: 8px; border: 1px solid var(--glass-border);">
+                            <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                                <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <tr>
+                                        <th style="padding: 0.8rem; text-align: left;">Fecha</th>
+                                        <th style="padding: 0.8rem; text-align: left;">Descripción</th>
+                                        <th style="padding: 0.8rem; text-align: right;">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stats-expenses-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- History View -->
+            <div id="view-history" class="hidden">
+                <section class="expense-section glassmorphism">
+                    <div class="section-header">
+                        <h2>Todos los Gastos Registrados</h2>
+                    </div>
+                    <div class="table-container">
+                        <table id="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha de Compra</th>
+                                    <th>Descripción</th>
+                                    <th>Tarjeta/Medio</th>
+                                    <th>Titular</th>
+                                    <th>Mes Asignado</th>
+                                    <th>Monto</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-list">
+                                <!-- History Rows will be injected here via JS -->
+                            </tbody>
+                        </table>
+                        <div id="history-empty-state" class="empty-state hidden">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No hay historial de gastos.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+
+            <!-- Cash Adjustment View -->
+            <div id="view-cash" class="hidden">
+                <section class="expense-section glassmorphism" style="max-width: 600px; margin: 0 auto;">
+                    <div class="section-header">
+                        <h2>Cuadrar Efectivo</h2>
+                    </div>
+                    <div class="cash-adjustment-container" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <p style="color: var(--text-secondary); text-align: center;">Compara tu saldo teórico con el dinero real que tienes para detectar gastos no registrados.</p>
+                        
+                        <div class="cash-card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--glass-border);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                <span style="color: var(--text-secondary);">Saldo Teórico (App)</span>
+                                <span id="cash-theoretical-balance" style="font-weight: 800; font-size: 1.2rem;">$0.00</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <label for="cash-real-input" style="font-size: 0.9rem; color: var(--accent-primary); font-weight: 600;">Efectivo Real en Mano</label>
+                                <div style="position: relative;">
+                                    <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-weight: bold; color: var(--text-primary);">$</span>
+                                    <input type="number" id="cash-real-input" placeholder="0.00" step="0.01" style="width: 100%; padding: 0.8rem 1rem 0.8rem 2rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 8px; color: white; font-size: 1.2rem; font-weight: 600;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="cash-diff-container" class="cash-card hidden" style="background: rgba(239, 68, 68, 0.1); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.3); text-align: center;">
+                            <span style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Gasto no registrado (Diferencia)</span>
+                            <span id="cash-difference-amount" style="font-weight: 800; font-size: 1.8rem; color: var(--danger);">$0.00</span>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Se creará un gasto automático por este monto para cuadrar tus cuentas.</p>
+                        </div>
+
+                        <div class="cash-actions" style="display: flex; gap: 1rem;">
+                            <button id="btn-clear-cash" class="btn-secondary" style="flex: 1;">
+                                <i class="fa-solid fa-eraser"></i> Limpiar
+                            </button>
+                            <button id="btn-apply-cash-adjustment" class="btn-primary" style="flex: 2; padding: 1rem; font-size: 1.1rem; justify-content: center;" disabled>
+                                <i class="fa-solid fa-check-double"></i> Aplicar Ajuste
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Settings View -->
+            <div id="view-settings" class="hidden">
+                <section class="expense-section glassmorphism">
+                    <div class="section-header">
+                        <h2>Configuración</h2>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Opciones de borrado selectivo:</p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button id="btn-clear-cards" class="btn-primary" style="background: linear-gradient(135deg, #ef4444, #b91c1c); flex: 1;">
+                                <i class="fa-solid fa-credit-card"></i> Borrar Gastos Tarjetas
+                            </button>
+                            <button id="btn-clear-cash-expenses" class="btn-primary" style="background: linear-gradient(135deg, #dc2626, #991b1b); flex: 1;">
+                                <i class="fa-solid fa-money-bill"></i> Borrar Gastos Efectivo
+                            </button>
+                            <button id="btn-clear-incomes" class="btn-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); flex: 1;">
+                                <i class="fa-solid fa-hand-holding-dollar"></i> Borrar Ingresos
+                            </button>
+                            <button id="btn-clear-projects" class="btn-primary" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); flex: 1;">
+                                <i class="fa-solid fa-hammer"></i> Borrar Proyectos
+                            </button>
+                            <button id="btn-clear-all" class="btn-primary" style="background: linear-gradient(135deg, #475569, #1e293b); flex: 1; border: 1px solid var(--danger);">
+                                <i class="fa-solid fa-triangle-exclamation" style="color: var(--danger);"></i> Borrar TODO
+                            </button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--glass-border);">
+                        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Importar datos externos:</p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                            <div style="flex: 1; min-width: 200px; display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border);">
+                                <i class="fa-solid fa-dollar-sign" style="color: var(--success); font-size: 1.2rem; margin-left: 0.5rem;"></i>
+                                <div style="display: flex; flex-direction: column; flex: 1;">
+                                    <label for="usd-exchange-rate" style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.2rem;">Cotización Dólar (USD)</label>
+                                    <input type="number" id="usd-exchange-rate" placeholder="Ej. 1050.50" step="0.01" style="background: transparent; border: none; color: white; font-weight: bold; font-size: 1rem; width: 100%; outline: none;">
+                                </div>
+                            </div>
+                        </div>
+                <input type="file" id="import-pdf-file" accept=".pdf" multiple style="display: none;">
+                        <input type="file" id="import-backup-file" accept=".json" style="display: none;">
+                <input type="file" id="import-projects-file" accept=".json" style="display: none;">
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button id="btn-import-pdf" class="btn-primary" style="flex: 1; background: linear-gradient(135deg, #a855f7, #7e22ce);">
+                                <i class="fa-solid fa-file-pdf"></i> Procesar PDF (Visa/Master)
+                            </button>
+                            <button id="btn-import-backup-cards" class="btn-secondary" style="flex: 1; color: #0ea5e9; border-color: #0ea5e9;">
+                                <i class="fa-solid fa-credit-card"></i> Importar Backup Tarjetas
+                            </button>
+                            <button id="btn-import-backup-cash" class="btn-secondary" style="flex: 1; color: #dc2626; border-color: #dc2626;">
+                                <i class="fa-solid fa-file-import"></i> Importar Efectivo
+                            </button>
+                            <button id="btn-import-full-backup" class="btn-secondary" style="flex: 1; color: var(--success); border-color: var(--success);">
+                                <i class="fa-solid fa-file-zipper"></i> Importar Backup Completo
+                            </button>
+                    <button id="btn-import-projects" class="btn-secondary" style="flex: 1; color: #a855f7; border-color: #a855f7;">
+                        <i class="fa-solid fa-hammer"></i> Importar Proyectos
+                    </button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--glass-border);">
+                        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Descargar copias de seguridad por separado:</p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button id="btn-export-cards" class="btn-secondary" style="color: #0ea5e9; border-color: #0ea5e9; flex: 1;">
+                                <i class="fa-solid fa-download"></i> Solo Tarjetas
+                            </button>
+                            <button id="btn-export-cash" class="btn-secondary" style="color: #dc2626; border-color: #dc2626; flex: 1;">
+                                <i class="fa-solid fa-download"></i> Backup de Efectivo
+                            </button>
+                            <button id="btn-export-backup" class="btn-secondary" style="color: var(--success); border-color: var(--success); flex: 1;">
+                                <i class="fa-solid fa-file-zipper"></i> Backup Completo
+                            </button>
+                    <button id="btn-export-projects" class="btn-secondary" style="color: #a855f7; border-color: #a855f7; flex: 1;">
+                        <i class="fa-solid fa-hammer"></i> Proyectos e Inventario
+                    </button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--glass-border);">
+                        <h3 style="margin-bottom: 1rem;">Gestión de Usuarios</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Crea usuarios para asignar ingresos/gastos y vincula sus nombres exactos (alias) del resumen de tarjeta.</p>
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <input type="text" id="new-user-name" placeholder="Nombre del usuario (Ej. Carlos)" style="flex: 1; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; font-size: 1rem;">
+                            <button id="btn-add-user" class="btn-primary" style="padding: 0 1.5rem;"><i class="fa-solid fa-plus"></i> Agregar</button>
+                        </div>
+                        <div id="users-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
+                            <!-- Render users here -->
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--glass-border);">
+                        <h3 style="margin-bottom: 1rem;">Gestión de Tarjetas y Medios de Pago</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Crea y personaliza tus tarjetas (Ej. Visa Galicia, Mastercard BBVA) y vincula su nombre exacto del resumen (alias).</p>
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <input type="text" id="new-card-name" placeholder="Nombre (Ej. Visa Galicia)" style="flex: 2; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; font-size: 1rem;">
+                            <select id="new-card-type" style="flex: 1; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; font-size: 1rem;">
+                                <option value="visa">Visa</option>
+                                <option value="master">Mastercard</option>
+                                <option value="mercado">Mercado Pago</option>
+                                <option value="efectivo">Efectivo / Débito</option>
+                                <option value="impuestos">Impuestos / Servicios</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <button id="btn-add-card" class="btn-primary" style="padding: 0 1.5rem;"><i class="fa-solid fa-plus"></i> Agregar</button>
+                        </div>
+                        <div id="cards-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
+                            <!-- Render cards here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Help View -->
+            <div id="view-help" class="hidden">
+                <section class="expense-section glassmorphism" style="max-width: 900px; margin: 0 auto;">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-circle-info"></i> Guía de Uso y Buenas Prácticas</h2>
+                    </div>
+                    <div style="padding: 1rem; color: var(--text-primary); line-height: 1.6;">
+                        <div style="margin-bottom: 2.5rem;">
+                            <h3 style="color: var(--danger); margin-bottom: 0.8rem; font-size: 1.2rem;"><i class="fa-solid fa-triangle-exclamation"></i> 1. ¿Dónde se guardan mis datos? (¡MUY IMPORTANTE!)</h3>
+                            <p style="margin-bottom: 0.5rem; color: var(--text-secondary);">Toda la información que cargas en BalanceApp (gastos, ingresos, proyectos, etc.) se guarda directamente en la memoria de tu navegador de internet (usando una tecnología llamada <code>localStorage</code>). Esto tiene dos consecuencias muy importantes:</p>
+                            <ul style="list-style-position: inside; margin-left: 1rem; margin-top: 1rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;">
+                                <li><strong style="color: var(--text-primary);">Privacidad Total:</strong> Tus datos financieros nunca salen de tu computadora. No se suben a ninguna nube ni servidor externo.</li>
+                                <li><strong style="color: var(--danger);">Riesgo de Pérdida:</strong> Si limpias el historial, la caché o los datos de navegación de tu navegador, ¡borrarás toda la información de la aplicación de forma permanente!</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-bottom: 2.5rem;">
+                            <h3 style="color: var(--success); margin-bottom: 0.8rem; font-size: 1.2rem;"><i class="fa-solid fa-shield-halved"></i> 2. La Regla de Oro: Los Backups (Copias de Seguridad)</h3>
+                            <p style="margin-bottom: 1rem; color: var(--text-secondary);">Para proteger tus datos ante cualquier problema (limpieza del navegador, cambio de computadora, etc.), es fundamental que hagas copias de seguridad de forma regular.</p>
+                            <p style="margin-bottom: 1.5rem; color: var(--accent-primary); font-weight: 600; padding: 1rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px;">Te recomendamos crear una carpeta en tu computadora (por ejemplo, en "Mis Documentos") llamada "Backups BalanceApp".</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                                <div class="glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                                    <h4 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-primary);">¿Cómo hacer un backup?</h4>
+                                    <ol style="list-style-position: inside; margin-left: 0.5rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.95rem;">
+                                        <li>Ve a la pestaña de <i class="fa-solid fa-gear" style="color: var(--accent-primary);"></i> <strong>Configuración</strong>.</li>
+                                        <li>En la sección "Descargar copias de seguridad", haz clic en el botón verde <strong>Backup Completo</strong>.</li>
+                                        <li>Guarda el archivo <code>.json</code> que se descarga en tu carpeta "Backups BalanceApp". Es buena idea renombrarlo con la fecha (ej: <code>backup_2026-06-04.json</code>).</li>
+                                        <li>Repite este proceso una vez por semana o cada vez que cargues muchos datos importantes.</li>
+                                    </ol>
+                                </div>
+
+                                <div class="glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                                    <h4 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-primary);">¿Cómo restaurar un backup?</h4>
+                                    <ol style="list-style-position: inside; margin-left: 0.5rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.95rem;">
+                                        <li>Ve a la pestaña de <i class="fa-solid fa-gear" style="color: var(--accent-primary);"></i> <strong>Configuración</strong>.</li>
+                                        <li>En la sección "Importar datos externos", haz clic en el botón verde <strong>Importar Backup Completo</strong>.</li>
+                                        <li>Selecciona el último archivo <code>.json</code> que guardaste.</li>
+                                        <li>La aplicación te pedirá confirmación y luego restaurará todos tus datos.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style="color: var(--accent-primary); margin-bottom: 1rem; font-size: 1.2rem;"><i class="fa-solid fa-map-location-dot"></i> 3. Guía de Secciones y Botones</h3>
+                            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Un recorrido rápido por cada apartado de la barra lateral y sus funciones clave:</p>
+                            
+                            <div style="display: grid; gap: 1rem;">
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-chart-pie" style="color: var(--accent-primary); width: 20px;"></i> Panel (Dashboard)</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Tu pantalla principal. Aquí ves el saldo del mes actual. Usa los botones <strong>+ Nuevo Ingreso</strong> y <strong>+ Nuevo Gasto</strong> para registros manuales. Usa los Filtros (Medio de pago, Titular o Tipo) para visualizar datos específicos en la tabla y en el gráfico.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-chart-line" style="color: var(--accent-primary); width: 20px;"></i> Comparativa y Simulador</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Muestra un gráfico evolutivo de meses pasados vs futuros. Abajo encuentras el <strong>Simulador de Proyectos</strong>: úsalo para cargar un presupuesto y ver cómo impactarán sus futuras cuotas en tu balance mensual antes de comprometerte a gastar.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-hammer" style="color: var(--accent-primary); width: 20px;"></i> Taller</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Crea Proyectos, asígnales fechas, etapas y fotos. Arriba verás el <strong>Inventario de Materiales</strong>: son gastos que marcaste como "En Inventario / Pendientes". Puedes seleccionarlos y dividirlos automáticamente entre los proyectos que elijas.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-box-archive" style="color: var(--accent-primary); width: 20px;"></i> Archivo</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Almacena los proyectos que ya terminaste y los ingresos mensuales (fijos) que ya no cobras para que no estorben en tu Panel principal, pero sin perder su registro en tu historial.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-chart-bar" style="color: var(--accent-primary); width: 20px;"></i> Estadísticas</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Filtra todo tu historial libremente. Selecciona un rango de meses, una persona o proyectos específicos para obtener totales calculados al milímetro y ver exactamente a dónde fue a parar el dinero.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-list" style="color: var(--accent-primary); width: 20px;"></i> Historial</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Lista completa de todos los movimientos. Ordenada alfabéticamente. Usa esta sección para revisar compras, cambiar el signo a un importe o eliminar definitivamente un gasto de la base de datos.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-money-bill-transfer" style="color: var(--accent-primary); width: 20px;"></i> Ajuste (Cuadrar Efectivo)</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Si el Saldo Teórico de la App dice que te sobran $10.000 en efectivo, pero cuentas tus billetes reales y tienes $8.000, ingresa 8000 en esta sección. La app creará un gasto fantasma automáticamente para cuadrar tus cuentas al centavo.</p>
+                                </div>
+                                <div class="glassmorphism" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.4rem; font-size: 1rem;"><i class="fa-solid fa-gear" style="color: var(--accent-primary); width: 20px;"></i> Configuración</h4>
+                                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Tu cerebro administrativo. Aquí puedes Procesar PDFs de tarjetas de crédito o carpetas enteras para no cargar gastos a mano. Además gestionas a los Titulares, vinculas Alias de tarjetas y descargas/restauras tus Copias de Seguridad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div id="add-expense-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism">
+            <div class="modal-header">
+                <h2>Agregar Nuevo Gasto</h2>
+                <button id="close-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="expense-desc">Descripción</label>
+                    <input type="text" id="expense-desc" placeholder="Ej. Supermercado, Netflix..." required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="expense-amount">Monto por Cuota ($)</label>
+                        <input type="number" id="expense-amount" step="0.01" placeholder="0.00" required>
+                        <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 6px; border: 1px solid var(--glass-border);">
+                            <input type="checkbox" id="expense-is-usd" style="width: 16px; height: 16px; cursor: pointer;">
+                            <label for="expense-is-usd" style="margin: 0; font-size: 0.8rem; cursor: pointer; color: var(--success); font-weight: bold;">Gasto en US$ (Multiplicar por cotización)</label>
+                        </div>
+                    </div>
+                    <div class="form-group half">
+                        <label for="expense-date">Fecha de Compra</label>
+                        <input type="date" id="expense-date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="expense-card">Medio de Pago</label>
+                        <select id="expense-card" required>
+                            <!-- Renderizado dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="expense-titular">Titular</label>
+                        <select id="expense-titular" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="expense-project">Vincular a Proyecto (Opcional) <span style="font-size: 0.6rem; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 4px; border-radius: 4px; text-transform: uppercase; margin-left: 4px;">Gasto Real</span></label>
+                        <div id="expense-project-container" style="max-height: 160px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem;">
+                            <!-- Checkboxes generados dinámicamente -->
+                        </div>
+                        <small style="display: block; margin-top: 0.5rem; color: var(--text-secondary);">Marca los proyectos a vincular, o envíalo al "Inventario" para usarlo como material compartido más adelante.</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="expense-installments">Cantidad de Cuotas</label>
+                        <input type="number" id="expense-installments" min="1" value="1" required>
+                        <small>Si es en un pago, deja 1.</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expense-start-month">Mes del 1er Cobro</label>
+                        <input type="month" id="expense-start-month" required>
+                        <small>Mes en el que entra la primera cuota (o el pago único).</small>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Gasto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Add Income Modal -->
+    <div id="add-income-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism">
+            <div class="modal-header">
+                <h2>Agregar Ingreso</h2>
+                <button id="close-income-modal" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="income-form">
+                <div class="form-group">
+                    <label>Origen</label>
+                    <select id="income-source" required>
+                        <option value="Escuela">Escuela</option>
+                        <option value="Taller">Taller</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group" id="income-project-container" style="display: none;">
+                    <label>Vincular a Proyecto (Opcional) <span style="font-size: 0.6rem; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 4px; border-radius: 4px; text-transform: uppercase; margin-left: 4px;">Ingreso Real</span></label>
+                    <select id="income-project">
+                        <option value="">-- General (Sin vincular) --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <input type="text" id="income-desc" required placeholder="Ej: Sueldo, Venta mueble, Aguinaldo...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Monto ($)</label>
+                        <input type="number" id="income-amount" required min="0.01" step="0.01">
+                    </div>
+                    <div class="form-group half">
+                        <label>Titular</label>
+                        <select id="income-titular" required></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Fecha</label>
+                        <input type="date" id="income-date" required>
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; border: 1px solid var(--glass-border); padding: 1rem; border-radius: 8px;">
+                    <input type="checkbox" id="income-recurring" style="width: 20px; height: 20px;">
+                    <div>
+                        <label for="income-recurring" style="margin: 0; cursor: pointer; color: var(--success); font-weight: bold;">Ingreso Fijo (Proyectar a futuro)</label>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem;">Marca esto si es tu sueldo habitual y quieres que se copie automáticamente a los meses siguientes.</p>
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="margin-top: 2rem;">
+                    <button type="button" id="btn-cancel-income" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">Guardar Ingreso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div id="add-project-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 id="project-modal-title">Nuevo Proyecto / Serie</h2>
+                <button id="close-project-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="project-form">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="project-name">Nombre del Proyecto / Pieza</label>
+                        <input type="text" id="project-name" placeholder="Ej. Serie de Tazas Turquesa" required>
+                    </div>
+                    <div class="form-group half">
+                    <label for="project-status">Estado inicial</label>
+                    <select id="project-status">
+                        <option value="en-proyecto">En Proyecto</option>
+                        <option value="iniciado">Iniciado</option>
+                        <option value="finalizado">Ejecutando</option>
+                    </select>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Descripción / Expectativas</label>
+                    <textarea id="project-description" rows="3" placeholder="Detalles, objetivos, notas del proyecto..." style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 8px; color: white; resize: vertical; font-family: inherit; font-size: 0.9rem;"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="project-start">Fecha Inicio</label>
+                        <input type="date" id="project-start" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="project-end">Fecha Fin (Estimada)</label>
+                        <input type="date" id="project-end">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="project-image">Imagen del Proyecto</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="url" id="project-image" placeholder="URL de Imagen..." style="flex: 1;">
+                        <input type="file" id="project-image-file" accept="image/*" style="display: none;">
+                        <button type="button" id="btn-upload-project-image" class="btn-secondary" style="padding: 0.5rem 1rem;" title="Subir desde mi PC">
+                            <i class="fa-solid fa-file-image"></i>
+                        </button>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+                    <h3>Presupuesto y Ganancia</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Las estimaciones ingresadas aquí son de uso interno para proyectar tu ganancia. <strong style="color: #94a3b8;">No se sumarán a tu balance general</strong> mensual. <br><em>(Los costos y los ingresos proyectados podrás agregarlos individualmente dentro del proyecto)</em></p>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="project-expected-months">Meses de Proyección (Para Simulador)</label>
+                            <input type="number" id="project-expected-months" placeholder="12" min="1" max="60" value="12">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Procesos / Pasos</label>
+                    <div id="project-processes-list" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <!-- Input for processes will be added here -->
+                    </div>
+                    <button type="button" id="btn-add-process-step" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 1rem;">
+                        <i class="fa-solid fa-plus"></i> Agregar Paso
+                    </button>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel-project" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Crear Proyecto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Project Detail Modal -->
+    <div id="project-detail-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <div style="display: flex; flex-direction: column; gap: 0.8rem; width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 id="detail-project-name" style="margin: 0;">Detalle del Proyecto</h2>
+                        <button id="close-detail-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="status-tabs-container">
+                        <button class="status-tab" data-status="en-proyecto">En Proyecto</button>
+                        <button class="status-tab" data-status="iniciado">Iniciado</button>
+                        <button class="status-tab" data-status="finalizado">Ejecutando</button>
+                        <button class="status-tab" data-status="retomar" id="btn-retomar-tab">Retomar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-detail-body">
+                <div class="detail-top-grid">
+                    <div class="detail-header">
+                        <div class="detail-img-container">
+                            <img id="detail-project-img" src="" alt="Imagen del proyecto" style="width: 100%; border-radius: 12px; object-fit: cover; max-height: 250px;">
+                        </div>
+                        <div class="detail-info">
+                            <div class="info-item">
+                                <label>Estado</label>
+                                <span id="detail-project-status" class="badge">En Proceso</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Cronograma</label>
+                                <p id="detail-project-dates" style="font-weight: 600;">01/05/2026 - 15/05/2026</p>
+                            </div>
+                            <div class="info-item" style="margin-top: 0.5rem;">
+                                <label>Descripción / Expectativas</label>
+                                <p id="detail-project-description" style="font-size: 0.9rem; color: var(--text-secondary); white-space: pre-wrap; line-height: 1.4;"></p>
+                            </div>
+                            <div class="info-item" style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button id="btn-export-gcal" class="btn-secondary" style="flex: 1; min-width: 100px; border-color: #4285f4; color: #4285f4;">
+                                    <i class="fa-brands fa-google"></i> Calendar
+                                </button>
+                                <button id="btn-edit-project" class="btn-secondary" style="flex: 1; min-width: 100px; border-color: var(--accent-primary); color: var(--accent-primary);">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </button>
+                                <button id="btn-simulate-project" class="btn-secondary" style="flex: 1; min-width: 100px; border-color: var(--success); color: var(--success);" title="Llevar al Simulador">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Simular
+                                </button>
+                                <button id="btn-archive-project" class="btn-secondary" style="flex: 1; min-width: 100px; border-color: var(--text-secondary); color: var(--text-secondary);">
+                                    <i class="fa-solid fa-box-archive"></i> Archivar
+                                </button>
+                                <button id="btn-delete-project" class="btn-secondary" style="border-color: var(--danger); color: var(--danger);">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="project-deadline-alarm" class="alarm-banner hidden" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.8rem; font-weight: 700;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="alarm-text">PROYECTO ATRASADO</span>
+                </div>
+                
+                <div id="project-cost-report" class="glassmorphism" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.05);">
+                    <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-file-invoice-dollar" style="color: var(--danger);"></i> Informe de Costos
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div class="cost-item">
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.2rem;">Costos Internos / Presupuesto</span>
+                            <span style="font-size: 0.6rem; color: #94a3b8; background: rgba(255,255,255,0.05); padding: 2px 4px; border-radius: 4px; text-transform: uppercase;" title="Estimación interna del proyecto (No aparece en tu balance general)">No en Balance</span>
+                            <p id="report-cost-extras" style="font-weight: 600; margin-top: 0.3rem;">$0.00</p>
+                        </div>
+                        <div class="cost-item">
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.2rem;">Vinculados</span>
+                            <span style="font-size: 0.6rem; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 4px; border-radius: 4px; text-transform: uppercase;" title="Cargado en el formulario general. Aparece en tu balance mensual.">Gasto Real</span>
+                            <p id="report-cost-linked" style="font-weight: 600; margin-top: 0.3rem;">$0.00</p>
+                        </div>
+                        <div class="cost-item" style="border-left: 1px solid var(--glass-border); padding-left: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                            <div>
+                                <span style="font-size: 0.8rem; color: #94a3b8; font-weight: bold;">TOTAL PRESUPUESTADO</span>
+                                <p id="report-cost-total-presupuestado" style="font-size: 1rem; font-weight: 700; color: #94a3b8;">$0.00</p>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--danger); font-weight: bold;">TOTAL REAL</span>
+                                <p id="report-cost-total-real" style="font-size: 1.2rem; font-weight: 800; color: var(--danger);">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="project-income-report" class="glassmorphism" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <h3 style="margin-bottom: 1rem; color: var(--success); display: flex; align-items: center; justify-content: space-between;">
+                        <span><i class="fa-solid fa-hand-holding-dollar"></i> Ingresos Reales</span>
+                        <button class="btn-primary" onclick="openIncomeForProject()" style="font-size: 0.8rem; padding: 0.4rem 0.8rem; background: var(--success); border-color: var(--success);"><i class="fa-solid fa-plus"></i> Nuevo Ingreso</button>
+                    </h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary);">Potencial Estimado</span>
+                            <p id="report-expected-income" style="font-weight: 600; color: var(--text-secondary);">$0.00</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 0.8rem; color: var(--success); font-weight: bold;">TOTAL INGRESADO</span>
+                            <p id="report-real-income" style="font-size: 1.2rem; font-weight: 800; color: var(--success);">$0.00</p>
+                        </div>
+                    </div>
+                    <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px;">
+                        <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                            <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                <tr>
+                                    <th style="padding: 0.5rem; text-align: left;">Fecha</th>
+                                    <th style="padding: 0.5rem; text-align: left;">Descripción</th>
+                                    <th style="padding: 0.5rem; text-align: right;">Monto</th>
+                                    <th style="padding: 0.5rem; text-align: center;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="project-incomes-list">
+                                <!-- Real incomes injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(16, 185, 129, 0.2);">
+                        <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: bold;">Balance Real (Ingresos Reales - Gastos Vinculados)</span>
+                        <span id="report-real-balance" style="font-size: 1.2rem; font-weight: 800; color: #3b82f6;">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px; margin-top: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem; color: var(--success);"><i class="fa-solid fa-money-bill-trend-up"></i> Ingresos Proyectados / Estimados</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Carga aquí las ventas o ingresos que esperas obtener (No aparecen en tu balance global).</p>
+                    <div class="glassmorphism" style="padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.1);">
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                            <input type="text" id="expected-income-desc" placeholder="Descripción (ej. Venta de mueble...)" style="flex: 2; min-width: 160px; padding: 0.5rem;">
+                            <input type="number" id="expected-income-amount" placeholder="Precio Unit. $" style="flex: 1; min-width: 100px; padding: 0.5rem;">
+                            <input type="number" id="expected-income-qty" placeholder="Cantidad" min="1" value="1" style="width: 100px; padding: 0.5rem; font-size: 0.8rem;">
+                            <button type="button" id="btn-add-expected-income" class="btn-primary" style="padding: 0.5rem 1rem; background: var(--success); border-color: var(--success); flex-grow: 1; justify-content: center;">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px;">
+                        <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                            <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                <tr>
+                                    <th style="padding: 0.5rem; text-align: left;">Descripción</th>
+                                    <th style="padding: 0.5rem; text-align: right;">Monto</th>
+                                    <th style="padding: 0.5rem; text-align: center;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expected-incomes-list">
+                                <!-- Expected incomes injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+                        <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: bold;">Balance Proyectado (Ingresos Proyectados - Costos Estimados)</span>
+                        <span id="report-expected-balance" style="font-size: 1.2rem; font-weight: 800; color: #3b82f6;">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="detail-sections" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span><i class="fa-solid fa-link"></i> Gastos Vinculados</span>
+                            <button class="btn-primary" onclick="openExpenseForProject()" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-plus"></i> Nuevo Gasto</button>
+                        </h3>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Gastos generales (tarjetas, efectivo) asignados a este proyecto.</p>
+                        <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px;">
+                            <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                                <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <tr>
+                                        <th style="padding: 0.5rem; text-align: left;">Fecha</th>
+                                        <th style="padding: 0.5rem; text-align: left;">Descripción</th>
+                                        <th style="padding: 0.5rem; text-align: right;">Monto</th>
+                                        <th style="padding: 0.5rem; text-align: center;">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="linked-expenses-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-layer-group"></i> Gastos Compartidos (Divisibles)</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Gastos reales generales que se dividen equitativamente entre los proyectos que vincules.</p>
+                        <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px;">
+                            <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                                <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <tr>
+                                        <th style="padding: 0.5rem; text-align: left;">Mes</th>
+                                        <th style="padding: 0.5rem; text-align: left;">Descripción</th>
+                                        <th style="padding: 0.5rem; text-align: right;">Total</th>
+                                        <th style="padding: 0.5rem; text-align: right;">Tu Parte</th>
+                                        <th style="padding: 0.5rem; text-align: center;">Vincular</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="shared-expenses-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-receipt"></i> Costos Estimados / Presupuesto</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Carga aquí materiales, horas de trabajo o presupuestos (No aparecen en tu balance global).</p>
+                        <div class="glassmorphism" style="padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.1);">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" id="extra-expense-desc" placeholder="Descripción (ej. Madera, Mano de Obra, Tornillos...)" style="flex: 2; padding: 0.5rem;">
+                                <input type="number" id="extra-expense-amount" placeholder="Monto $" style="flex: 1; padding: 0.5rem;">
+                                <button type="button" id="btn-add-extra-expense" class="btn-primary" style="padding: 0.5rem 1rem;">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px;">
+                            <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                                <thead style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <tr>
+                                        <th style="padding: 0.5rem; text-align: left;">Descripción</th>
+                                        <th style="padding: 0.5rem; text-align: right;">Monto</th>
+                                        <th style="padding: 0.5rem; text-align: center;">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="extra-expenses-list">
+                                    <!-- Extra expenses injected here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-list-check"></i> Etapas y Objetivos</h3>
+                        <ul id="detail-processes-list" class="process-checklist">
+                            <!-- Processes injected here -->
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-calendar-day"></i> Horarios de Trabajo</h3>
+                        <div id="detail-schedules-list" class="schedules-list">
+                            <!-- Schedules injected here -->
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <button id="btn-add-schedule" class="btn-secondary" style="flex: 1;">
+                                <i class="fa-solid fa-clock"></i> Especial
+                            </button>
+                            <button id="btn-add-monthly-schedule" class="btn-secondary" style="flex: 1;">
+                                <i class="fa-solid fa-calendar-days"></i> Todo el Mes
+                            </button>
+                        </div>
+                    </div>
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-camera"></i> Registro Fotográfico</h3>
+                        <div class="glassmorphism" style="padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.1);">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" id="new-photo-url" placeholder="URL de la imagen (o usa el botón de subir)" style="flex: 1; padding: 0.5rem;">
+                                <input type="file" id="photo-file-input" accept="image/*" style="display: none;">
+                                <button type="button" id="btn-trigger-upload" class="btn-secondary" style="padding: 0.5rem 1rem;" title="Subir desde mi PC">
+                                    <i class="fa-solid fa-file-arrow-up"></i>
+                                </button>
+                                <button type="button" id="btn-add-photo" class="btn-primary" style="padding: 0.5rem 1rem;">
+                                    <i class="fa-solid fa-plus"></i> Agregar Foto
+                                </button>
+                            </div>
+                        </div>
+                        <div id="project-photo-gallery" class="photo-gallery">
+                            <!-- Photos injected here -->
+                        </div>
+                    </div>
+
+                    <div class="detail-section glassmorphism" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-clock-rotate-left"></i> Bitácora del Proyecto</h3>
+                        <div id="detail-history-log" class="history-log" style="max-height: 200px; overflow-y: auto; padding: 1rem; font-size: 0.85rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <!-- Log entries injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Schedule Modal -->
+    <div id="add-schedule-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Agregar Horario</h2>
+                <button id="close-schedule-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="schedule-form">
+                <div class="form-group">
+                    <label for="schedule-name">Nombre / Descripción</label>
+                    <input type="text" id="schedule-name" placeholder="Ej. Sesión de Esmaltado" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="schedule-date">Fecha Inicio</label>
+                        <input type="date" id="schedule-date" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="schedule-date-end">Fecha Fin (Opcional)</label>
+                        <input type="date" id="schedule-date-end">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="schedule-start">Hora Inicio</label>
+                        <input type="time" id="schedule-start" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="schedule-end">Hora Fin</label>
+                        <input type="time" id="schedule-end" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel-schedule" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Edit Workshop Schedule Modal -->
+    <div id="edit-workshop-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Horario Base del Taller</h2>
+                <button id="close-workshop-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="workshop-config-form">
+                <div class="form-group">
+                    <label for="workshop-name">Nombre del Horario</label>
+                    <input type="text" id="workshop-name" placeholder="Ej. Horario Habitual">
+                </div>
+                <div class="form-group">
+                    <label for="workshop-is-active">Estado</label>
+                    <select id="workshop-is-active">
+                        <option value="true">Activo / Abierto</option>
+                        <option value="false">En Vacaciones / Pausado</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="workshop-start">Hora Inicio</label>
+                        <input type="time" id="workshop-start" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="workshop-end">Hora Fin</label>
+                        <input type="time" id="workshop-end" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel-workshop-config" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Save Sim Project Modal -->
+    <div id="save-sim-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Guardar Proyecto Simulado</h2>
+                <button id="close-save-sim-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="save-sim-form">
+                <div class="form-group">
+                    <label for="sim-project-title">Título del Proyecto</label>
+                    <input type="text" id="sim-project-title" placeholder="Ej. Proyecto de Simulador" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel-save-sim" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar en Taller</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Archive Income Modal -->
+    <div id="archive-income-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Archivar Ingreso Recurrente</h2>
+                <button id="close-archive-income-modal" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="archive-income-form">
+                <p style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.9rem;">El ingreso dejará de proyectarse a futuro, pero mantendrá su historial de saldos hasta el mes que elijas.</p>
+                <div class="form-group">
+                    <label for="archive-income-end-month">Último mes de vigencia</label>
+                    <input type="month" id="archive-income-end-month" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel-archive-income" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Archivar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

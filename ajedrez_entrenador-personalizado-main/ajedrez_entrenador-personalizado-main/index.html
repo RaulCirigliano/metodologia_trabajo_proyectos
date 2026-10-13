@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrenador de Aperturas de Ajedrez | Guía y Ejemplos Prácticos</title>
+  <link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 22H5a2 2 0 0 1-2-2V9.5a2.5 2.5 0 0 1 1-2V4a2 2 0 0 1 2-2h1.5a1.5 1.5 0 0 1 1.5 1.5V5h2V3.5A1.5 1.5 0 0 1 12.5 2h1.5a1.5 1.5 0 0 1 1.5 1.5V5h2V3.5A1.5 1.5 0 0 1 19 2a2 2 0 0 1 2 2v3.5a2.5 2.5 0 0 1 1 2V20a2 2 0 0 1-2 2z"/>
+        </svg>
+      </div>
+      <div class="brand-title">
+        <h1>Ajedrez Maestro: Entrenador de Aperturas</h1>
+        <p>Aprende las ideas estratégicas, líneas teóricas y pon a prueba tu memoria</p>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Botón de Perfil -->
+      <button id="btn-profile" class="btn" title="Mi Perfil">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span id="profile-name-display" style="font-weight: 600; margin-left: 4px;">Jugador</span>
+        <span id="profile-elo-display" style="background: rgba(16,185,129,0.2); color: #10b981; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-left: 4px;">1200</span>
+      </button>
+
+
+      <!-- AI Difficulty Selector -->
+      <select id="select-ai-level" class="btn" title="Nivel del Motor IA" style="max-width: 100%;">
+        <option value="0">IA: Desactivada</option>
+        <option value="1">IA: Principiante (~600 ELO)</option>
+        <option value="2">IA: Novato (~900 ELO)</option>
+        <option value="3" selected>IA: Aficionado (~1200 ELO)</option>
+        <option value="4">IA: Club (~1500 ELO)</option>
+        <option value="5">IA: Avanzado (~1800 ELO)</option>
+        <option value="6">IA: Experto (~2000+ ELO)</option>
+      </select>
+
+      <!-- Theme Selector -->
+      <select id="select-theme" class="btn" title="Tema del tablero">
+        <option value="emerald">Tablero Verde (Emerald)</option>
+        <option value="wood">Madera Clásica</option>
+        <option value="slate">Océano Slate</option>
+        <option value="dark">Medianoche Dark</option>
+      </select>
+
+      <!-- Sound Toggle -->
+      <button id="btn-sound" class="btn btn-icon-only" title="Silenciar sonido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+      </button>
+
+      <!-- Flip Board Button -->
+      <button id="btn-flip" class="btn" title="Girar tablero">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="23 4 23 10 17 10"/>
+          <polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        Girar
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="app-container">
+
+    <!-- Left Column: Chessboard & Controls -->
+    <section class="board-column">
+      <!-- Top Player Strip -->
+      <div class="board-player-strip">
+        <div class="player-info">
+          <div class="player-avatar black" id="top-player-avatar">♚</div>
+          <span id="top-player-name">Negras (Oponente)</span>
+        </div>
+      </div>
+
+      <!-- Chessboard and Eval Bar -->
+      <div style="display: flex; gap: 0.5rem; align-items: stretch; width: var(--board-size);">
+        <div class="eval-bar" id="eval-bar">
+          <div class="eval-bar-fill" id="eval-bar-fill"></div>
+          <span class="eval-bar-text" id="eval-bar-text">0.0</span>
+        </div>
+        <div id="chessboard-container" style="flex: 1;"></div>
+      </div>
+
+      <!-- Bottom Player Strip -->
+      <div class="board-player-strip">
+        <div class="player-info">
+          <div class="player-avatar white" id="bottom-player-avatar">♔</div>
+          <span id="bottom-player-name">Blancas (Tú)</span>
+        </div>
+      </div>
+
+      <!-- Navigation Toolbar (Study Mode) -->
+      <div class="board-toolbar">
+        <div id="nav-group" class="board-toolbar-group">
+          <button id="btn-first" class="btn btn-icon-only" title="Posición inicial (Home)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="19 20 9 12 19 4 19 20"/>
+              <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+          <button id="btn-prev" class="btn btn-icon-only" title="Jugada anterior (Flecha izquierda)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="19 20 9 12 19 4 19 20"/>
+            </svg>
+          </button>
+          <button id="btn-next" class="btn btn-icon-only" title="Siguiente jugada (Flecha derecha)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 4 15 12 5 20 5 4"/>
+            </svg>
+          </button>
+          <button id="btn-last" class="btn btn-icon-only" title="Línea completa (End)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 4 15 12 5 20 5 4"/>
+              <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="board-toolbar-group">
+                    <button id="btn-free-hint" class="btn" title="Pedir sugerencia a la IA" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            Sugerencia
+          </button>
+          <button id="btn-undo" class="btn" title="Deshacer jugada (Tablero Libre)" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7v6h6"></path>
+              <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
+            </svg>
+            Deshacer
+          </button>
+          <button id="btn-restart" class="btn" title="Reiniciar tablero">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            Reiniciar
+          </button>
+          <button id="btn-autoplay" class="btn" title="Reproducción automática">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Auto
+          </button>
+          <label id="lbl-autoreply" class="btn" style="display:flex; align-items:center; gap:4px; cursor:pointer;" title="Que la máquina responda automáticamente a tus jugadas en Modo Estudio">
+            <input type="checkbox" id="chk-autoreply" style="margin:0;">
+            Auto-respuesta
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Opening Info, Guide, Trainer & Plans -->
+    <section class="details-column">
+
+      <!-- Navigation Tabs -->
+      <nav class="tabs-nav">
+        <button id="tab-study" class="tab-btn active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Modo Guía / Estudio
+        </button>
+        <button id="tab-practice" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+            <line x1="13" y1="19" x2="19" y2="13"/>
+            <line x1="16" y1="16" x2="20" y2="20"/>
+            <line x1="19" y1="21" x2="21" y2="19"/>
+          </svg>
+          Práctica Activa
+        </button>
+        <button id="tab-free" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          Tablero Libre
+        </button>
+      </nav>
+
+      <!-- Opening Selector Card -->
+      <div class="opening-picker-card">
+        <div class="picker-header">
+          <span class="picker-label">Seleccionar Apertura</span>
+          <div class="opening-meta">
+            <span class="badge badge-eco" id="opening-eco">C50</span>
+            <span class="badge badge-side-w" id="opening-side">Blancas</span>
+            <span class="badge" id="opening-diff">Principiante</span>
+          </div>
+        </div>
+        
+<select id="opening-select" class="opening-select"></select>
+
+        <p id="opening-summary" style="font-size:0.82rem;color:var(--text-muted);line-height:1.45;"></p>
+      </div>
+
+      <!-- Mode 1: Study / Guide Panel -->
+      <div id="study-panel" class="details-column" style="gap: 1rem;">
+        
+        <!-- Move Explanation Card -->
+        <div class="explanation-card">
+          <div class="explanation-header">
+            <div class="move-tag" id="move-tag">1. e4</div>
+            <div class="move-title" id="move-title">Peón de Rey</div>
+          </div>
+          <p class="explanation-body" id="move-explanation">
+            Ocupa el centro, controla casillas vitales y abre líneas diagonales para la dama y el alfil.
+          </p>
+        </div>
+
+        <!-- Move History Chips -->
+        <div class="moves-history-box">
+          <h3>Secuencia de la Apertura</h3>
+          <div class="moves-list" id="moves-list"></div>
+        </div>
+
+        <!-- Strategic Plans for Both Sides -->
+        <div class="plans-box">
+          <div class="plans-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+            </svg>
+            Planes Típicos de Blancas
+          </div>
+          <ul class="plans-list" id="plans-white-list"></ul>
+
+          <div class="plans-title" style="margin-top:0.5rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+            </svg>
+            Planes Típicos de Negras
+          </div>
+          <ul class="plans-list" id="plans-black-list"></ul>
+        </div>
+
+      </div>
+
+      <!-- Mode 2: Interactive Practice Panel -->
+      <div id="practice-panel" class="practice-panel" style="display: none;">
+        
+        <div id="practice-status-banner" class="practice-status-banner turn-prompt">
+          <span>Tu turno. Encuentra la jugada teórica en el tablero.</span>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>Progreso de la apertura</span>
+            <span id="practice-progress-text">0 de 0 jugadas (0%)</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="practice-progress-bar" class="progress-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- Practice Actions -->
+        <div class="practice-actions">
+          <button id="btn-practice-hint" class="btn" title="Pedir una pista conceptual">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            Pista
+          </button>
+          <button id="btn-practice-show" class="btn" title="Mostrar la jugada correcta">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            Mostrar Jugada
+          </button>
+          <button id="btn-practice-restart" class="btn btn-primary" title="Volver a empezar la práctica">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="1 4 1 10 7 10"/>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+            </svg>
+            Reiniciar Práctica
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Traps & Tactical Alerts Card -->
+      <div id="traps-container" class="traps-card"></div>
+
+    </section>
+
+  </main>
+
+  <!-- Scripts in dependency order -->
+  <script src="pieces.js"></script>
+  <script src="chess-engine.js"></script>
+  <script src="ai-engine.js"></script>
+  <script src="sound.js"></script>
+  <script src="openings-data.js?v=2"></script>
+  <script src="board-ui.js"></script>
+  <script src="app.js?v=10"></script>
+
+  <!-- Modal del Perfil / Dashboard -->
+  <div id="profile-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content" style="max-width: 700px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header">
+        <h2 style="font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+          </svg>
+          Dashboard & Perfil
+        </h2>
+        <button id="btn-close-profile" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+      
+      <div class="modal-body" style="padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem;">
+        
+        <!-- SECCIÓN 1: Perfil Básico -->
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <h3 style="font-size: 1rem; margin-bottom: 0.8rem; color: var(--text-color);">Mis Datos</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 0.5rem; align-items: end;">
+            <div>
+              <label for="input-profile-name" style="display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.3rem;">Nombre / Alias</label>
+              <input type="text" id="input-profile-name" class="btn" style="width: 100%; text-align: left; background: var(--bg-surface); cursor: text;" placeholder="Ej: Maestro">
+            </div>
+            <div>
+              <label for="input-profile-elo" style="display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.3rem;">ELO Actual</label>
+              <input type="number" id="input-profile-elo" class="btn" style="width: 100%; text-align: left; background: var(--bg-surface); cursor: text;" min="400" max="3000" step="10">
+            </div>
+            <div>
+              <button id="btn-save-profile" class="btn btn-primary" style="padding: 0.6rem 1rem;" title="Guardar localmente">Guardar</button>
+            </div>
+            <div>
+              <button id="btn-git-push" class="btn" style="padding: 0.6rem 1rem; background-color: #3b82f6; color: white;" title="Subir progreso y ELO a GitHub">☁️ Subir a Git</button>
+            </div>
+          </div>
+          <div style="margin-top: 0.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <span id="sync-status" style="font-size: 0.75rem; color: #10b981;">● Sincronizado con perfil_jugador.json</span>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Sincronización Git automática en perfil_jugador.json</span>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 2: Resumen Global -->
+        <div>
+          <h3 style="font-size: 1rem; margin-bottom: 0.8rem; color: var(--text-color);">Resumen de Partidas (Modo Libre)</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+              <div style="font-size: 2rem; font-weight: bold; color: var(--text-color);" id="stat-games">0</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Jugadas</div>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.2);">
+              <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="stat-wins">0</div>
+              <div style="font-size: 0.8rem; color: #10b981;">Victorias</div>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid rgba(245, 158, 11, 0.2);">
+              <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;" id="stat-draws">0</div>
+              <div style="font-size: 0.8rem; color: #f59e0b;">Empates</div>
+            </div>
+            <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid rgba(239, 68, 68, 0.2);">
+              <div style="font-size: 2rem; font-weight: bold; color: #ef4444;" id="stat-losses">0</div>
+              <div style="font-size: 0.8rem; color: #ef4444;">Derrotas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 3: Dominio por Apertura -->
+        <div>
+          <h3 style="font-size: 1rem; margin-bottom: 0.8rem; color: var(--text-color);">Dominio por Apertura</h3>
+          <div style="background: var(--bg-primary); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+              <thead>
+                <tr style="background: rgba(0,0,0,0.2); text-align: left;">
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color);">Apertura</th>
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color); text-align: center;" title="Prácticas perfectas">Prácticas 🎯</th>
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color); text-align: center;" title="Victorias / Empates / Derrotas en Modo Libre">V / E / D ⚔️</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-openings-body">
+                <!-- Se llenará con JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 3.5: Historial Reciente de Partidas -->
+        <div>
+          <h3 style="font-size: 1rem; margin-bottom: 0.8rem; color: var(--text-color);">Historial Reciente de Partidas (Modo Libre)</h3>
+          <div style="background: var(--bg-primary); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto; max-height: 220px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+              <thead>
+                <tr style="background: rgba(0,0,0,0.2); text-align: left;">
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color);">Fecha</th>
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color);">Apertura / Rival</th>
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color); text-align: center;">Resultado</th>
+                  <th style="padding: 0.8rem; border-bottom: 1px solid var(--border-color); text-align: right;">Variación ELO</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-history-body">
+                <!-- Se llenará con JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+
+        <!-- SECCIÓN 4: Coach Virtual (Ollama) -->
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
+          <h3 style="font-size: 1rem; margin-bottom: 0.8rem; color: var(--text-color); display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+            </svg>
+            Coach Virtual (Ollama)
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">La IA analizará tus estadísticas locales de arriba y te dará un consejo personalizado.</p>
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <input type="text" id="input-ollama-model" class="btn" style="flex: 1; min-width: 150px; text-align: left; background: var(--bg-surface); cursor: text;" placeholder="Modelo (ej: llama3.2:3b, qwen2.5:7b)" value="qwen2.5:7b">
+            <button id="btn-ask-coach" class="btn btn-primary" style="padding: 0.6rem 1rem;">Pedir Consejo a mi Coach</button>
+          </div>
+          <div id="coach-response-container" style="display: none; background: rgba(56, 189, 248, 0.1); padding: 1.2rem; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.2); font-size: 0.9rem; color: var(--text-color); line-height: 1.6;">
+            <div id="coach-response-text">Cargando respuesta...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Promotion Modal -->
+  <div id="promotion-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="max-width: 300px; text-align: center;">
+      <h3>Coronar Peón</h3>
+      <div id="promotion-options" style="display: flex; justify-content: space-around; font-size: 3rem; margin-top: 1rem; cursor: pointer;">
+        <!-- Pieces will be injected here -->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

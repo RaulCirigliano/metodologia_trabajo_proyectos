@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel 3D | Inés Torrent - Artista Plástica</title>
+    <meta name="description" content="Explora las obras de Inés Torrent en este carrusel interactivo 3D.">
+    <meta name="keywords" content="Carrusel 3D, Inés Torrent, galería de arte, artista plástica, obras de arte">
+    <meta name="author" content="Inés Torrent">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Carrusel de Obras | Inés Torrent - Artista Plástica">
+    <meta property="og:description" content="Explora una selección de obras de Inés Torrent en formato interactivo.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.inestorrent.com/carrusel.html">
+    <!-- Carga de la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="text-page carrusel-page">
+    <!-- El header se inyectará automáticamente desde script.js -->
+    <header></header>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="section-title">
+            <h1>Galería Rotativa</h1>
+            <p>Explora mis obras desde todos los ángulos. Desliza el ratón sobre una imagen para pausar y haz clic para aumentar.</p>
+        </div>
+
+        <div class="carousel-3d-container">
+            <div class="carousel-3d">
+                <!-- Selección de 10 imágenes para el Carrusel -->
+                <div class="slide-3d" style="--i:1;"><img src="imagenes/2022_azules.webp" alt="Azules (2022)"></div>
+                <div class="slide-3d" style="--i:2;"><img src="imagenes/2022_gelsomino.webp" alt="Gelsomino (2022)"></div>
+                <div class="slide-3d" style="--i:3;"><img src="imagenes/2021_2023_arbol_fuego.webp" alt="Árbol de fuego (2021-2023)"></div>
+                <div class="slide-3d" style="--i:4;"><img src="imagenes/2019_cafe_angelina.webp" alt="Café à Angelina Paris (2019)"></div>
+                <div class="slide-3d" style="--i:5;"><img src="imagenes/2018_19_regalo_mono.webp" alt="Regalo con moño y todo (2018-2019)"></div>
+                <div class="slide-3d" style="--i:6;"><img src="imagenes/2015_tres_otonos_1.webp" alt="Tres otoños (2015)"></div>
+                <div class="slide-3d" style="--i:7;"><img src="imagenes/2013_asi_son_las_cosas_2.webp" alt="Así son las cosas (2013)"></div>
+                <div class="slide-3d" style="--i:8;"><img src="imagenes/2012_acrobacia_tela.webp" alt="Acrobacia en tela (2012)"></div>
+                <div class="slide-3d" style="--i:9;"><img src="imagenes/2010_mundial_2010.webp" alt="Mundial 2010 (2010)"></div>
+                <div class="slide-3d" style="--i:10;"><img src="imagenes/2009_spa_1.webp" alt="Spa (2009)"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- El footer se inyectará automáticamente desde script.js -->
+    <footer></footer>
+
+    <!-- Estructura del Modal para ampliación de imágenes -->
+    <div class="image-modal" id="image-modal">
+        <span class="nav-btn prev-btn" id="image-modal-prev">&#10094;</span>
+        <span class="nav-btn next-btn" id="image-modal-next">&#10095;</span>
+        <div class="image-modal-content">
+            <span class="image-modal-close" id="image-modal-close">&times;</span>
+            <img id="image-modal-img" src="" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <!-- Tu script principal -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+Para importar los gastos desde un PDF de liquidación de Visa, debes seguir estos pasos utilizando las herramientas de automatización incluidas en el proyecto:
+
+Paso 1: Guardar el archivo PDF Coloca el archivo .pdf de tu resumen de Visa en la carpeta principal de la aplicación (donde se encuentran los archivos importar_pdfs.py e importar_gastos.bat).
+
+Paso 2: Extraer los datos del PDF Debes ejecutar el script que lee el PDF y lo transforma en un formato que la aplicación pueda entender. Para ello:
+
+Si usas Windows: Haz doble clic en el archivo importar_gastos.bat.
+Desde la terminal: Abre la consola en esa carpeta y ejecuta el comando python importar_pdfs.py.
+Nota: Asegúrate de tener Python instalado y la librería PyMuPDF (si usas el .bat o el script e intenta extraerlo, debería auto-instalar la librería necesaria o puedes hacerlo manualmente con pip install pymupdf).
+
+Paso 3: Archivo generado Una vez finalizado el proceso del Paso 2, se generará de manera automática un archivo llamado nuevos_gastos.json en esa misma carpeta.
+
+Paso 4: Importarlo en BalanceApp
+
+Abre tu aplicación BalanceApp en el navegador.
+En el menú lateral izquierdo, dirígete a la sección de Config (Configuración).
+Busca la sección que dice "Importar datos externos".
+Haz clic en el botón "Importar nuevos_gastos.json (PDF)".
+Se abrirá una ventana para elegir un archivo; busca y selecciona el archivo nuevos_gastos.json que se creó en el paso anterior.
+Una vez seleccionado, la aplicación procesará el JSON, guardará todos los gastos extraídos del resumen de Visa en tu almacenamiento local y verás un mensaje de confirmación indicando cuántos registros se importaron.

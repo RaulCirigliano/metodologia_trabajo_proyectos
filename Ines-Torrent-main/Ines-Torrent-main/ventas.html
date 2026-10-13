@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda y Obras Disponibles | Inés Torrent - Artista Plástica</title>
+    <meta name="description" content="Explora las obras de arte disponibles para la venta de la artista plástica Inés Torrent. Información sobre el proceso de compra y disponibilidad.">
+    <meta name="keywords" content="Tienda de arte, comprar arte, Inés Torrent, obras disponibles, venta de pinturas, arte argentino">
+    <meta name="author" content="Inés Torrent">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Tienda y Obras Disponibles | Inés Torrent - Artista Plástica">
+    <meta property="og:description" content="Explora las obras de arte disponibles para la venta de la artista plástica Inés Torrent.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.inestorrent.com/ventas.html">
+    <!-- Carga de la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="text-page">
+    <header></header>
+
+    <main class="container">
+        <h1 class="titulo-principal">Tienda</h1>
+        <div class="subtitulo">Obras disponibles</div>
+
+        <div class="texto-formateado">
+            <p style="text-align: center; font-size: 1.2rem; margin: 2rem 0;">
+                Lo que ves en la galería es el resultado de meses y años de trabajo.
+                A diferencia de las tiendas comerciales, mi producción se rige por los tiempos del oficio y la búsqueda artística,
+                no por la demanda masiva.
+            </p>
+
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <a href="galeria_ventas.html" class="btn">Ver Obras Disponibles</a>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 3rem 0;">
+
+            <h3 class="subtitulo" style="font-size: 1.1rem; letter-spacing: 0.3em; margin-bottom: 1.5rem;">Disponibilidad y Ciclos del Taller</h3>
+            <p>
+                Trabajo de forma solitaria en cada etapa, desde la primer pincelada hasta el enmarcado final, por eso la cantidad de piezas disponibles es necesariamente limitada.
+            </p>
+            <ul>
+                <li><strong>El stock es el que ves:</strong> una vez que una pieza se vende, no habrá otra igual.</li>
+                <li><strong>Cada obra es única,</strong> cada serie es irrepetible.</li>
+            </ul>
+
+            <h3 class="subtitulo" style="font-size: 1.1rem; letter-spacing: 0.3em; margin-top: 3rem; margin-bottom: 1.5rem;">Dinámica de Compra Rápida</h3>
+            <p>
+                En Argentina, el sistema de cobros online es ágil pero competitivo. Para que tu experiencia sea exitosa, te recomiendo tener en cuenta lo siguiente:
+            </p>
+            <ol>
+                <li><strong>Si reservas una obra,</strong> la única forma de garantizar la pieza es completar el pago a través del medio seleccionado. Si eliges <strong>Mercado Pago</strong>, te daré un link de compra.</li>
+                <li><strong>Priorizá tu favorita:</strong> si una obra resuena con vos, conviene asegurar primero esa pieza.</li>
+                <li><strong>Notificaciones:</strong> podés seguirme en Instagram o escribirme por WhatsApp para enterarte de nuevas publicaciones.</li>
+            </ol>
+
+            <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 3rem 0;">
+
+            <div class="contact-info" style="text-align: left;">
+                <h3 class="subtitulo" style="font-size: 1.1rem; letter-spacing: 0.3em; margin-bottom: 1rem;">Solicita tu obra</h3>
+                <p>Para comunicarte y solicitar tu obra, proponer un proyecto o compartir una idea, puedes escribirme directamente aquí y se abrirá una conversación en WhatsApp.</p>
+                <form onsubmit="
+                  event.preventDefault();
+                  const text = document.getElementById('whatsapp-message').value;
+                  if (text.trim()) {
+                    const phone = '5491163007013';
+                    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+                    window.open(url, '_blank').focus();
+                  } else {
+                    alert('Por favor, escribe un mensaje antes de enviar.');
+                  }">
+                  <div style="display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;">
+                      <input id="whatsapp-message" type="text" placeholder="Escribe tu consulta aquí..." style="flex-grow: 1; padding: 14px; border: 1px solid #ccc; min-width: 200px;">
+                      <button type="submit" class="btn">Enviar a WhatsApp</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

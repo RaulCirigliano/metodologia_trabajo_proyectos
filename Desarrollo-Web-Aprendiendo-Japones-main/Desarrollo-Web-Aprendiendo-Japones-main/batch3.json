@@ -1,0 +1,57 @@
+{
+  "36": [
+    {"q": "¿Qué significa V(dic/nai) + ように?", "options": [{"text": "Con el objetivo/propósito de (alcanzar un estado).", "correct": true}, {"text": "A pesar de.", "correct": false}, {"text": "Para dar un consejo.", "correct": false}]},
+    {"q": "¿Con qué tipo de verbos se usa ように?", "options": [{"text": "Verbos de voluntad propia (ej. comprar).", "correct": false}, {"text": "Verbos sin voluntad, potenciales o negativos.", "correct": true}, {"text": "Verbos imperativos.", "correct": false}]},
+    {"q": "'Estudio todos los días para poder hablar japonés' (objetivo + potencial):", "options": [{"text": "日本語を話すように、", "correct": false}, {"text": "日本語が話せるように、", "correct": true}, {"text": "日本語を話すために、", "correct": false}]},
+    {"q": "Uso de ~ようになります:", "options": [{"text": "Cambio de estado: llegar a poder hacer algo que antes no se podía.", "correct": true}, {"text": "Hacer un esfuerzo constante.", "correct": false}, {"text": "Hábito.", "correct": false}]},
+    {"q": "'He llegado a entender el japonés':", "options": [{"text": "日本語がわかるようになりました。", "correct": true}, {"text": "日本語がわかるようにしています。", "correct": false}, {"text": "日本語がわかっています。", "correct": false}]},
+    {"q": "Uso de ~なくなります:", "options": [{"text": "Cambio negativo: dejar de poder hacer algo.", "correct": true}, {"text": "Convertirse en nada.", "correct": false}, {"text": "No me gusta.", "correct": false}]},
+    {"q": "'Ya no puedo comer cosas dulces':", "options": [{"text": "甘い物が食べないようになりました。", "correct": false}, {"text": "甘い物が食べられなくなりました。", "correct": true}, {"text": "甘い物が食べません。", "correct": false}]},
+    {"q": "Uso de ~ようにしています:", "options": [{"text": "Estar haciendo algo en este momento.", "correct": false}, {"text": "Hacer un esfuerzo o procurar hacer algo habitualmente.", "correct": true}, {"text": "Decidir hacer algo de repente.", "correct": false}]},
+    {"q": "'Procuro hacer ejercicio todos los días':", "options": [{"text": "毎日運動するようにしています。", "correct": true}, {"text": "毎日運動するようになります。", "correct": false}, {"text": "毎日運動するようになりました。", "correct": false}]}
+  ],
+  "37": [
+    {"q": "¿Cuándo se usa la forma pasiva (受身形)?", "options": [{"text": "Cuando el hablante es quien realiza la acción.", "correct": false}, {"text": "Cuando una persona recibe, sufre o es afectada por la acción de otra.", "correct": true}, {"text": "Para dar órdenes indirectas.", "correct": false}]},
+    {"q": "Forma pasiva de 書く (Kaku - escribir):", "options": [{"text": "書かれる", "correct": true}, {"text": "書けられる", "correct": false}, {"text": "書かせる", "correct": false}]},
+    {"q": "Forma pasiva de 食べる (Taberu):", "options": [{"text": "食べれる", "correct": false}, {"text": "食べられる", "correct": true}, {"text": "食べさせる", "correct": false}]},
+    {"q": "'Fui elogiado por el profesor' (Pasiva directa):", "options": [{"text": "私は先生を褒められました。", "correct": false}, {"text": "私は先生に褒められました。", "correct": true}, {"text": "先生は私に褒められました。", "correct": false}]},
+    {"q": "'El perro me mordió la mano' (Pasiva de molestia):", "options": [{"text": "私は犬を手を噛まれました。", "correct": false}, {"text": "私は犬に手を噛まれました。", "correct": true}, {"text": "犬は私の手を噛まれました。", "correct": false}]},
+    {"q": "¿Qué partícula marca al agente (quien realiza la acción) en oraciones pasivas?", "options": [{"text": "を", "correct": false}, {"text": "に (o によって)", "correct": true}, {"text": "が", "correct": false}]},
+    {"q": "'Me robaron el dinero' (Ladrón = 泥棒 dorobou):", "options": [{"text": "泥棒はお金を盗まれました。", "correct": false}, {"text": "私は泥棒にお金を盗まれました。", "correct": true}, {"text": "泥棒がお金を盗まれました。", "correct": false}]},
+    {"q": "Uso de ~によって:", "options": [{"text": "Para indicar el material de una obra.", "correct": false}, {"text": "Para indicar el creador o descubridor en hechos históricos/obras.", "correct": true}, {"text": "Para indicar el lugar de la obra.", "correct": false}]},
+    {"q": "'El teléfono fue inventado por Bell':", "options": [{"text": "電話はベルに発明されました。", "correct": false}, {"text": "電話はベルによって発明されました。", "correct": true}, {"text": "電話はベルを発明されました。", "correct": false}]}
+  ],
+  "38": [
+    {"q": "¿Para qué sirve añadir の a la forma diccionario de un verbo?", "options": [{"text": "Para volverlo plural.", "correct": false}, {"text": "Para convertir la frase verbal en un sustantivo (Nominalización).", "correct": true}, {"text": "Para indicar posesión.", "correct": false}]},
+    {"q": "'Jugar al tenis es divertido' (como sujeto):", "options": [{"text": "テニスをするのが楽しいです。", "correct": false}, {"text": "テニスをするのは楽しいです。", "correct": true}, {"text": "テニスをするのを楽しいです。", "correct": false}]},
+    {"q": "'Me gusta escuchar música' (como objeto de gustar):", "options": [{"text": "音楽を聞くのが好きです。", "correct": true}, {"text": "音楽を聞くのは好きです。", "correct": false}, {"text": "音楽を聞くを好きです。", "correct": false}]},
+    {"q": "'Es malo para el cuerpo fumar' (sujeto):", "options": [{"text": "たばこを吸うのは体に悪いです。", "correct": true}, {"text": "たばこを吸うのが体に悪いです。", "correct": false}, {"text": "たばこを吸うのを体に悪いです。", "correct": false}]},
+    {"q": "Para verbos de percepción (ver, oír) u olvido (olvidar, saber), usamos la partícula:", "options": [{"text": "のは", "correct": false}, {"text": "のが", "correct": false}, {"text": "のを", "correct": true}]},
+    {"q": "'Me olvidé de comprar leche':", "options": [{"text": "牛乳を買うのが忘れました。", "correct": false}, {"text": "牛乳を買うのを忘れました。", "correct": true}, {"text": "牛乳を買うのは忘れました。", "correct": false}]},
+    {"q": "'¿Sabías que el Sr. Kimura se casó?':", "options": [{"text": "木村さんが結婚したのを知っていますか。", "correct": true}, {"text": "木村さんが結婚するのを知っていますか。", "correct": false}, {"text": "木村さんが結婚するのを知りませんか。", "correct": false}]},
+    {"q": "¿Cuándo se usa ~のは para enfatizar una parte de la oración?", "options": [{"text": "Para destacar la información nueva al final. (Ej. 'Donde nací fue en Tokio').", "correct": true}, {"text": "Para dar órdenes.", "correct": false}, {"text": "Para mostrar lamento.", "correct": false}]},
+    {"q": "'El mes en que nací es diciembre':", "options": [{"text": "私が生まれた月は１２月です。", "correct": false}, {"text": "私が生まれたのは１２月です。", "correct": true}, {"text": "私が生まれるのは１２月です。", "correct": false}]}
+  ],
+  "39": [
+    {"q": "¿Qué uso tiene la Forma Te en esta lección?", "options": [{"text": "Pedir favores.", "correct": false}, {"text": "Indicar la causa o razón de un sentimiento o situación incontrolable.", "correct": true}, {"text": "Conectar acciones secuenciales.", "correct": false}]},
+    {"q": "'Me sorprendí al escuchar las noticias':", "options": [{"text": "ニュースを聞いて、びっくりしました。", "correct": true}, {"text": "ニュースを聞くから、びっくりしました。", "correct": false}, {"text": "ニュースを聞くので、びっくりしました。", "correct": false}]},
+    {"q": "¿Qué tipo de expresiones pueden ir en la segunda parte después de una causa en Forma Te?", "options": [{"text": "Voluntad, intenciones o imperativos.", "correct": false}, {"text": "Sentimientos, estados, o eventos involuntarios.", "correct": true}, {"text": "Cualquier cosa.", "correct": false}]},
+    {"q": "'Como mi familia no estaba, estuve triste' (Forma Te negativa):", "options": [{"text": "家族がいなくて、寂しかったです。", "correct": true}, {"text": "家族がいないで、寂しかったです。", "correct": false}, {"text": "家族がいないから、寂しかったです。", "correct": false}]},
+    {"q": "Causa con Sustantivos (ej. Terremoto):", "options": [{"text": "地震て、ビルが倒れました。", "correct": false}, {"text": "地震で、ビルが倒れました。", "correct": true}, {"text": "地震から、ビルが倒れました。", "correct": false}]},
+    {"q": "Uso de ~ので (node):", "options": [{"text": "Da una razón objetiva y es más suave/educado que ~から.", "correct": true}, {"text": "Es más directo y brusco que ~から.", "correct": false}, {"text": "Solo se usa para hechos científicos.", "correct": false}]},
+    {"q": "Conjugación de Sustantivos y Adjetivos Na con ~ので:", "options": [{"text": "病気ので / 静かので", "correct": false}, {"text": "病気なので / 静かなので", "correct": true}, {"text": "病気だので / 静かだので", "correct": false}]},
+    {"q": "'Como me siento mal, ¿puedo volver a casa?':", "options": [{"text": "気分が悪いから、帰ってもいいですか。", "correct": false}, {"text": "気分が悪いので、帰ってもいいですか。", "correct": true}, {"text": "気分が悪くて、帰ってもいいですか。", "correct": false}]},
+    {"q": "'El tren se retrasó por un accidente':", "options": [{"text": "事故で電車が遅れました。", "correct": true}, {"text": "事故から電車が遅れました。", "correct": false}, {"text": "事故て電車が遅れました。", "correct": false}]}
+  ],
+  "40": [
+    {"q": "¿Cómo se incrusta una pregunta con interrogativo (cuándo, qué) dentro de otra oración?", "options": [{"text": "Forma simple + か", "correct": true}, {"text": "Forma simple + かどうか", "correct": false}, {"text": "Forma simple + と", "correct": false}]},
+    {"q": "'No sé a qué hora terminará la reunión':", "options": [{"text": "会議が何時に終わるか、わかりません。", "correct": true}, {"text": "会議が何時に終わるかどうか、わかりません。", "correct": false}, {"text": "会議が何時に終わると、わかりません。", "correct": false}]},
+    {"q": "Adjetivos Na y Sustantivos en preguntas incrustadas (~か):", "options": [{"text": "Añaden 'だ' antes de 'か' (Ej. 好きだか).", "correct": false}, {"text": "No llevan 'だ' antes de 'か' (Ej. 好きか).", "correct": true}, {"text": "Añaden 'な' antes de 'か' (Ej. 好きなか).", "correct": false}]},
+    {"q": "¿Cómo se incrusta una pregunta de Sí/No (sin interrogativo)?", "options": [{"text": "Forma simple + か", "correct": false}, {"text": "Forma simple + かどうか", "correct": true}, {"text": "Forma simple + なら", "correct": false}]},
+    {"q": "'Por favor, revisa si hay algún error o no':", "options": [{"text": "間違いがないか、確認してください。", "correct": false}, {"text": "間違いがないかどうか、確認してください。", "correct": true}, {"text": "間違いがないと、確認してください。", "correct": false}]},
+    {"q": "Uso de ~てみます (V-te mimasu):", "options": [{"text": "Ver algo haciendo una acción.", "correct": false}, {"text": "Probar o intentar hacer algo para ver cómo resulta.", "correct": true}, {"text": "Decidir hacer algo.", "correct": false}]},
+    {"q": "'Quiero probar (comer para ver qué tal está)':", "options": [{"text": "食べてみたいです。", "correct": true}, {"text": "食べてみます。", "correct": false}, {"text": "食べます。", "correct": false}]},
+    {"q": "'Me probaré esta ropa (ponerse la ropa para ver)':", "options": [{"text": "この服を着てみます。", "correct": true}, {"text": "この服を着てみせて。", "correct": false}, {"text": "この服を着ています。", "correct": false}]},
+    {"q": "Diferencia entre ~かどうか y ~か:", "options": [{"text": "~か requiere un pronombre interrogativo (dónde, quién), ~かどうか no.", "correct": true}, {"text": "~かどうか requiere un pronombre interrogativo, ~か no.", "correct": false}, {"text": "Son intercambiables.", "correct": false}]}
+  ]
+}

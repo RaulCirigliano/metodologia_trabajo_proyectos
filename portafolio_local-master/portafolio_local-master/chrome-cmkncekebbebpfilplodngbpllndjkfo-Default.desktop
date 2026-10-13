@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Escritorio Remoto de Chrome
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app-id=cmkncekebbebpfilplodngbpllndjkfo
+Icon=/home/raul/.local/share/icons/hicolor/512x512/apps/chrome-cmkncekebbebpfilplodngbpllndjkfo-Default.png
+StartupWMClass=crx_cmkncekebbebpfilplodngbpllndjkfo

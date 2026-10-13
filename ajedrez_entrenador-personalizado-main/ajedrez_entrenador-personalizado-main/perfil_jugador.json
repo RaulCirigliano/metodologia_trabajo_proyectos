@@ -1,0 +1,70 @@
+{
+  "name": "Raul Cirigliano",
+  "elo": 1220,
+  "gamesPlayed": 4,
+  "wins": 3,
+  "losses": 0,
+  "draws": 1,
+  "history": [
+    {
+      "date": "2026-10-06T14:26:22.395Z",
+      "openingId": "trampa-arca-noe",
+      "openingName": "La trampa del Arca de Noé",
+      "aiLevelId": 3,
+      "aiElo": 1200,
+      "result": "win",
+      "resultText": "¡Ganaste!",
+      "userEloBefore": 1204,
+      "userEloAfter": 1220,
+      "eloChange": 16
+    },
+    {
+      "date": "2026-10-06T13:50:50.276Z",
+      "openingId": "destruye-sistema-londres",
+      "openingName": "Destruye el Sistema Londres (negras)",
+      "aiLevelId": 3,
+      "aiElo": 1200,
+      "result": "draw",
+      "resultText": "Empate",
+      "userEloBefore": 1204,
+      "userEloAfter": 1204,
+      "eloChange": 0
+    },
+    {
+      "date": "2026-10-06T13:25:50.508Z",
+      "openingId": "italiana-dos-caballos-fegatello",
+      "openingName": "Italiana: Dos Caballos (Ataque Fegatello) (blancas)",
+      "aiLevelId": 1,
+      "aiElo": 600,
+      "result": "win",
+      "resultText": "¡Ganaste!",
+      "userEloBefore": 1203,
+      "userEloAfter": 1204,
+      "eloChange": 1
+    }
+  ],
+  "openingStats": {
+    "italiana-giuoco-piano": {
+      "wins": 1,
+      "losses": 0,
+      "draws": 0
+    },
+    "italiana-dos-caballos-fegatello": {
+      "wins": 1,
+      "losses": 0,
+      "draws": 0
+    },
+    "destruye-sistema-londres": {
+      "wins": 0,
+      "losses": 0,
+      "draws": 1
+    },
+    "trampa-arca-noe": {
+      "wins": 1,
+      "losses": 0,
+      "draws": 0
+    }
+  },
+  "practiceStats": {},
+  "lastUpdated": "2026-10-06T14:26:40.616Z"
+}

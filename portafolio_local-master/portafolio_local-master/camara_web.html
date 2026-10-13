@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shinobi NVR Docker | Portafolio Local</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-container">
+<aside class="sidebar">
+<div class="brand">
+<div class="brand-icon">⚡</div>
+<div class="brand-text">
+<h1>Portafolio Local</h1>
+<span>Mis Proyectos</span>
+</div>
+</div>
+<div class="nav-group-title">Navegación</div>
+<ul class="nav-links">
+<li class="nav-item">
+<a href="artebarro.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" x2="12" y1="22.08" y2="12"></line></svg>
+          Web ArteBarro (Principal)
+        </a>
+</li>
+<li class="nav-item">
+<a href="index.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Inicio y Metodología
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_local.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          Cámara Web Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="camara_web.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          Shinobi NVR Docker
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+          Aperturas de Ajedrez
+        </a>
+</li>
+<li class="nav-item">
+<a href="ollama_ia.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Ollama IA Local
+        </a>
+</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+
+<li class="nav-item">
+<a href="tutor_japones.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Tutor Japonés IA
+        </a>
+</li>
+</ul>
+</aside>
+<div class="main-wrapper">
+<header class="topbar">
+<div class="search-box">
+<input id="liveSearchInput" placeholder="Buscar comando o parámetro..." type="text"/>
+</div>
+<div class="topbar-actions">
+<button class="action-btn" id="themeToggleBtn"><span id="themeIcon">🌓</span></button>
+</div>
+</header>
+<main class="content-body">
+<section class="guide-section">
+<h2 class="section-title">🛡️ Shinobi NVR (Docker Compose)</h2>
+<p class="section-desc">Sistema de videovigilancia optimizado para cámaras USB en Linux con acceso remoto seguro vía VPN y grabación 24/7.</p>
+<!-- Ficha Técnica -->
+<div class="card full-card" style="border-top: 4px solid var(--accent-cyan); margin-bottom: 1.5rem;">
+<div class="card-header">
+<div>
+<h3 class="card-title">Arquitectura y Estado Actual</h3>
+<div class="card-subtitle">Despliegue activo en /scratch/shinobi</div>
+</div>
+</div>
+<div class="card-body">
+<ul class="styled-list">
+<li><strong>Ruta del Proyecto:</strong> <span class="inline-code">~/.gemini/antigravity/scratch/shinobi</span></li>
+<li><strong>Hardware Configurado:</strong> Logitech HD Webcam C615 (720p @ 30 FPS).</li>
+<li><strong>Acceso Remoto:</strong> Red Privada Virtual mediante <strong>Tailscale</strong>.</li>
+<li><strong>Almacenamiento:</strong> Grabación continua en MP4 en <span class="inline-code">./videos</span>.</li>
+<li class="nav-item">
+<a href="ajedrez_entrenador.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v4"></path><path d="M12 15h.01"></path></svg>
+          Entrenador IA Ajedrez
+        </a>
+</li>
+</ul>
+</div>
+</div>
+<div class="cards-grid">
+<div class="card">
+<h3 class="card-title">Comandos de Inicio (Docker Compose)</h3>
+<div class="card-body">
+<p>Arranca el servicio de Shinobi encapsulado:</p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang-tag">bash</span><button class="copy-btn">Copiar</button></div>
+<pre><code>cd ~/.gemini/antigravity/scratch/shinobi
+docker compose up -d</code></pre>
+</div>
+<p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Acceso LAN: <a href="http://192.168.100.16:8080" style="color:var(--accent-cyan);" target="_blank">http://192.168.100.16:8080</a></p>
+<p style="font-size: 0.85rem; color: var(--text-secondary);">Acceso Tailscale: <strong>http://&lt;IP_TAILSCALE&gt;:8080</strong></p>
+</div>
+</div>
+<div class="card">
+<h3 class="card-title">Parámetros Críticos (Shinobi Monitor)</h3>
+<div class="card-body">
+<p>Para evitar caídas a 5 FPS por la saturación del bus USB 2.0 (YUYV), se forzó compresión MJPEG por hardware:</p>
+<div class="alert-box alert-amber">
+<div class="alert-icon">⚠️</div>
+<div>
+<strong>Input Flags (Advanced):</strong><br/>
+<span class="inline-code">-input_format mjpeg -video_size 1280x720 -framerate 30</span>
+</div>
+</div>
+<p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">* El Stream Type debe estar en <strong>jpeg</strong> con Video Codec <strong>copy</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Próximo Paso -->
+<div class="card full-card" style="margin-top: 1.5rem; border-top: 4px solid var(--accent-purple);">
+<div class="card-header">
+<div>
+<h3 class="card-title">Próximo Paso en Desarrollo (Pendiente)</h3>
+</div>
+<span class="badge badge-ia">Work in Progress</span>
+</div>
+<div class="card-body">
+<p><strong>Integración de Audio ALSA (hw:2,0) con Video:</strong></p>
+<p style="font-size: 0.9rem; color: var(--text-secondary);">Actualmente el stream JPEG (MJPEG) bloquea el audio en los navegadores web si se activa el Audio Codec en Shinobi (impide guardar). El objetivo es multiplexar la entrada del micrófono (<span class="inline-code">/dev/snd</span> hw:2,0 de la C615) junto con el video para incluir sonido en las grabaciones MP4, sin romper la fluidez de 30 FPS ni el panel web, posiblemente usando un puente local RTSP con MediaMTX o ajustando FFmpeg.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

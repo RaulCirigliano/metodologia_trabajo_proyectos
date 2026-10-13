@@ -1,0 +1,30 @@
+# Reglas de Arquitectura - IA Trading Agent
+
+## Arquitectura de Fondeo para Entornos Reales (Live Trading)
+Cuando el proyecto migre de "Paper Trading" a "Dinero Real", se debe priorizar estrictamente la implementación de un sistema de **"Cuentas Ómnibus" (Tesorería Central / Billetera Broker)**. 
+
+### Reglas de Diseño:
+1. **Aislamiento por defecto:** Las billeteras operativas (Ej: Cripto, Wall Street, Local ARS) deben iniciar con balance `$0`.
+2. **Just-In-Time Funding:** El dinero descansa en una única "Billetera Broker / Bóveda". Cuando la Inteligencia Artificial determina comprar un activo, el Orquestador transfiere/asigna el capital exacto necesario desde la Bóveda a la billetera operativa específica solo por el tiempo que dura el trade.
+3. **Sweep-Back:** Al vender o cerrar una posición, tanto el capital base como las ganancias se deben devolver inmediatamente a la Billetera Broker.
+4. **Objetivo Principal:** Evitar que un error (bug o alucinación de la IA) comprometa todo el capital, limitando su exposición únicamente al capital asignado a la transacción activa. No programar arquitecturas de acceso directo y total a los fondos de los exchanges.
+5. **Matemática Anti Micro-Trading:** Es obligatorio restar las comisiones del broker (*Round-Trip* y Spread) de la rentabilidad proyectada antes de abrir un trade.
+*(Nota: Para ver el detalle técnico completo de estos protocolos operativos, consultar la **Sección 6 de CONTEXTO.md**).*
+
+
+## Metodología de Control de Versiones (Regla Estricta Git)
+1. **Validación Requerida:** Tienes ESTRICTAMENTE PROHIBIDO ejecutar comandos `git commit` o `git push` de forma automática tras modificar el código. Desarrolla y espera la confirmación explícita del usuario.
+2. **Desencadenante Explícito (Trigger):** SOLO debes preparar el commit y ejecutar la subida (`git push`) cuando el usuario lo ordene explícitamente (ej. "lo subimos", "sube los cambios", "haz git push") para que la otra máquina pueda sincronizar mediante `git pull`.
+3. **Repositorio Limpio:** El objetivo es que cada commit sea una versión validada y completa, libre de código roto o experimentos sin terminar.
+
+## Mantenimiento de la Documentación (CONTEXTO.md)
+1. **Clasificación Proactiva:** Cuando el usuario pida agregar nuevas directivas o reglas al proyecto, antes de modificar `CONTEXTO.md`, la IA debe analizar la estructura del documento y recomendarle al usuario si la nueva regla encaja en un ítem/sección existente o si amerita crear un bloque nuevo.
+2. **Preservación del Grupo Central:** Toda directiva relacionada con brokers, comisiones o seguridad del capital debe ir obligatoriamente a la Sección 6 (Protocolos de Live Trading).
+
+## Protocolo de Auditorías Externas y Verificación Cruzada (Audit-Fix Cycle)
+Cuando se someta el proyecto a una auditoría de un modelo externo (ej. Sora, Claude, o1):
+1. **Matriz de Trazabilidad:** Todo diagnóstico recibido debe mapearse en una tabla de estado: [Implementado / Parcial / No implementado / Descartado (con motivo)], detallando archivos y funciones afectadas.
+2. **Cierre de Ciclo Documental:** Tras aplicar los parches:
+   - Se debe actualizar `CONTEXTO.md` según la regla de clasificación proactiva (brokers y seguridad siempre en Sección 6).
+   - Se debe incorporar en el informe del auditor una sección "Respuesta de Implementación" con la matriz de hallazgos, cambios clave y puntos de validación manual.
+   - Se debe formular un prompt de contra-revisión para que el auditor externo valide que la solución no introdujo regresiones antes de dar por cerrado el hito.

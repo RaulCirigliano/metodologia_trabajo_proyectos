@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inés Torrent | Artista Plástica y Pintora Contemporánea</title>
+    <meta name="description" content="Sitio web oficial de Inés Torrent. Explora la obra, trayectoria y exposiciones de esta destacada artista plástica y pintora argentina.">
+    <meta name="keywords" content="Inés Torrent, artista plástica, pintora, arte argentino, pintura contemporánea, cuadros, obras de arte, exposiciones">
+    <meta name="author" content="Inés Torrent">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Inés Torrent | Artista Plástica y Pintora Contemporánea">
+    <meta property="og:description" content="Descubre la obra y trayectoria de la artista visual y pintora argentina Inés Torrent.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.inestorrent.com/">
+    <meta property="og:image" content="https://www.inestorrent.com/imagenes/2021_2023_arbol_fuego.webp">
+    <!-- Carga de la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="index-page">
+
+    <header>
+        <div class="logo">
+            <div class="titulo-principal">Ines Torrent</div>
+            <div class="subtitulo">Pintora</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="carousel">
+            <div class="carousel-images" id="carouselImages">
+                <!-- Imagen 1 -->
+                <article class="carousel-item active">
+                    <img src="imagenes/2021_2023_arbol_fuego.webp" alt="2021-2023 - Árbol de fuego">
+                </article>
+                <!-- Imagen 2 -->
+                <article class="carousel-item">
+                    <img src="imagenes/2021_2023_arbol_fuego_detalle.webp" alt="2021-2023 - Árbol de fuego (Detalle)">
+                </article>
+                <!-- Imagen 3 -->
+                <article class="carousel-item">
+                    <img src="imagenes/2019_cafe_angelina.webp" alt="2019 - Café à Angelina Paris">
+                </article>
+            </div>
+            <!-- Controles de navegación -->
+            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

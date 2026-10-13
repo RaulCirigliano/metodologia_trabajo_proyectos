@@ -1,0 +1,57 @@
+{
+  "26": [
+    {"q": "¿Cómo preguntas '¿Qué te pasa?' usando ~んです?", "options": [{"text": "どうしましたか。", "correct": false}, {"text": "どうしたんですか。", "correct": true}, {"text": "どうするんですか。", "correct": false}]},
+    {"q": "Selecciona la forma correcta: 'Es que me duele la cabeza'", "options": [{"text": "頭が痛いんです。", "correct": true}, {"text": "頭が痛いだんです。", "correct": false}, {"text": "頭が痛いですんです。", "correct": false}]},
+    {"q": "¿Cómo pides cortésmente '¿Podría enseñarme?'", "options": [{"text": "教えてくれませんか。", "correct": false}, {"text": "教えていただきませんか。", "correct": false}, {"text": "教えていただけませんか。", "correct": true}]},
+    {"q": "Une las frases: 'Quiero ir, pero...'", "options": [{"text": "行きたいですが、", "correct": false}, {"text": "行きたいんですが、", "correct": true}, {"text": "行くんですか、", "correct": false}]},
+    {"q": "¿Qué indica el ~んです en las respuestas?", "options": [{"text": "Orden o mandato", "correct": false}, {"text": "Justificación o explicación", "correct": true}, {"text": "Pregunta", "correct": false}]},
+    {"q": "Selecciona la correcta: 'Es que soy estudiante'", "options": [{"text": "学生んです。", "correct": false}, {"text": "学生ななんです。", "correct": false}, {"text": "学生なんです。", "correct": true}]},
+    {"q": "'Me he perdido, ¿qué debería hacer?'", "options": [{"text": "道に迷ったんですが、どうしたらいいですか。", "correct": true}, {"text": "道に迷うんですが、どうすればいいですか。", "correct": false}, {"text": "道に迷ったんですか、どうしたらいいですか。", "correct": false}]},
+    {"q": "¿Por qué no comes?", "options": [{"text": "どうして食べないんですか。", "correct": true}, {"text": "どうして食べませんですか。", "correct": false}, {"text": "どうして食べないですか。", "correct": false}]},
+    {"q": "'Es que no me gusta' (Adjetivo Na)", "options": [{"text": "嫌いんです。", "correct": false}, {"text": "嫌いなんです。", "correct": true}, {"text": "嫌いだんです。", "correct": false}]}
+  ],
+  "27": [
+    {"q": "¿Cuál es la forma potencial del verbo 飲む (Nomu)?", "options": [{"text": "飲まれる", "correct": false}, {"text": "飲める", "correct": true}, {"text": "飲められる", "correct": false}]},
+    {"q": "¿Qué partícula se usa normalmente con el objeto del verbo potencial?", "options": [{"text": "を", "correct": false}, {"text": "が", "correct": true}, {"text": "で", "correct": false}]},
+    {"q": "Forma potencial de 食べる (Taberu):", "options": [{"text": "食べれる", "correct": false}, {"text": "食べられる", "correct": true}, {"text": "食べせる", "correct": false}]},
+    {"q": "¿Cómo dices 'Puedo hablar japonés'?", "options": [{"text": "日本語を話せます。", "correct": false}, {"text": "日本語が話せます。", "correct": true}, {"text": "日本語が話します。", "correct": false}]},
+    {"q": "Forma potencial de くる (Kuru - Venir):", "options": [{"text": "こられる", "correct": true}, {"text": "これる", "correct": false}, {"text": "きられる", "correct": false}]},
+    {"q": "Forma potencial de する (Suru - Hacer):", "options": [{"text": "すれる", "correct": false}, {"text": "される", "correct": false}, {"text": "できる", "correct": true}]},
+    {"q": "'Se ve el mar' (involuntario):", "options": [{"text": "海が見られます。", "correct": false}, {"text": "海が見えます。", "correct": true}, {"text": "海が見せます。", "correct": false}]},
+    {"q": "'Se completó/construyó el nuevo supermercado':", "options": [{"text": "新しいスーパーができました。", "correct": true}, {"text": "新しいスーパーが作られました。", "correct": false}, {"text": "新しいスーパーが見えました。", "correct": false}]},
+    {"q": "¿Cuál es la forma potencial de 買う (Kau)?", "options": [{"text": "買える", "correct": true}, {"text": "買われる", "correct": false}, {"text": "買えれる", "correct": false}]}
+  ],
+  "28": [
+    {"q": "¿Cómo dices 'Bebo café mientras leo'?", "options": [{"text": "読みながら、コーヒーを飲みます。", "correct": true}, {"text": "読んでながら、コーヒーを飲みます。", "correct": false}, {"text": "読むながら、コーヒーを飲みます。", "correct": false}]},
+    {"q": "¿Qué forma verbal se usa antes de ~ながら?", "options": [{"text": "Forma Diccionario", "correct": false}, {"text": "Raíz de la forma ます", "correct": true}, {"text": "Forma て", "correct": false}]},
+    {"q": "'Escucho música mientras estudio' (la acción principal va al final):", "options": [{"text": "勉強しながら、音楽を聞きます。", "correct": false}, {"text": "音楽を聞きながら、勉強します。", "correct": true}, {"text": "音楽を聞くながら、勉強します。", "correct": false}]},
+    {"q": "¿Cómo expresas una acción habitual repetida en el tiempo?", "options": [{"text": "V(dic) + います", "correct": false}, {"text": "V(te) + います", "correct": true}, {"text": "V(ta) + います", "correct": false}]},
+    {"q": "¿Cómo unes varias razones para una conclusión? (~し、~し)", "options": [{"text": "安いし、おいしいし", "correct": true}, {"text": "安くて、おいしくて", "correct": false}, {"text": "安いだら、おいしいだら", "correct": false}]},
+    {"q": "Adjetivos-na con ~し (Ej. Es silencioso y...):", "options": [{"text": "静かし、", "correct": false}, {"text": "静かなし、", "correct": false}, {"text": "静かだし、", "correct": true}]},
+    {"q": "Sustantivos con ~し (Ej. Es estudiante y...):", "options": [{"text": "学生だし、", "correct": true}, {"text": "学生し、", "correct": false}, {"text": "学生のし、", "correct": false}]},
+    {"q": "'Esta tienda es barata, por eso...' usando ~し:", "options": [{"text": "この店は安いしから、", "correct": false}, {"text": "この店は安いし、", "correct": true}, {"text": "この店は安いだら、", "correct": false}]},
+    {"q": "¿Cuál es correcta para 'Trabajo mientras canto'?", "options": [{"text": "歌いながら、働きます。", "correct": true}, {"text": "歌うながら、働きます。", "correct": false}, {"text": "歌ってながら、働きます。", "correct": false}]}
+  ],
+  "29": [
+    {"q": "¿Qué significa la forma V(te) + います para verbos intransitivos?", "options": [{"text": "Acción en progreso", "correct": false}, {"text": "Estado resultante de una acción", "correct": true}, {"text": "Acción futura", "correct": false}]},
+    {"q": "'La ventana está abierta' (Estado):", "options": [{"text": "窓が開けています。", "correct": false}, {"text": "窓が開いています。", "correct": true}, {"text": "窓が開きます。", "correct": false}]},
+    {"q": "'El plato está roto' (Estado):", "options": [{"text": "お皿が割っています。", "correct": false}, {"text": "お皿が割れています。", "correct": true}, {"text": "お皿を割っています。", "correct": false}]},
+    {"q": "¿Qué partícula acompaña al sujeto en oraciones de estado intransitivo (~ています)?", "options": [{"text": "を", "correct": false}, {"text": "が", "correct": true}, {"text": "に", "correct": false}]},
+    {"q": "Uso de ~てしまいました:", "options": [{"text": "Obligación", "correct": false}, {"text": "Finalización total o arrepentimiento/lamento", "correct": true}, {"text": "Intención de hacer", "correct": false}]},
+    {"q": "'Lamentablemente perdí el pasaporte':", "options": [{"text": "パスポートをなくしていました。", "correct": false}, {"text": "パスポートをなくしてしまいました。", "correct": true}, {"text": "パスポートをなくしてありました。", "correct": false}]},
+    {"q": "'Me comí todo el pastel (terminado)':", "options": [{"text": "ケーキを全部食べてしまいました。", "correct": true}, {"text": "ケーキを全部食べてあります。", "correct": false}, {"text": "ケーキを全部食べていました。", "correct": false}]},
+    {"q": "Diferencia entre 開く(aku) y 開ける(akeru):", "options": [{"text": "Ambos son transitivos", "correct": false}, {"text": "aku es intransitivo, akeru es transitivo", "correct": true}, {"text": "aku es transitivo, akeru es intransitivo", "correct": false}]},
+    {"q": "'La luz está apagada':", "options": [{"text": "電気が消しています。", "correct": false}, {"text": "電気が消えています。", "correct": true}, {"text": "電気が消えました。", "correct": false}]}
+  ],
+  "30": [
+    {"q": "¿Qué significa V(te) + あります?", "options": [{"text": "Estado resultante de una acción intencional (alguien lo hizo con un propósito).", "correct": true}, {"text": "Estado natural sin intervención humana.", "correct": false}, {"text": "Preparación para el futuro.", "correct": false}]},
+    {"q": "'El calendario está colgado (alguien lo colgó)':", "options": [{"text": "カレンダーが掛かっています。", "correct": false}, {"text": "カレンダーが掛けてあります。", "correct": true}, {"text": "カレンダーが掛けています。", "correct": false}]},
+    {"q": "¿Qué verbo se usa con ~てあります?", "options": [{"text": "Verbos Transitivos", "correct": true}, {"text": "Verbos Intransitivos", "correct": false}, {"text": "Adjetivos", "correct": false}]},
+    {"q": "¿Qué partícula toma el objeto al usar ~てあります?", "options": [{"text": "を", "correct": false}, {"text": "が", "correct": true}, {"text": "で", "correct": false}]},
+    {"q": "Uso de V(te) + おきます:", "options": [{"text": "Estado final de una acción.", "correct": false}, {"text": "Acción preparatoria para el futuro o dejar algo como está.", "correct": true}, {"text": "Arrepentimiento.", "correct": false}]},
+    {"q": "'Reservaré el hotel (como preparación antes del viaje)':", "options": [{"text": "ホテルを予約しておきます。", "correct": true}, {"text": "ホテルを予約してあります。", "correct": false}, {"text": "ホテルを予約してしまいました。", "correct": false}]},
+    {"q": "'Por favor, deja la ventana abierta (como está)':", "options": [{"text": "窓を開けてあります。", "correct": false}, {"text": "窓を開けておいてください。", "correct": true}, {"text": "窓を開けてしまいます。", "correct": false}]},
+    {"q": "'El nombre está escrito (te aru)':", "options": [{"text": "名前が書いてあります。", "correct": true}, {"text": "名前が書いています。", "correct": false}, {"text": "名前が書いておきます。", "correct": false}]},
+    {"q": "Contraste: 'まどがしまっています' vs 'まどをしめてあります'", "options": [{"text": "El 1ro es estado natural, el 2do es estado intencional.", "correct": true}, {"text": "Ambos son iguales.", "correct": false}, {"text": "El 1ro es preparatorio, el 2do es lamento.", "correct": false}]}
+  ]
+}
