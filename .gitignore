@@ -11,3 +11,5 @@
 !/.gitignore
 !/AGENTS.md
 !/REGISTRO_PUERTOS.md
+!/.agents/
+!/.agents/**
