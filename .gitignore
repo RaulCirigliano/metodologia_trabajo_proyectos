@@ -7,6 +7,9 @@
 
 /*
 
+# Exclusiones explícitas (carpetas locales, respaldos y versiones históricas)
+/versiones/
+
 # --- Archivos y carpetas versionados ---
 !/.gitignore
 !/AGENTS.md
