@@ -1,0 +1,15 @@
+# Repo "metodologia_trabajo_proyectos": versiona SOLO la configuración transversal
+# de la carpeta raíz. Los subproyectos tienen (o tendrán) sus propios repos.
+#
+# Estrategia whitelist: se ignora todo lo de la raíz y se habilita explícitamente
+# lo que corresponda versionar. Para sumar un archivo o carpeta nueva, agregar
+# una línea "!/nombre" (carpetas: "!/nombre/" y "!/nombre/**").
+
+/*
+
+# --- Archivos y carpetas versionados ---
+!/.gitignore
+!/AGENTS.md
+!/REGISTRO_PUERTOS.md
+!/.agents/
+!/.agents/**
